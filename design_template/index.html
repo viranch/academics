@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script>
+            window.onload=initall;
+            function initall(){
+                document.getElementById("check").onclick = if(this.checked){student()};
+            }
+            function student(){
+                
+    document.getElementById("show").innerHTML = "xyz";           
+                
+                
+            }
+        </script>
+    </head>
+    <body>
+        <form>
+            <input type="checkbox" id="check" name="check" value=true />Are you a Daiict student<br />
+        <div id="show">
+        </div>    
+        
+        </form>
+    </body>
+</html>   
