@@ -6,7 +6,16 @@ class Student_model extends CI_model{
    */
   function get_batch()
   {
-    $user = $this->session->userdata('user_id');
+    $query="select * from acad_batch A,acad_sem_list B where user_id=".$this->session->userdata('user_id')." and A.present_sem_id=B.sem_id";
+    $query = $this->db->query($query);
+    if($query->num_rows() > 0) {
+        return $query->result_array();
+    }
+    else {
+      echo "Sorry the user doesnot seem to be a student";
+    }
+
+    /*$user = $this->session->userdata('user_id');
     $this->db->where('user_id',$user);
     $query = $this->db->get('acad_batch',1);
      if($query->num_rows() > 0) {
@@ -14,7 +23,7 @@ class Student_model extends CI_model{
      }
      else {
       echo "The student is not a valid student";
-     }
+     }*/
   }
   /**
    *recieves from controller batch data and retrieves time table
@@ -38,6 +47,8 @@ class Student_model extends CI_model{
        echo "No timetable is bieng set up";
      }
   }
+  
+  
   /*
    *Gets the present courses and data returned is
    * just the courseid 
@@ -53,6 +64,8 @@ class Student_model extends CI_model{
       echo "No course is registered";
     }
   }
+  
+  
   /*
    *all data from acad_announcemts for a user
    */
@@ -60,13 +73,18 @@ class Student_model extends CI_model{
   {
     
     $courses = $this->get_present_courses();
-    $query = "select * from acad_announce where (program='".$batch[0]['program']."' OR program='NULL') and (batch_year=".$batch['0']['batch_year']." OR batch_year = 0) and (course_id = ''";
+    //$query = "select * from acad_announce where (program='".$batch[0]['program']."' OR program='NULL') and (batch_year=".$batch['0']['batch_year']." OR batch_year = 0) and (course_id = ''";
+    
+    $query = "select * from acad_announce A,acad_users B where (program='".$batch[0]['program']."' OR program='NULL') and (batch_year=".$batch['0']['batch_year']." OR batch_year = 0) and (course_id = ''";
+
     if(!empty($courses))
     {
       foreach ($courses as $row) {
         $query = $query ." or course_id='" .$row['course_id']."'";
       }
-      $query= $query.") order by sent_date";
+      //$query= $query.") order by sent_date";
+      $query= $query.") and A.user_id=B.user_id order by sent_date";
+      //echo "{$query}";
       if(empty($number))
         $query = $this->db->query($query);
       else
@@ -81,6 +99,8 @@ class Student_model extends CI_model{
     }
   
   }  
+  
+  
   /*
    *Gets all data from the acad_stu_profile table
    */
@@ -96,6 +116,8 @@ class Student_model extends CI_model{
       echo "The profile for the user is not yet set";
     }
   }
+  
+  
   /*
    *The data of present courses and the ids of courses too
    */
@@ -107,6 +129,8 @@ class Student_model extends CI_model{
         return $query->result_array();
     }
   }
+  
+  
   /*
    *get courses given a sem id for a user also gets grades and gradepoints 
    */
@@ -126,6 +150,8 @@ class Student_model extends CI_model{
     }
   }
   
+  
+  
   /*
    *Gets every thing from acad_important_dates
    */
@@ -143,6 +169,13 @@ class Student_model extends CI_model{
       echo "Sorry no important dates setup";
     }  
   
+  }
+  
+  
+  
+  
+  function get_present_semester(){
+    
   }
 
 }

@@ -10,14 +10,17 @@ class Student extends CI_Controller {
     }
 
     function index(){ 
-        $data['css'] = 'default.css';
-        $data['javascript'] = 'default.js'; 
-        $data['maincontent'] = 'student/home';
-        $this->load->model('student/student_model');
-        $batch=$this->student_model->get_batch(); 
-        $data['timetable']=$this->student_model->get_timetable($batch);
-        $data['announcements']=$this->student_model->get_announcements($batch);
-        $this->load->view('includes/template',$data);
+      $data['css'] = 'student_home.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'student/home';
+      $this->load->model('student/student_model');
+      $data['courses']=$this->student_model->get_present_courses();
+      $data['batch']=$this->student_model->get_batch();
+      $data['timetable']=$this->student_model->get_timetable($data['batch']);
+      $data['important_dates']=$this->student_model->get_important_dates(4);
+      $data['announcements']=$this->student_model->get_announcements($data['batch'],5);
+      $this->load->view('includes/template',$data); 
     }
     function isstudent()
     {
@@ -28,11 +31,6 @@ class Student extends CI_Controller {
         die("Unrestricted access");
     }
     
-    function trial(){
-      $this->load->model('student/student_model');
-      $dates=$this->student_model->get_courses_ofsem(1);
-      print_r($dates);
-    }
  } 
  ?>
 

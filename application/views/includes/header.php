@@ -2,7 +2,7 @@
 <html xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">  
   <head>  
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-      <title>acaedamics</title>  
+      <title>Academics @ DA-IICT</title>
       <?php if(isset($css)):?>
       <link href="<?php echo base_url(); ?>assets/css/<?php echo "{$css}";?>" media="screen" rel="stylesheet" type="text/css" />  
       <?php endif; ?>
@@ -11,4 +11,8 @@
       <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/<?php echo "{$javascript}";?>"></script>  
       <?php endif;?>
   </head>  
-  <body>  
+  <body>
+  <div id="header">
+    <div id="logo">
+      <img src="<?php echo base_url(); ?>assets/images/new2_01.gif"/>
+    </div>  
