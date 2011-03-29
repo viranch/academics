@@ -324,7 +324,7 @@ padding:auto
 	margin: 0 0 1em 0;
 	padding: 15px 0  5px 15px;
 	height: 30px;
-	text-transform: lowercase;
+/* 	text-transform: lowercase; */
 	font-size: 18px;
 	letter-spacing: -1px;
 	border-bottom: 1px solid #369;
@@ -366,7 +366,7 @@ padding:auto
 	margin: 0 0 1em 0;
 	padding: 15px 0  5px 25px;
 	height: 30px;
-	text-transform: lowercase;
+/* 	text-transform: lowercase; */
 	font-size: 18px;
 	letter-spacing: -1px;
 	border-bottom: 1px solid #369;
