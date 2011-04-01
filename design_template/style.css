@@ -5,7 +5,7 @@ Released for free under a Creative Commons Attribution 2.5 License
 */
 
 body {
-	background: #FFFFFF url(images/img01.jpg) repeat-x top left;
+	background: #FFFFFF url(images/img01.gif) repeat-x top left;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	margin: 20px 0px 0px 0px;
@@ -427,7 +427,7 @@ hr {
 	width: 1000px;
 	height: 50px;
 	margin: 0 auto;
-	background: #FFFFFF url(images/img01.jpg) repeat-x top left;
+	background: #FFFFFF url(images/img01.gif) repeat-x top left;
 }
 
 #footer p {
