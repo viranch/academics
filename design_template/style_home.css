@@ -246,7 +246,8 @@ hr {
 #content {
 	float: right;
 	margin-right:15px;
-	width: 650px;
+	/*width: 650px;*/
+	width: 62%;
 }
 
 .post {
@@ -294,7 +295,7 @@ padding:auto
 
 table {
 	border-collapse: collapse;
-	/*width: 50%;*/
+	width: 95%;
 	margin: 24px;
 	font-size: 1.1em;
 }
@@ -332,6 +333,7 @@ tr.over td, tr:hover td {
 #sidebar {
 	float: left;
 	padding: auto;
+	width: 15%;
 }
 
 #sidebar ul {
@@ -374,6 +376,7 @@ tr.over td, tr:hover td {
 #sidebar1 {
 	float: right;
 	padding: auto;
+	width: 20%;
 }
 
 #sidebar1 ul {
@@ -656,32 +659,27 @@ height:42px;width: auto;float:left;text-decoration:none;padding:0px;color: #fff;
 }
 .tab
 {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-	font-size: 12px;
+	/*font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;*/
+	font-size: 13px;
 	background: #fff;
 	margin: auto;
 	border-bottom: 1px solid #fff;
-	width: auto;
+	width: 98%;
 	border-collapse: collapse;
-	text-align: center;
 }
 .tab th
 {
-	font-size: 14px;
-	font-weight: normal;
-	color: #039;
-	padding: 2px;
-	border-bottom: 2px solid #6678b1;
+	font-size: 1.1em;
+	font-weight: bold;
+	padding: 2px 5px;
+	border-bottom: 1px solid #6678b1;
 }
 .tab td
 {
+	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	color: #669;
 	padding:2px;
-}
-.tab tbody tr:hover td
-{
-	color: #009;
 }
 
 /* special colouring for "Main menu:", and for "xx submenu" items in ADxMenu
@@ -689,3 +687,44 @@ height:42px;width: auto;float:left;text-decoration:none;padding:0px;color: #fff;
 /*.menu>li:first-child>a, .menu li + li + li li:first-child>a {
 	color: #567;
 }*/
+
+/* button */
+/*Credits: Dynamic Drive CSS Library */
+/*URL: http://www.dynamicdrive.com/style/ */
+
+a.ovalbutton{
+background: transparent url('images/oval-left.gif') no-repeat top left;
+display: block;
+float: left;
+font: normal 13px Tahoma; /* Change 13px as desired */
+line-height: 16px; /* This value + 4px + 4px (top and bottom padding of SPAN) must equal height of button background (default is 24px) */
+height: 24px; /* Height of button background height */
+padding-left: 11px; /* Width of left menu image */
+text-decoration: none;
+}
+
+a:link.ovalbutton, a:visited.ovalbutton, a:active.ovalbutton {
+color: #494949; /*button text color*/
+}
+
+a.ovalbutton span {
+background: transparent url('images/oval-right.gif') no-repeat top right;
+display: block;
+padding: 4px 11px 4px 0; /*Set 11px below to match value of 'padding-left' value above*/
+}
+
+a.ovalbutton:hover { /* Hover state CSS */
+background-position: bottom left;
+}
+
+a.ovalbutton:hover span { /* Hover state CSS */
+background-position: bottom right;
+color: black;
+}
+
+.buttonwrapper { /* Container you can use to surround a CSS button to clear float */
+overflow: hidden; /*See: http://www.quirksmode.org/css/clearing.html */
+width: 100%;
+}
+
+

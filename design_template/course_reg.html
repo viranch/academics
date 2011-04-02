@@ -18,14 +18,17 @@ Released   : 20080116
 <link href="style_home.css" rel="stylesheet" type="text/css" media="screen" />
 <script type="text/javascript">
 window.onload=function() {
-var rows = document.getElementById('myTable').getElementsByTagName('tr');
-for (var i=1,len=rows.length;i<len;i++) {
-	if (i % 2 == 0) rows[i].className = 'alt';
-}
+	alter(['core', 'electives', 'improve', 'backlog', 'audit']);
 }
 
-function changeDropDown (n, checked) { console.log(checked);
-	document.getElementById("selectslot"+n).disabled=checked;
+function alter(ids) { console.log(ids);
+	var rows;
+	for (var j=0,jlen=ids.length;j<jlen;j++) { console.log(ids[j]);
+		rows = document.getElementById(ids[j]).getElementsByTagName('tr');
+		for (var i=1,len=rows.length;i<len;i++) {
+			if (i % 2 == 0) rows[i].className = 'alt';
+		}
+	}
 }
 </script>
 </head>
@@ -68,44 +71,50 @@ function changeDropDown (n, checked) { console.log(checked);
 	<div id="sidebar1">
 		<ul>
 			<li>
-				<h2>Lecture Timetable</h2>
+				<h2>Registration Status</h2>
 				<table class="tab">
 				<tr>
-				<th>Course</th>
-				<th>Start</th>
-				<th>End</th>
+				<td>Student Registration</td>
+				<td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Complete" src="images/task-complete.png"></td>
 				</tr>
 				<tr>
-				<td>IT 315</td>
-				<td>12:00 PM</td>
-				<td>1:00 PM</td>
+				<td>UGC/PGC Approval</td>
+				<td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Ongoing" src="images/chronometer.png"></td>
 				</tr>
 				<tr>
-				<td>SC 105</td>
-				<td>10:00 AM</td>
-				<td>11:00 AM</td>
+				<td>Registrar Approval</td>
+				<td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Ongoing" src="images/chronometer.png"></td>
+				</tr>
+				<tr>
+				<td>Fees Approval</td>
+				<td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Ongoing" src="images/chronometer.png"></td>
 				</tr>
 				</table>
 			</li>
 			<li>
-				<h2>lab timetable</h2>
+				<h2>Electives Status</h2>
 				<ul>
-					<table class="tab">
-				<tr>
-				<th>Course</th>
-				<th>Start</th>
-				<th>End</th>
-				</tr>
-				<tr>
-				<td>IT 315</td>
-				<td>12:00 PM</td>
-				<td>1:00 PM</td>
-				</tr>
-				<tr>
-				<td>SC 105</td>
-				<td>10:00 AM</td>
-				<td>11:00 AM</td>
-				</tr>
+				<table class="tab">
+					<tr>
+						<td>Group Electives</td>
+						<td align="right">1/2</td>
+					</tr>
+					<tr>
+						<td>Technical Electives</td>
+						<td align="right">2/4</td>
+					</tr>
+					<tr>
+						<td>Science Electives</td>
+						<td align="right">2/2</td>
+					</tr>
+					<tr>
+						<td>Open Electives</td>
+						<td align="right">2/2</td>
+					</tr>
+					<tr>
+						<td><strong>Elective Credits</strong></td>
+						<td align="right"><strong>25.5/31</strong></td>
+					</tr>
 				</table>
 				</ul>
 			</li>
@@ -138,53 +147,137 @@ function changeDropDown (n, checked) { console.log(checked);
 			<h2 class="title"><a href="#">Course Registration</a></h2>
 			<div class="entry">
 				<p><strong><text class ="ann_name">Semester 5</text></strong><br><br>
-				<table id="myTable">
-				<h3>Core Courses</h3>
+				<table id="core">
 				<thead>
 				<tr>
 					<th colspan=2>Core Courses</th>
+					<th>Credits</th>
 				</tr>
 				</thead>
 				<tbody>
 				<tr>
 					<td><input type="checkbox" checked="checked" /></td>
-					<td><text class="sub_ann_name"><a href="http://link.to/course_page">Embedded Systems Programming (IT322)</a></text></td>
+					<td width=80%><text class="sub_ann_name"><a href="http://link.to/course_page">Embedded Systems Programming (IT322)</a></text></td>
+					<td>4.5</td>
 				</tr>
 				<tr>
 					<td><input type="checkbox" checked="checked" /></td>
 					<td><text class="sub_ann_name"><a href="http://link.to/course_page">Operating Systems (IT414)</a></text></td>
+					<td>4.5</td>
 				</tr>
 				</tbody>
+				</table>
+				<table id="electives">
 				<thead>
 				<tr>
 					<th colspan=2>Elective Courses</th>
+					<th>Credits</th>
 				</tr>
 				</thead>
 				<tbody>
 				<tr>
 					<td><input id="slot1" type="checkbox" onchange="document.getElementById('selectslot1').disabled=!this.checked" /></td>
-					<td><text class="sub_ann_name">Slot 1:</text>
+					<td width=80%><text class="sub_ann_name">Slot 1:</text>
 						<select id="selectslot1" disabled="disabled" name="slot1"><option>course1 (it111)</option><option>course2 (el222)</option></select>
 					</td>
+					<td>4.5</td>
 				</tr>
 				<tr>
 					<td><input id="slot2" type="checkbox" onchange="document.getElementById('selectslot2').disabled=!this.checked" /></td>
 					<td><text class="sub_ann_name">Slot 2:</text>
 						<select id="selectslot2" disabled="disabled" name="slot2"><option>course3 (hm333)</option><option>course4 (sc444)</option></select>
 					</td>
+					<td>4.5</td>
 				</tr>
 				<tr>
 					<td><input id="slot3" type="checkbox" onchange="document.getElementById('selectslot3').disabled=!this.checked" /></td>
 					<td><text class="sub_ann_name">Slot 3:</text>
 						<select id="selectslot3" disabled="disabled" name="slot3"><option>course5 (ct555)</option><option>course6 (it666)</option></select>
 					</td>
+					<td>4.5</td>
 				</tr>
 				</tbody>
 				</table>
-				<p><strong><text class="ann_name">IT 301: Prof Maniklal Das</text></strong><br>&nbsp;&nbsp; Paper Distribution Tomorrow <br>&nbsp;&nbsp; Posted on <strong><i>25th March</i></strong>.</p>
-			</div>
-			
-		</div>
+				<table id="improve">
+				<thead>
+				<tr>
+					<th colspan=2>Courses for grade improvement</th>
+					<th>Credits</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td width=80%><text class="sub_ann_name"><a href="http://link.to/course_page">Operating Systems (IT414)</a></text></td>
+					<td>4.5</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td><text class="sub_ann_name"><a href="http://link.to/course_page">Operating Systems (IT414)</a></text></td>
+					<td>4.5</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td><text class="sub_ann_name"><a href="http://link.to/course_page">Operating Systems (IT414)</a></text></td>
+					<td>4.5</td>
+				</tr>
+				</tbody>
+				</table>
+				<table id="backlog">
+				<thead>
+				<tr>
+					<th colspan=2>Backlog Courses</th>
+					<th>Credits</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td width=80%><text class="sub_ann_name"><a href="http://link.to/course_page">Operating Systems (IT414)</a></text></td>
+					<td>4.5</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td><text class="sub_ann_name"><a href="http://link.to/course_page">Operating Systems (IT414)</a></text></td>
+					<td>4.5</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td><text class="sub_ann_name"><a href="http://link.to/course_page">Operating Systems (IT414)</a></text></td>
+					<td>4.5</td>
+				</tr>
+				</tbody>
+				</table>
+				<table id="audit">
+				<thead>
+				<tr>
+					<th colspan=2>Audit Courses</th>
+					<th>Credits</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td width=80%><text class="sub_ann_name"><a href="http://link.to/course_page">Operating Systems (IT414)</a></text></td>
+					<td>4.5</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td><text class="sub_ann_name"><a href="http://link.to/course_page">Operating Systems (IT414)</a></text></td>
+					<td>4.5</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td><text class="sub_ann_name"><a href="http://link.to/course_page">Operating Systems (IT414)</a></text></td>
+					<td>4.5</td>
+				</tr>
+				</tbody>
+				</table>
+		<div class="buttonwrapper">
+		<a class="ovalbutton" href="#"><span>Submit</span></a> <a class="ovalbutton" href="#" style="margin-left: 6px"><span>Reset</span></a>
+		</div>	
+		</div> <!-- end entry -->
+		</div><!-- end post -->
 	</div>
 <!-- end content -->
 <!-- start sidebar -->
