@@ -10,7 +10,18 @@ class Faculty extends CI_Controller {
     }
 
     function index(){ 
-      echo "This is faculty";
+      function index(){ 
+      $data['css'] = 'student_home.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'faculty/home';
+      $this->load->model('student/faculty_model');
+      $data['courses']=$this->faculty_model->get_present_courses();
+      $data['timetable']=$this->faculty_model->get_upcoming_lectures();
+   //   $data['important_dates']=$this->student_model->get_important_dates(4);
+   //   $data['announcements']=$this->student_model->get_announcements($data['batch'],5);
+      $this->load->view('includes/template',$data); 
+    }
     }
     function isfaculty()
     {
@@ -20,6 +31,9 @@ class Faculty extends CI_Controller {
       if($this->session->userdata('user_type')!="faculty")
         die("Sorry The pages are not accessible");
     }
+	
+	
+	
  } 
  ?>
 

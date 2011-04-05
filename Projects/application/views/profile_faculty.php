@@ -15,7 +15,7 @@ Released   : 20080116
 <title>Academics @ DA-IICT</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<style href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<link type="text/css" rel="stylesheet" href="../../../style.css" />
 <script type="text/javascript" src="code/jquery-1.3.2.js"></script>
 <script type="text/javascript" >
 </script>
@@ -30,11 +30,11 @@ Released   : 20080116
 <div class="example">
 <ul class="adxm menu">
 
-<li class="navac"><a href="http://www.aplus.co.yu/" title="Home">Home</a>
+<li class="navac"><a href="/Projects/faculty/" title="Home">Home</a>
 </li>
-<li><a href="http://academics.daiict.ac.in/" title="Profile">Profile</a>
+<li><a href="/Projects/faculty/profile" title="Profile">Profile</a>
 </li>
-<li><a href="http://www.aplus.co.yu/wch/" title="Windowed Controls Hider, for Win IE">Registration</a>
+<li><a href="/Projects/faculty/grade" title="Windowed Controls Hider, for Win IE">Grade</a>
 </li>
 <li><a href="http://www.aplus.co.yu/lab/" title="Reusable web techniques">Results</a>
 </li>
@@ -64,32 +64,39 @@ Released   : 20080116
 		<COLGROUP span="1" width="300">
 		<tr>
   		<td>Faculty Name</td>
-  		<td>Professor CHETAN D. PARIKH</td>
-		<td rowspan="3"><img border="0" src="abc.jpg" alt="Faculty image" width="200" height="150" /></td>
+  		<td><?php   foreach($details as $detail)
+					echo $detail['name'];?></td>
+		<td rowspan="3"><img border="0" src=<?php foreach($details as $detail) echo $detail['image']; ?> alt="Image can't be uploaded" width="200" height="150" /></td>
 		</tr>
 		<tr>
 		<td>Faculty Id</td>
-		<td>xyz</td>
+		<td><?php foreach($details as $detail)
+					echo $detail['user_id']; ?></td>
 		</tr>
 		<tr>
 		<td>Gender</td>
-		<td>Male</td>
+		<td><?php foreach($details as $detail)
+					echo $detail['gender']; ?></td>
 		</tr>
 		<tr>
 		<td>Area of Expertise</td>
-		<td colspan="2"> Analog Circuit Design, CMOS Digital Circuit Design</td>
+		<td colspan="2"> <?php foreach($details as $detail)
+					echo $detail['area_of_expertise']; ?></td>
 		</tr>
 		<tr>
 		<td>Date of joining</td>
-		<td colspan="2">xyz</td>
+		<td colspan="2"><?php foreach($details as $detail)
+					echo $detail['date_of_joining'] ; ?></td>
 		</tr>
 		<tr>
 		<td>Degrees</td>
-		<td colspan="2">Ph.D.,M.S.,B.Tech.</td>
+		<td colspan="2"><?php foreach($details as $detail)
+					echo $detail['degrees']; ?></td>
 		</tr>
 		<tr>
 		<td>Experience</td>
-		<td colspan="2">xyz</td>
+		<td colspan="2"><?php foreach($details as $detail)
+					echo $detail['experience']; ?></td>
 		</tr>
 		</table>
 	</div>
