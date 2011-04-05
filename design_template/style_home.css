@@ -227,8 +227,6 @@ table {
 	margin: 24px;
 	font-size: 1.1em;
 }
-
-
  
 th {
 	background: #3e83c9;
@@ -243,19 +241,30 @@ th {
 td {
 	padding: 6px 8px;
 	border-bottom: 1px solid #95bce2;
-/*	vertical-align: center;*/
 }
-/* 
-td * {
-	padding: 6px 0px;
-}
- */
+
 tr.alt td {
 	background: #ecf6fc;
 }
 
 tr.over td, tr:hover td {
 	background: #bcd4ec;
+}
+
+#profiletable table {
+	border-collapse: collapse;
+	width: 95%;
+	margin: 24px;
+	font-size: 1.1em;
+}
+
+#profiletable td {
+	padding: 6px 8px;
+	border-bottom: 1px solid #95bce2;
+}
+
+#profiletable tr:hover td {
+	background: #fff;
 }
 
 /* Sidebar */
