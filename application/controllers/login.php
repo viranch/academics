@@ -28,12 +28,16 @@ class Login extends CI_Controller {
       {
         $type=$info[0]['user_type'];
         $status=$info[0]['status'];
+        //die("reached here");
         if($status == "active" ){ 
         $data = array('user_id' => $this->input->post('username'),
                       'is_logged_in' =>true,
                       'user_type' => $type 
                     );
         $this->session->set_userdata($data);
+        //die("reached here");
+        //echo "Sessions are set";
+
         if($type=="student")
           redirect('student/student');
         elseif($type=="admin")
@@ -42,7 +46,7 @@ class Login extends CI_Controller {
           redirect('faculty/faculty');
         }
         else{
-          redirect('login');
+          echo "edustundhi";
         }
       }
       else {
