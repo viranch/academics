@@ -1,6 +1,42 @@
 <?php
 class Student_model extends CI_model{
   
+  function get_user_profile()
+  {
+    $query="select * from acad_users where user_id=".$this->session->userdata('user_id');
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  
+  
+  function get_unapproved()
+  {
+    $query="select * from acad_stu_cou A,acad_courses B  where user_id='".$this->session->userdata('user_id')."' and status='unapproved' and A.course_id=B.course_id";
+    $query = $this->db->query($query);
+    if($query->num_rows() > 0) {
+         return $query->result_array();
+    }
+  }
+  
+  
+  
+  function unapproved_exist()
+  {
+    $query="select * from acad_stu_cou where user_id='".$this->session->userdata('user_id')."' and status='unapproved'";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return 1;
+     }
+     else {
+       return 0;
+     }
+
+  }
+  
+  
+  
   /*
    * retruns data of batch,year,present_sem_id,group_id
    */
@@ -25,6 +61,7 @@ class Student_model extends CI_model{
       echo "The student is not a valid student";
      }*/
   }
+  
   /**
    *recieves from controller batch data and retrieves time table
    *data returned is courseid,start_time,endtime,type 
@@ -53,6 +90,7 @@ class Student_model extends CI_model{
    *Gets the present courses and data returned is
    * just the courseid 
    */
+  
   function get_present_courses()
   {
     $query="select course_id from acad_stu_cou where status ='ongoing' AND user_id=".$this->session->userdata('user_id');
@@ -65,10 +103,31 @@ class Student_model extends CI_model{
     }
   }
   
+  /*
+   *get the deadlines of assignments 
+   */
+  
+  function get_deadlines($num=1)
+  {
+    $courses=$this->get_present_courses();
+    $query="select * from acad_assig_create where course_id='".$courses['0']['course_id']."'";
+    foreach ($courses as $row) {
+      $query=$query." or '".$row['course_id']."'";
+    }  
+    $query = $this->db->query($query);
+    if($query->num_rows() > 0) {
+        return $query->result_array();
+    }
+    else {
+      echo "No deadlines set";
+    }
+  }
+  
   
   /*
    *all data from acad_announcemts for a user
    */
+  
   function get_announcements($batch,$number=null)
   {
     
@@ -104,6 +163,7 @@ class Student_model extends CI_model{
   /*
    *Gets all data from the acad_stu_profile table
    */
+  
   function get_student_profile()
   {
     $user=$this->session->userdata('user_id');
@@ -120,10 +180,12 @@ class Student_model extends CI_model{
   
   /*
    *The data of present courses and the ids of courses too
+   *This actually gets the courses which are approved
    */
+  
   function get_sems_student()
   {
-    $query ="select semester,sem_id from acad_sem_perform A,acad_sem_list B where B.sem_id=A.sem_id and user_id='".$this->session->userdata('user_id')."' group by semester";
+    $query ="select semester, A.sem_id from acad_sem_perform A,acad_sem_list B where B.sem_id=A.sem_id and user_id='".$this->session->userdata('user_id')."' group by semester";
     $query = $this->db->query($query);
     if($query->num_rows() > 0) {
         return $query->result_array();
@@ -173,10 +235,97 @@ class Student_model extends CI_model{
   
   
   
+  /*get the course registration status of each semester
+   * it gets all the acad_stu_cou table
+   * this constains all the semster which are of status unregistered incomplete completed ongoing
+   */
   
-  function get_present_semester(){
+  function get_sems_status (){
+    $user_id=$this->session->userdata('usr_id');
+    $query="select semester,status from acad_stu_cou A,acad_sem_list B where A.sem_id=B.sem_id and A.user_id=".$user_id." group by status order by A.sem_id";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+
+  /*
+   *This function gets the list of all semesters offered to a student
+   */
+  
+  function get_sem_offered($batch)
+  {
+    if(isset($batch)){
+    $query="select semester from acad_cou_offer A,acad_sem_list B where A.sem_id=B.sem_id and program='".$batch['0']['program']."' and batch_year='".$batch['0']['batch_year']."' and status='active' group by semester";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+    }
+    else {
+      echo "Sorry the batch data is not sent to this function";
+    }
+  
+  }
+  /*
+   *Get all the data regarding the courses offered to the user
+   */
+  function get_all_courses_offered($batch)
+  {
+    $query="select * from acad_cou_offer A,acad_sem_list B,acad_courses C where A.sem_id=B.sem_id and A.course_id=C.course_id and program='".$batch['0']['program']."' and A.status='active' and batch_year=".$batch['0']['batch_year'] ." order by slot_no";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
     
   }
+  /*
+   * Get the backlog courses
+   */
+  
+  function get_backlog($batch)
+  {
+    $user_id=$this->session->userdata('user_id');
+    $query="select * from acad_stu_cou A,acad_sem_list B,acad_courses C  where status='incomplete' and A.sem_id=B.sem_id and A.course_id=C.course_id and A.user_id='".$user_id."'";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  
+  /*
+   *Get the grade improvement courses
+   */
+
+  function get_grade_improvement()
+  {
+    $user_id=$this->session->userdata('user_id');
+    $query="select * from acad_stu_cou A ,acad_cou_grad B,acad_grade C,acad_courses D where B.grade=C.grade and A.course_id=B.course_id and grade_value <= 5 and status ='completed' and A.user_id=B.user_id and A.course_id=D.course_id and A.user_id='".$user_id."'";
+    $query = $this->db->query($query);
+    if($query->num_rows() > 0) {
+        return $query->result_array();
+    }
+  
+  }
+  function get_course_performance($semid)
+  {
+    $query="select * from acad_cou_grad A,acad_courses B,acad_sem_list C where A.sem_id=C.sem_id and  A.sem_id=".$semid." and user_id='".$this->session->userdata('user_id')."' and A.course_id=B.course_id";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  function get_sem_performance($semid)
+  {
+    $query="select * from acad_sem_perform where user_id=".$this->session->userdata('user_id')." and sem_id=".$semid;
+    $query = $this->db->query($query);
+  
+     if($query->num_rows() > 0) {
+       return $query->result_array();
+     }
+  
+  }
+  
 
 }
 ?>

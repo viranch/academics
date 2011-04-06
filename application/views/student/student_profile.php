@@ -1,8 +1,6 @@
 <!-- start page -->
 <div id="wrapper">
 <div id="page">
-
-
 <!-- start of sidebar1 -->
 	<div id="sidebar1">
 		<ul>
@@ -28,7 +26,7 @@
 				</table>
 			</li>
 			<li>
-				<h2>Lab timetable</h2>
+							<h2>Lab timetable</h2>
 				<ul>
 					<table class="tab">
 				<tr>
@@ -83,43 +81,57 @@
 	<!-- start content -->
 	<div id="content">
 		<div class="post">
-			<h2 class="title"><a href="#"> Anouncements</a></h2>
+			<h2 class="title"><a href="#">Profile</a></h2>
 			<div class="entry">
-        <?php foreach ($announcements as $row){?>
-          
-        <p class="ann_p"><strong><text class ="ann_name">
-          <?php 
-              if($row['course_id']!='')
-                echo "{$row['course_id']}:";
-              echo "{$row['candidate_name']}";
-          ?> 
-        </text></strong><br>
-        &nbsp;&nbsp;
-        <?php echo "{$row['message']}";?> <br>
-        &nbsp;&nbsp; Posted on 
-        <strong><i><?php
-          echo "{$row['sent_date']}";
-        ?></i></strong></p>
-        <?php }?>
-
-				
+				<table id="profiletable">
+				<tr>
+            <?php $file=base_url()."images/".$profile['0']['image']; ?>
+          <td>
+            <img src="<?php echo "{$file}";?>" /></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Name:</td>
+          <td><?php echo "{$profile['0']['candidate_name']}";?></td>
+				</tr>
+				<tr>
+					<td>ID:</td>
+          <td><?php echo "{$profile['0']['user_id']}"; ?></td>
+				</tr>
+				<tr>
+					<td>Email:</td>
+          <td><?php echo "{$profile['0']['email_id']}";?></td>
+				</tr>
+				<tr>
+					<td>Date of Birth:</td>
+          <td><?php echo "{$profile['0']['dob']}";?></td>
+				</tr>
+				<tr>
+					<td>Gender:</td>
+          <td><?php echo "{$profile['0']['gender']}";?></td>
+				</tr>
+				<tr>
+					<td>SSC Percentage:</td>
+          <td><?php echo "{$student['0']['tenth_percentage']}"; ?></td>
+				</tr>
+				<tr>
+					<td>HSC Percentage:</td>
+          <td><?php echo "{$student['0']['twelfth_percentage']}"; ?></td>
+				</tr>
+				<tr>
+					<td>SSC School:</td>
+          <td><?php echo "{$student['0']['school_name']}";?></td>
+				</tr>
+				<tr>
+					<td>Boards:</td>
+          <td><?php echo "{$student['0']['twelfth_board']}"; ?></td>
+				</tr>
+				<tr>
+					<td>Year of passing Std 12:</td>
+          <td><?php echo "{$student['0']['twelfth_year']}";?></td>
+				</tr>
+				</table>
 			</div>
-			
-		</div>
-		<div class="post">
-			<h2 class="title"><a href="#">Deadlines</a></h2>
-			<div class="entry">
-       <?php foreach ($deadlines as $row) {
-                  if($row['deadline']!= 0000-00-00){ ?>
-                    <p class="ann_p"><strong><text class="ann_name"> <?php echo "{$row['course_id']}";?></text></strong><br>&nbsp;&nbsp;
-                    <?php echo "{$row['description']}";?>
-                    <strong><br>&nbsp;&nbsp;<?php
-                      echo "{$row['deadline']}";
-                    ?></strong></p>
-              <?php }} ?> 
-
-			</div>
-			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
 		</div>
 	</div>
 	<!-- end content -->
@@ -145,12 +157,13 @@
         </ul>
     </li>
 			<li>
+			<li>
 				<h2>Resources</h2>
 				<ul>
-					<li><a href="http://intranet.daiict.ac.in">intranet</a></li>
-					<li><a href="http://resourcecentre.daiict.ac.in">Resource Center</a></li>
-					<li><a href="\\10.100.56.21">daiictpdc</a></li>
-					<li><a href="http://library.daiict.ac.in">Library</a></li>
+					<li><a href="http://webmail.daiict.ac.in" target="_blank">Webmail</a></li>
+					<li><a href="http://resourcecentre.daiict.ac.in:8081/webslim/default.asp" target="_blank">Resource Center</a></li>
+					<li><a href="http://intranet.daiict.ac.in/~daiict_nt01/" target="_blank">\\daiictpdc</a></li>
+					<li><a href="http://intranet.daiict.ac.in" target="_blank">Intranet</a></li>
 				</ul>
 			</li>
 			
@@ -162,5 +175,3 @@
 </div>
 </div><!-- end page -->
 <?php
-
-
