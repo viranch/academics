@@ -13,6 +13,9 @@ body {
 	color: #757575;
 }
 
+.visible { visibility: visible; }
+.hidden { visibility: hidden; }
+
 input[type!="checkbox"], textarea {
 	width: 300px;
 	background: #FFFFFF url(images/img04.jpg) repeat-x;
@@ -250,7 +253,7 @@ tr.over td, tr:hover td {
 	background: #bcd4ec;
 }
 
-#profiletable tr:hover td {
+.nohover tr:hover td {
 	background: #fff;
 }
 
