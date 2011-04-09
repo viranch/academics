@@ -128,7 +128,7 @@ function toggleForm(who) {
 	<!-- start content -->
 	<div id="content">
 		<div class="post">
-			<h2 class="title"><a href="#">Add new user</a></h2>
+			<h2 class="title">Add new user</h2>
 			<div class="entry">
 			<p>
 			<form>
@@ -139,6 +139,9 @@ function toggleForm(who) {
 					<td>Name</td>
 					<td><input type="text" name="name" size=35%></td>
 				</tr><tr>
+					<td>Email address</td>
+					<td><input type="text" name="email" size=35%></td>
+				</tr><tr>
 					<td>Date of Birth</td>
 					<td><input type="text" name="dob" size=35%></td>
 				</tr><tr>
@@ -148,11 +151,8 @@ function toggleForm(who) {
 						<input type="radio" name="gender" value="female" id="female" /><label for="female">Female</label>
 					</td>
 				</tr><tr>
-					<td>User Status</td>
-					<td>
-						<input type="radio" name="status" id="active" value="active"><label for="active">Active</label>
-						<input type="radio" name="status" id="inactive" value="deleted"><label for="inactive">Inactive</label>
-					</td>
+					<td>Image</td>
+					<td><input type="text" name="dob" size=35%>Place the image in images/&lt;id&gt;.jpg</td>
 				</tr><tr>
 					<td>User type</td>
 					<td><select onchange="toggleForm(this.value)"><option value="stu">Student</option><option value="fac">Faculty</option></select></td>
