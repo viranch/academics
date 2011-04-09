@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://10.100.98.103/academics/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
