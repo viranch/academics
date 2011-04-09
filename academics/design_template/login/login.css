@@ -1,0 +1,67 @@
+
+/*=================================
+= Natalia's additions: 11/21/2008 =
+===================================*/
+
+/* stop tables from breaking layout */
+body.lo5 div#content table td p {
+width:auto;
+font-size:.9em; }
+
+body.lo5 div#content table {width:450px;}
+
+
+/* stop hrs from breaking layout */
+body.lo5 div#content hr {
+	width:auto;
+}
+
+hr {
+	clear:none;
+}
+
+
+a.eventlink, dt a.eventlink:hover{
+text-decoration:none;
+color:#155f83;
+}
+
+/* Lightbox CSS */
+.section ul {
+    list-style: none;
+    margin-top: 5px;
+	float:left;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.section ul li {
+    display: inline;
+}
+
+.section ul a {
+    background-color:#eae9e1;
+    border: 1px solid #ccc;
+    padding: 5px 5px 10px;
+    display: block;
+   float: left;
+    margin:.5em;
+	vertical-align:top;
+}
+
+.section ul a:hover {
+    background-color: #bebeb6;
+    border: 1px solid #ccc;
+}
+
+.section ul a img {
+    border: 1px solid #ccc;
+}
+
+.section ul a.lightbox-enabled img {
+    border: 1px dotted #ccc;
+}
+
+.float-left{float:left; vertical-align:middle}
+.float-right{float:right;vertical-align:middle}
+

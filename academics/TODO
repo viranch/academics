@@ -1,0 +1,28 @@
+Forms:
+
+Student: (april 1)
+1. Course registration
+2. Submit assignment
+
+Faculty: (april 4)
+1. Grades
+2. Upload lectures/assignment
+3. Announcements
+
+Admin: (april 10)
+1. Set calenders
+2. Modify user profiles
+3. Lecture/lab Time tables
+4. Announcements
+5. Course offering/approval
+
+Views:
+Student:
+1. Course reg
+3. Course page
+
+Faculty:
+2. Profile
+
+
+
