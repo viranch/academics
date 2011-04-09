@@ -9,13 +9,13 @@
 			<li>
 				<h2>Lecture Timetable</h2>
 				<table class="tab">
+        <?php   if(isset($timetable)){ ?>
         <tr>
 				  <th>Course</th>
 				  <th>Start</th>
 				  <th>End</th>
 				</tr>
           <?php
-          if(isset($timetable)){
             foreach ($timetable as $row) {
               if($row['type']=='lecture'){
                 echo "<tr><td>{$row['course_id']}</td>";
@@ -23,21 +23,25 @@
                 echo "<td>{$row['end_time']}</td></tr>";
               }
             }
-          }
-          ?>
+        }
+        else{
+          echo "No clasess today";
+        }
+        ?>
 				</table>
 			</li>
 			<li>
 				<h2>Lab timetable</h2>
 				<ul>
 					<table class="tab">
+        <?php   if(isset($timetable)){?>          
 				<tr>
 				<th>Course</th>
 				<th>Start</th>
 				<th>End</th>
 				</tr>
          <?php                
-          if(isset($timetable)){          
+               
               $count=0;
               foreach ($timetable as $row) {  
                   if($row['type']=='lab'){     
@@ -50,6 +54,10 @@
             if($count==0)
               echo "<tr><td>Not yet set</td></tr>";
           }
+          else{
+            echo "No labs today";
+          }
+        
           ?>
 
 				</table>
@@ -85,7 +93,8 @@
 		<div class="post">
 			<h2 class="title"><a href="#"> Anouncements</a></h2>
 			<div class="entry">
-        <?php foreach ($announcements as $row){?>
+        <?php if(isset($announcements)){
+              foreach ($announcements as $row){?>
           
         <p class="ann_p"><strong><text class ="ann_name">
           <?php 
@@ -100,7 +109,7 @@
         <strong><i><?php
           echo "{$row['sent_date']}";
         ?></i></strong></p>
-        <?php }?>
+        <?php }}?>
 
 				
 			</div>
@@ -109,14 +118,15 @@
 		<div class="post">
 			<h2 class="title"><a href="#">Deadlines</a></h2>
 			<div class="entry">
-       <?php foreach ($deadlines as $row) {
+      <?php   if(isset($deadlines)){
+              foreach ($deadlines as $row) {
                   if($row['deadline']!= 0000-00-00){ ?>
                     <p class="ann_p"><strong><text class="ann_name"> <?php echo "{$row['course_id']}";?></text></strong><br>&nbsp;&nbsp;
                     <?php echo "{$row['description']}";?>
                     <strong><br>&nbsp;&nbsp;<?php
                       echo "{$row['deadline']}";
                     ?></strong></p>
-              <?php }} ?> 
+              <?php }}} ?> 
 
 			</div>
 			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->

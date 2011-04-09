@@ -6,7 +6,7 @@ class Admin extends CI_Controller {
 
     function __construct(){
       parent::__construct();
-      $this->isadmin();     
+      $this->isadmin();
     }
 
     function index(){ 
@@ -20,66 +20,128 @@ class Admin extends CI_Controller {
       if($this->session->userdata('user_type')!="admin")
         die("Sorry The pages are not accessible");
     }
-    /*function createuser()
+    
+    function delete_user()
     {
-      $data['maincontent']='admin/createuser';
+      $this->load->model('admin/admin_model');
+      $list=$this->input->post('users');
+      if(!empty($list)){
+        foreach ($list as $row) {
+          $this->admin_model->delete_userid($row);
+          $data['message']="Succesfully deleted";
+        }
+      }
+      if($this->input->post('user_id')!=''){
+        $data['details']=$this->admin_model->get_details_id(intval($this->input->post('user_id')));
+      }
+      else if($this->input->post('name')!=''){
+        $data['details']=$this->admin_model->get_details_name($this->input->post('name'));
+      }  
+      $permissions=$this->admin_model->get_eligibility();
+      if($permissions[0]['delete_user']!=1)
+        die("sorry you don't have permissions to navigate to this page");
+      $data['css'] = 'admin_home.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'admin/delete_user';
+      $this->load->view('includes/template',$data);  
+    
+    }
+    
+    function retrieve_user()
+    {
+      $this->load->model('admin/admin_model');
+      $list=$this->input->post('users');
+      if(!empty($list)){
+        foreach ($list as $row) {
+          $this->admin_model->delete_userid($row);
+          $data['message']="Succesfully deleted";
+        }
+      }
+      if($this->input->post('user_id')!=''){
+        $data['details']=$this->admin_model->get_details_id(intval($this->input->post('user_id')));
+      }
+      else if($this->input->post('name')!=''){
+        $data['details']=$this->admin_model->get_details_name($this->input->post('name'));
+      }  
+      $permissions=$this->admin_model->get_eligibility();
+      if($permissions[0]['delete_user']!=1)
+        die("sorry you don't have permissions to navigate to this page");
+      $data['css'] = 'admin_home.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'admin/delete_user';
+      $this->load->view('includes/template',$data);
+    }  
+    
+    function approve_courses()
+    {
+      $this->load->model('admin/admin_model');
+      $this->load->model('admin/reg_model');
+      $user_id=0;
+      if($this->input->post('user_id')!=''){
+        if($this->input->post('next')){
+            $user=$this->reg_model->get_next_user($this->input->post('user_id'));
+            if(!empty($user)){
+            $user_id=$user[0]['user_id'];
+            }    
+        }
+        else{
+            $user_id=$this->input->post('user_id');
+        }
+      }
+      if(isset($user_id)){
+        $data['user_id']=$user_id;
+        $data['batch']=$this->reg_model->get_batch($user_id);
+        $data['courses']=$this->reg_model->courses_registered($user_id);
+      }
+
+      $data['css'] = 'admin_home.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'admin/approve_courses';
       $this->load->view('includes/template',$data);
     
     }
-    function val_user_data()
-    {
-      $this->load->library('form_validation');
-      $this->form_validation->set_rules('name', 'display', 'required|matches[passconf]|trim');
-      $this->form_validation->set_rules('user_id','userid','max_length[10]|required|trim');     
-      $this->form_validation->set_rules('password','password','max_length[32]|required|trim');      
-      $this->form_validation->set_rules('conform_password','conform password','max_length[32]|required|matches[password]');      
-      $this->form_validation->set_rules('first_name','first name','max_length[50]|required');      
-      $this->form_validation->set_rules('last_name','last name','max_length[50]|required');      
-      $this->form_validation->set_rules('dob','D.O.B','required');      
-      $this->form_validation->set_rules('email_id','Email Id','max_length[50]|required');      
-      $this->form_validation->set_rules('city','city','max_length[50]|required');      
-      $this->form_validation->set_rules('country','country','max_length[50]|required');      
-      $this->form_validation->set_rules('address','address','|required');      
-      $this->form_validation->set_rules('emergency_address','Emergency address','|required');      
-      $this->form_validation->set_rules('phone','phone','max_length[15]|required');      
-      $this->form_validation->set_rules('creation_date','Creation date','|required');      
-      $this->form_validation->set_rules('image','image','max_length[50]');      
-      $this->form_validation->set_rules('bloodgroup','bloodgroup','max_length[5]');     
-      $this->form_validation->set_rules('officephone','officephone','max_length[15]');
-      $this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
-      if ($this->form_validation->run() == FALSE) // validation hasn'\t been passed
-      {
-        $data['maincontent']='admin/createuser'; 
-        $this->load->view('includes/template',$data);
-      }
-      else // passed validation proceed to post success logic
-      {
-                    // build array for the model
-          $form_data = array('user_id' => set_value('user_id'),
-                            'password' => set_value('password'),
-                            'user_type' => set_value('user_type'),
-                            'first_name' => set_value('first_name'),
-                            'last_name' => set_value('last_name'),
-                            'dob' => set_value('dob'),
-                            'gender' => set_value('gender'),
-                            'email_id' => set_value('email_id'),
-                            'city' => set_value('city'),
-                            'country' => set_value('country'),
-                            'address' => set_value('address'),
-                            'emergency_address' => set_value('emergency_address'),
-                            'phone' => set_value('phone'),
-                            'status' => set_value('status'),
-                            'creation_date' => set_value('creation_date'),
-                            'image' => set_value('image'),
-                            'bloodgroup' => set_value('bloodgroup'),
-                            'identification_mark' => set_value('identification_mark'),
-                            'officephone' => set_value('officephone')
-                          );
-          echo "Success";
-
-      }                                                                                                                                          // run insert model to write data to db
     
-    }*/
+    function important_dates()
+    {
+      $this->load->model('admin/utilities');
+      if($this->input->post('submit')){
+        $this->utilities->insert_dates();
+      }
+      if($this->input->post('delete')){
+        $this->utilities->delete_dates();
+      }
+      $data['dates']=$this->utilities->get_important_dates();
+      $data['css'] = 'admin_home.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'admin/important_dates';
+      $this->load->view('includes/template',$data);
+    
+    }    
+    
+    function add_user()
+    {
+      $data['css'] = 'style_home.css';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'admin/add_user';
+      $this->load->view('includes/template',$data);
+    
+    }
+    function announce()
+    {
+      $this->load->model('admin/announce_model');
+      $data['program']=$this->announce_model->get_program();
+      $data['year']=$this->announce_model->get_year();
+      $data['courses']=$this->announce_model->announce_courses();
+      $data['css'] = 'admin_home.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'admin/announce';
+      $this->load->view('includes/template',$data);
+    }
  } 
  ?>
 

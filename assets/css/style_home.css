@@ -86,12 +86,6 @@ hr {
 	display: none;
 }
 
-#header {
-	width: 960px;
-	height: 453px;
-	margin: 0 auto;
-}
-
 /* Logo */
 
 #logo {
@@ -147,90 +141,6 @@ hr {
 #header {
 	width: 1000px;
 	margin: 0 auto;
-}
-
-//menu navigation
-/*#menu {
-	height: 35px;
-	width: 1000px;
-	padding-left: 20px;
-	background:#416271  repeat-x  left top;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-#menu ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	line-height: normal;
-}
-
-#menu li {
-	float: left;
-}
-
-#menu a {
-	display: block;
-	float: left;
-	padding: 10px 15px 7px 9px;
-	margin-right: 1px;
-	height: 35px;
-	background: url(images/img03.gif) no-repeat left 35%;
-	text-decoration: none;
-	text-transform: uppercase;
-	font-size: 10px;
-	color: #FFFFFF;
-
-	
-}
-
-#menu a:hover {
-	color: #FFFFFF;
-	background-color: #09C;
-	
-}
-
-#menu .current_page_item a {
-	background: none;
-	color: #FFFFFF;
-}*/
-
-/* Search */
-
-#search {
-	float: right;
-	width: 260px;
-	margin: 0px;
-	margin-top: 10px;
-}
-
-#search fieldset {
-	border: none;
-}
-
-#search #s {
-	width: 160px;
-	height: 23px;
-	background: #FFDBE1;
-	border: 1px solid #F57F8C;
-}
-
-#search #x {
-	width: 40px;
-	background: #F74B61;
-	border-top: #F74B61 solid 1px;
-	border-bottom: #F74B61 solid 3px;
-	border-left: #F74B61 solid 1px;
-	border-right: #F74B61 solid 1px;
-	color: #FFDBE1;
-}
-
-#wrapper {
-	width: 1000px;
-	margin: 0 auto;
-	background: url(images/img05.jpg) repeat-x left top;
-	border: 1px solid #eee;
-	//background: #eee;
 }
 
 /* Page */
@@ -293,6 +203,24 @@ padding:auto
 	color: #369;
 }
 
+#gradetable {
+	border: 1px solid white;
+	width: 100%;
+	margin: 0px;
+}
+
+#gradetable th {
+	font-size: 13px;
+}
+
+#gradetable td {
+	border-bottom: 0px solid #000;
+}
+
+#gradetable_head td, tr:hover {
+	background: #fff;
+}
+
 table {
 	border-collapse: collapse;
 	width: 95%;
@@ -313,19 +241,30 @@ th {
 td {
 	padding: 6px 8px;
 	border-bottom: 1px solid #95bce2;
-	vertical-align: center;
 }
-/* 
-td * {
-	padding: 6px 0px;
-}
- */
+
 tr.alt td {
 	background: #ecf6fc;
 }
 
 tr.over td, tr:hover td {
 	background: #bcd4ec;
+}
+
+#profiletable table {
+	border-collapse: collapse;
+	width: 95%;
+	margin: 24px;
+	font-size: 1.1em;
+}
+
+#profiletable td {
+	padding: 6px 8px;
+	border-bottom: 1px solid #95bce2;
+}
+
+#profiletable tr:hover td {
+	background: #fff;
 }
 
 /* Sidebar */
@@ -727,4 +666,12 @@ overflow: hidden; /*See: http://www.quirksmode.org/css/clearing.html */
 width: 100%;
 }
 
+.ann_p
+{
+  border-bottom: 1px solid #D6C9BF;
+}
 
+.ann_p a
+{
+  text-decoration:none;
+}

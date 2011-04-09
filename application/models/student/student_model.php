@@ -1,5 +1,14 @@
 <?php
 class Student_model extends CI_model{
+  function get_drop_courses()
+  {
+    $query=" select * from acad_stu_cou A,acad_courses B,acad_sem_list C where (status='ongoing' or status='grade_improvement') and user_id='".$this->session->userdata('user_id')."' and A.course_id=B.course_id and A.sem_id=C.sem_id";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  
   
   function get_user_profile()
   {
@@ -13,7 +22,8 @@ class Student_model extends CI_model{
   
   function get_unapproved()
   {
-    $query="select * from acad_stu_cou A,acad_courses B  where user_id='".$this->session->userdata('user_id')."' and status='unapproved' and A.course_id=B.course_id";
+    $query="select * from acad_stu_cou A,acad_courses B  where user_id='".$this->session->userdata('user_id')."' and (status='unapproved' or status='grade_improvement') and A.course_id=B.course_id";
+    
     $query = $this->db->query($query);
     if($query->num_rows() > 0) {
          return $query->result_array();
@@ -80,9 +90,7 @@ class Student_model extends CI_model{
      if($query->num_rows() > 0) {
         return $query->result_array();
      }
-     else {
-       echo "No timetable is bieng set up";
-     }
+    
   }
   
   
@@ -98,9 +106,6 @@ class Student_model extends CI_model{
     if($query->num_rows() > 0) {
         return $query->result_array();
      }
-    else {
-      echo "No course is registered";
-    }
   }
   
   /*
@@ -110,16 +115,15 @@ class Student_model extends CI_model{
   function get_deadlines($num=1)
   {
     $courses=$this->get_present_courses();
-    $query="select * from acad_assig_create where course_id='".$courses['0']['course_id']."'";
-    foreach ($courses as $row) {
-      $query=$query." or '".$row['course_id']."'";
-    }  
-    $query = $this->db->query($query);
-    if($query->num_rows() > 0) {
+    if(isset($courses)){
+      $query="select * from acad_assig_create where course_id='".$courses['0']['course_id']."'";
+      foreach ($courses as $row) {
+        $query=$query." or '".$row['course_id']."'";
+      }  
+      $query = $this->db->query($query);
+      if($query->num_rows() > 0) {
         return $query->result_array();
-    }
-    else {
-      echo "No deadlines set";
+      }
     }
   }
   
@@ -151,9 +155,6 @@ class Student_model extends CI_model{
       
       if($query->num_rows() > 0) {
         return $query->result_array();
-      }
-      else{
-        echo "No announcements";
       }
     }
   
@@ -300,7 +301,7 @@ class Student_model extends CI_model{
   function get_grade_improvement()
   {
     $user_id=$this->session->userdata('user_id');
-    $query="select * from acad_stu_cou A ,acad_cou_grad B,acad_grade C,acad_courses D where B.grade=C.grade and A.course_id=B.course_id and grade_value <= 5 and status ='completed' and A.user_id=B.user_id and A.course_id=D.course_id and A.user_id='".$user_id."'";
+    $query="select * from acad_stu_cou A ,acad_cou_grad B,acad_grade C,acad_courses D where B.grade=C.grade and A.course_id=B.course_id and grade_value <= 5 and (status ='completed' or status='grade_improvement') and A.user_id=B.user_id and A.course_id=D.course_id and A.user_id='".$user_id."'";
     $query = $this->db->query($query);
     if($query->num_rows() > 0) {
         return $query->result_array();

@@ -55,6 +55,22 @@ class Registration_model extends CI_model{
     $query="update acad_stu_cou set status='completed' where status='grade_improvement' and user_id='".$this->session->userdata('user_id')."'";
     $query = $this->db->query($query);
   }
+  function get_deadline($batch)
+  {
+    $query="select * from acad_restrictions where program='".$batch['0']['program']."' and batch_year=".$batch['0']['batch_year'];
+    $query = $this->db->query($query);
+    if($query->num_rows() > 0) {
+        return $query->result_array();
+    }
+  }
+  function get_credits($courseid)
+  {
+    $query="select credits from acad_courses where course_id='".$courseid."'";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
 }
 ?>
 

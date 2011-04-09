@@ -124,7 +124,12 @@
           <td><?php
             echo anchor('student/student/registration', 'Edit');
           ?></td>
+          
       </tr>
+      <?php if(isset($message))
+        echo "<h2>".$message."<h2>";
+      ?>
+          
       </tbody>
       </table>
       

@@ -10,7 +10,7 @@ class Lectures extends CI_Controller {
     }
 
     function index(){ 
-      $data['css'] = 'style_home.css';
+      $data['css'] = 'style_home1.css';
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/lectures';

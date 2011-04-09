@@ -170,6 +170,7 @@ echo form_open('student/student/val_reg');
       </thead>
     
       <tbody>
+      <?php $flag=0; ?>
       <?php if(isset($reg)){
           $options=array();
           foreach($reg as $course){
@@ -177,6 +178,7 @@ echo form_open('student/student/val_reg');
               if(!isset($prev) || $prev == $course['slot_no']){
                 $options[$course['course_id']]=$course['course_name']." (".$course['course_id'].")";
                 $prev=$course['slot_no'];
+                $flag=1;
                 }
               else{
 
@@ -200,25 +202,27 @@ echo form_open('student/student/val_reg');
             }
            }
           }
-          }
-        ?>
+          
+      ?>
+      <?php if($flag==1){?>
       <tr>
       <td><?php echo form_checkbox($slots['next'], 'accept', FALSE);?></td>
-      <td width=80%><text class="sub_ann_name">Slot <?php echo $prev; ?>:</text>
+      <td width=80%><text class="sub_ann_name">Slot <?php if(isset($prev))echo $prev; ?>:</text>
           <?php
                 echo form_dropdown('slot'.$slots['next'], $options);
                 $slots['elective']++;
                 $slots['next']++;
-                     
+                    
           ?>
 
         </td>
-        <td id="sl<?php echo $prev; ?>">4.5</td>
+        <td>4.5</td>
       </tr>
 
             
     </tbody>
       </table>
+      <?php }}?>
       <table id="improve">
       <thead>
       <tr>
@@ -231,7 +235,7 @@ echo form_open('student/student/val_reg');
       <?php if(isset($gradeimprovement)){
             foreach ($gradeimprovement as $row) {?>
       <tr>
-        <td><?php echo form_checkbox($slots['next'],$row['course_id'], TRUE); ?></td>
+        <td><?php echo form_checkbox($slots['next'],$row['course_id'], FALSE); ?></td>
         <td width=80%><text class="sub_ann_name"><a href="http://link.to/course_page"><?php
           echo anchor('#', $row['course_name']);  
         ?></a></text></td>
@@ -260,7 +264,7 @@ echo form_open('student/student/val_reg');
          
       ?>
               <tr>
-                  <td><?php echo form_checkbox($slots['next'],$course['course_id'], TRUE); ?></td>
+                  <td><?php echo form_checkbox($slots['next'],$course['course_id'], FALSE); ?></td>
                   <td width=80%>       
                     <text class="sub_ann_name">     
                         <?php echo anchor('#', $course['course_name']." (".$course['course_id'].")");?>
@@ -290,7 +294,7 @@ echo form_open('student/student/val_reg');
         if($course['audit']==1 && $course['status']=='active'){ 
       ?>
               <tr>
-                  <td><?php echo form_checkbox($slots['next'],$course['course_id'], TRUE); ?></td>
+                  <td><?php echo form_checkbox($slots['next'],$course['course_id'], FALSE); ?></td>
                   <td width=80%>       
                     <text class="sub_ann_name">     
                         <?php echo anchor('#', $course['course_name']." (".$course['course_id'].")");?>

@@ -117,7 +117,7 @@
         <br>&nbsp;&nbsp;
                   <?php
                   $dir=base_url()."lectures/";
-                  echo "<a href=\"".$dir.$row['file']."\">".$row['file']."</a>"
+                  echo "<a href=\"".$dir.$row['file']."\">".$row['file']."</a></text>"
                   ?>
               <?php 
                   echo form_open_multipart('student/lectures/upload');
@@ -127,9 +127,9 @@
                   echo form_hidden('faculty_id',$row['user_id']);
                   echo form_upload('userfile');
                   echo form_submit('submit','Upload');
-                  echo form_close();     
-       } ?>
-      </p> 
+                  echo form_close(); 
+
+          }?>  </p>
 
 			</div>
 			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
