@@ -1,29 +1,33 @@
-
-<!-- start page -->
-<div id="wrapper">
-<div id="page">
 <!-- start of sidebar1 -->
 	<div id="sidebar1">
 		<ul>
 			<li>
-				
-				<ul>&nbsp;&nbsp;
-				<strong></strong><br>&nbsp;&nbsp;
-				<i><strong</strong></i>
-				</ul>
+				<h2>Assignments</h2>
+				<?php
+					if($assignment_info != null){
+						foreach($assignment_info as $row){
+			//			echo date('m',$row['deadline']);
+						echo "<ul>&nbsp;&nbsp; 
+							<strong>{$row['file']}</strong><br>&nbsp;&nbsp;
+							<i>C0urse: <strong>{$row['course_id']}</strong></i><br>
+							<i>Deadline: <strong>{$row['deadline']}</strong></i><br><br>
+							</ul>";
+						}
+					}
+				?>
 				
 			</li>
 			<li>
-				<h2></h2>
+				<h2>Important Dates</h2>
 				<ul>
 					<table class="tab">
 				<tr>
-				<th></th>
-				<th></th>
+				<th>Date</th>
+				<th>Description</th>
 				</tr>
 				<tr>
-				<td></td>
-				<td></td>
+				<td>25 March, 2011</td>
+				<td>SEM VI</td>
 				</tr>
 				<tr>
 				<td>28 March, 2011</td>
@@ -36,24 +40,6 @@
 		</ul>
 	</div>
 <!-- end of sidebar2 -->
-	<!-- start content -->
-	<div id="content">
-		<div class="post">
-			<h2 class="title"><a href="#">Lectures</a></h2>
-			<div class="entry">
-				<p>Select the course on right by clicking to get lecture Details </p>
-			</div>
-			
-		</div>
-		<div class="post">
-			<h2 class="title"><a href="#">Upload Lectures</a></h2>
-			<div class="entry">
-				<p>Select the course on right by clicking to upload a lecture </p>
-			</div>
-			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
-		</div>
-	</div>
-	<!-- end content -->
 	<!-- start sidebar -->
 		<div id="sidebar">
 		<ul>
@@ -102,11 +88,22 @@
 		</ul>
 	</div>
 	<!-- end sidebar -->
+	<!-- start content -->
+	<div id="content">
+		<div class="post">
+			<h2 class="title"><a href="#">Lectures</a></h2>
+			<div class="entry">
+				<p>Select the course on right by clicking to get lecture Details </p>
+			</div>
+			
+		</div>
+		<div class="post">
+			<h2 class="title"><a href="#">Upload Lectures</a></h2>
+			<div class="entry">
+				<p>Select the course on right by clicking to upload a lecture </p>
+			</div>
+			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
+		</div>
+	</div>
+	<!-- end content -->
 
-	<div style="clear: both;">&nbsp;</div>
-</div>
-</div><!-- end page -->
-</div>
-
-</body>
-</html>

@@ -15,7 +15,7 @@
       <?php endif;?>
   </head>  
   <body>
-  <div id="header">
+  <div id="page">
     <div id="logo">
       <img src="<?php echo base_url(); ?>assets/images/new2_01.gif"/>
     </div>  

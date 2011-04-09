@@ -30,4 +30,8 @@ Faculty:
 student:
 - remove "edit" link on course_reg after last date of registration
 - once logged in, invoking academics.daiict.ac.in in another tab should take user to home page instead of login page
+- student home page and registration page have different "imp dates" table
+
+faculty:
+- redirect to login page if some other link is copy-pasted to location bar w/o login
 

@@ -23,7 +23,7 @@ class Faculty extends CI_Controller {
 		$data['timetable']=$this->faculty_model->get_upcoming_lectures();
 		$data['announcements']=$this->faculty_model->get_announcements();
 		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
-		$data['css'] = 'faculty_home.css';
+		$data['css'] = 'style.css';
 		$data['navigation'] = 'faculty/faculty_navigation';
 		$data['maincontent'] = 'faculty/home';
 	    $this->load->view('includes/template', $data);
@@ -33,7 +33,8 @@ class Faculty extends CI_Controller {
 		$this->load->model('faculty/faculty_model');
 		$data['btech_courses']=$this->faculty_model->get_present_btech_courses();
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
-		$data['css'] = 'faculty_gradehome.css';
+		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
+		$data['css'] = 'style.css';
 		$data['navigation'] = 'faculty/faculty_navigation.php';
 		$data['maincontent'] = 'faculty/gradehome.php';
 	    $this->load->view('includes/template', $data);
@@ -44,7 +45,7 @@ class Faculty extends CI_Controller {
 		$data['stu_list'] = $this->faculty_model->get_stu_list($cid);
 		$data['btech_courses']=$this->faculty_model->get_present_btech_courses();
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
-		$data['css'] = 'faculty_gradingpage.css';
+		$data['css'] = 'style.css';
 		$data['navigation'] = 'faculty/faculty_navigation.php';
 		$data['maincontent'] = 'faculty/gradingpage.php';
 		$data['javascript'] = 'gradefunc.js';
@@ -56,7 +57,8 @@ class Faculty extends CI_Controller {
 		$data['btech_courses']=$this->faculty_model->get_present_btech_courses();
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
 		$data['details'] = $this->faculty_model->get_faculty_details();
-		$data['css'] = 'faculty_profilepage.css';
+		$data['css'] = 'style.css';
+		//$data['css'] = 'faculty_profilepage.css';
 		$data['navigation'] = 'faculty/faculty_navigation.php';
 		$data['maincontent'] = 'faculty/profilepage.php';
 	    $this->load->view('includes/template', $data);
@@ -82,7 +84,7 @@ class Faculty extends CI_Controller {
 		$data['timetable']=$this->faculty_model->get_upcoming_lectures();
 		$data['announcements']=$this->faculty_model->get_announcements();
 		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
-		$data['css'] = 'faculty_lectureshome.css';
+		$data['css'] = 'style.css';
 		$data['navigation'] = 'faculty/faculty_navigation.php';
 		$data['maincontent'] = 'faculty/lectureshome.php';
 	    $this->load->view('includes/template', $data);
@@ -138,7 +140,8 @@ class Faculty extends CI_Controller {
 		$this->load->model('faculty/faculty_model');
 		$data['btech_courses']=$this->faculty_model->get_present_btech_courses();
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
-		$data['css'] = 'faculty_assignmentshome.css';
+		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
+		$data['css'] = 'style.css';
 		$data['navigation'] = 'faculty/faculty_navigation.php';
 		$data['maincontent'] = 'faculty/assignmentshome.php';
 		$this->load->view('includes/template', $data);

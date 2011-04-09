@@ -144,13 +144,12 @@ hr {
 }
 
 /* Page */
-/*
+
 #page {
 	width: 1000px;
 	margin: 0 auto;
-	padding-top: 20px;
 }
-*/
+
 /* Content */
 
 #content {
@@ -158,6 +157,7 @@ hr {
 	margin-right:auto;
 	margin-left:auto;
 	width: 57%;
+	min-height: 500px;
 }
 
 .post {
