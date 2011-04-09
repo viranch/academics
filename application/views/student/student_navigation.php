@@ -1,4 +1,4 @@
-<div class="example">
+<div class="navigation">
 <ul class="adxm menu">
   <li class="navac">
     <?php
@@ -37,4 +37,3 @@
 
 </div>  
 <br/>
-<hr />

@@ -1,7 +1,3 @@
-
-<div id="wrapper">
-<div id="page">
-
 	<!-- start content -->
 	<div id="content">
 		<div class="post">
@@ -159,6 +155,3 @@
 	
 	<!-- end sidebar -->
 
-	<div style="clear: both;">&nbsp;</div>
-</div>
-</div><!-- end page -->

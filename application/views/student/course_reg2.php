@@ -5,9 +5,6 @@ $(document).ready(function(){
   });
 });
 </script>
-<!-- start page -->
-<div id="wrapper">
-<div id="page">
 <!-- start of sidebar1 -->
 <div id="sidebar1">
   <ul>
@@ -82,6 +79,40 @@ $(document).ready(function(){
   </ul>
 </div>
 <!-- end of sidebar2 -->
+<!-- start sidebar -->
+	<div id="sidebar">
+		<ul>
+			<li>
+				<h2>Courses</h2>
+        <h3>
+        <?php
+          if(isset($batch))
+            echo "{$batch['0']['semester']}";
+        ?>
+        </h3>
+        <ul>
+        <?php
+         if(isset($courses)){
+           foreach ($courses as $row) {
+              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."</li>";//all the courses links need to be given
+           }
+         }
+        ?>
+        </ul>
+      </li>
+			<li>
+				<h2>Resources</h2>
+				<ul>
+					<li><a href="http://webmail.daiict.ac.in" target="_blank">Webmail</a></li>
+					<li><a href="http://resourcecentre.daiict.ac.in:8081/webslim/default.asp" target="_blank">Resource Center</a></li>
+					<li><a href="http://intranet.daiict.ac.in/~daiict_nt01/" target="_blank">\\daiictpdc</a></li>
+					<li><a href="http://intranet.daiict.ac.in" target="_blank">Intranet</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+	<!-- end sidebar -->
 <!-- start content -->
 <div id="content">
   <div class="post">
@@ -143,48 +174,8 @@ $(document).ready(function(){
       </table>
       
       <!-- start of elective courses -->
-		<div class="buttonwrapper">
-		</div>	
 		</div> <!-- end entry -->
 		</div><!-- end post -->
 	</div>
 <!-- end content -->
-<!-- start sidebar -->
-	<div id="sidebar">
-		<ul>
-			<li>
-				<h2>Courses</h2>
-        <h3>
-        <?php
-          if(isset($batch))
-            echo "{$batch['0']['semester']}";
-        ?>
-        </h3>
-        <ul>
-        <?php
-         if(isset($courses)){
-           foreach ($courses as $row) {
-              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."</li>";//all the courses links need to be given
-           }
-         }
-        ?>
-        </ul>
-      </li>
-			<li>
-				<h2>Resources</h2>
-				<ul>
-					<li><a href="http://webmail.daiict.ac.in" target="_blank">Webmail</a></li>
-					<li><a href="http://resourcecentre.daiict.ac.in:8081/webslim/default.asp" target="_blank">Resource Center</a></li>
-					<li><a href="http://intranet.daiict.ac.in/~daiict_nt01/" target="_blank">\\daiictpdc</a></li>
-					<li><a href="http://intranet.daiict.ac.in" target="_blank">Intranet</a></li>
-				</ul>
-			</li>
-			
-		</ul>
-	</div>
-	<!-- end sidebar -->
-
-	<div style="clear: both;">&nbsp;</div>
-</div>
-<?php
 

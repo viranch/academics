@@ -108,6 +108,40 @@ $slots['audit']=1;
   </ul>
 </div>
 <!-- end of sidebar2 -->
+<!-- start sidebar -->
+	<div id="sidebar">
+		<ul>
+			<li>
+				<h2>Courses</h2>
+        <h3>
+        <?php
+          if(isset($batch))
+            echo "{$batch['0']['semester']}";
+        ?>
+        </h3>
+        <ul>
+        <?php
+         if(isset($courses)){
+           foreach ($courses as $row) {
+              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."</li>";//all the courses links need to be given
+           }
+         }
+        ?>
+        </ul>
+      </li>
+			<li>
+				<h2>Resources</h2>
+				<ul>
+					<li><a href="http://webmail.daiict.ac.in" target="_blank">Webmail</a></li>
+					<li><a href="http://resourcecentre.daiict.ac.in:8081/webslim/default.asp" target="_blank">Resource Center</a></li>
+					<li><a href="http://intranet.daiict.ac.in/~daiict_nt01/" target="_blank">\\daiictpdc</a></li>
+					<li><a href="http://intranet.daiict.ac.in" target="_blank">Intranet</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+	<!-- end sidebar -->
 <!-- start content -->
 <?php
 echo form_open('student/student/val_reg');
@@ -323,40 +357,6 @@ echo form_open('student/student/val_reg');
 		</div><!-- end post -->
 	</div>
 <!-- end content -->
-<!-- start sidebar -->
-	<div id="sidebar">
-		<ul>
-			<li>
-				<h2>Courses</h2>
-        <h3>
-        <?php
-          if(isset($batch))
-            echo "{$batch['0']['semester']}";
-        ?>
-        </h3>
-        <ul>
-        <?php
-         if(isset($courses)){
-           foreach ($courses as $row) {
-              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."</li>";//all the courses links need to be given
-           }
-         }
-        ?>
-        </ul>
-      </li>
-			<li>
-				<h2>Resources</h2>
-				<ul>
-					<li><a href="http://webmail.daiict.ac.in" target="_blank">Webmail</a></li>
-					<li><a href="http://resourcecentre.daiict.ac.in:8081/webslim/default.asp" target="_blank">Resource Center</a></li>
-					<li><a href="http://intranet.daiict.ac.in/~daiict_nt01/" target="_blank">\\daiictpdc</a></li>
-					<li><a href="http://intranet.daiict.ac.in" target="_blank">Intranet</a></li>
-				</ul>
-			</li>
-			
-		</ul>
-	</div>
-	<!-- end sidebar -->
 
 	<div style="clear: both;">&nbsp;</div>
 </div>

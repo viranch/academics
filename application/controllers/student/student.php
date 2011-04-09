@@ -10,8 +10,8 @@ class Student extends CI_Controller {
     }
 
     function index(){ 
-      $data['css'] = 'style_home.css';
-      $data['javascript'] = 'default.js';
+      $data['css'] = 'style.css';
+      $data['javascript'] = '';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/home';
       $this->load->model('student/student_model');
@@ -41,7 +41,7 @@ class Student extends CI_Controller {
       $data['courses']=$this->student_model->get_present_courses();
 
       //$this->load->view('student/registration',$data);
-      $data['css'] = 'style_home.css';
+      $data['css'] = 'style.css';
       $data['javascript'] = 'registration.js';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/course_reg';
@@ -58,7 +58,7 @@ class Student extends CI_Controller {
         redirect('student/student/registration');
       $data['batch']=$this->student_model->get_batch();
       $data['courses']=$this->student_model->get_present_courses();
-      $data['css'] = 'style_home.css';
+      $data['css'] = 'style.css';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/course_reg1';
       $data['reg']=$this->student_model->get_all_courses_offered($data['batch']);   
@@ -221,7 +221,7 @@ class Student extends CI_Controller {
      */
     function profile()
     {
-      $data['css'] = 'style_home.css';
+      $data['css'] = 'style.css';
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/student_profile';
@@ -238,7 +238,7 @@ class Student extends CI_Controller {
     function grades()
     {
       $this->load->model('student/student_model');
-      $data['css'] = 'style_home.css';
+      $data['css'] = 'style.css';
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/grades';
@@ -256,7 +256,7 @@ class Student extends CI_Controller {
       $data['batch']=$this->student_model->get_batch();
       $data['courses']=$this->student_model->get_present_courses();
       $data['drop']=$this->student_model->get_drop_courses();
-      $data['css'] = 'style_home.css';
+      $data['css'] = 'style.css';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/course_reg2';
       $data['javascript'] = 'default.js';

@@ -144,20 +144,20 @@ hr {
 }
 
 /* Page */
-
+/*
 #page {
 	width: 1000px;
 	margin: 0 auto;
 	padding-top: 20px;
 }
-
+*/
 /* Content */
 
 #content {
-	float: right;
-	margin-right:15px;
-	/*width: 650px;*/
-	width: 62%;
+	float: center;
+	margin-right:auto;
+	margin-left:auto;
+	width: 57%;
 }
 
 .post {
@@ -167,7 +167,6 @@ padding:auto
 .post .title {
 	margin: 0;
 	padding: 15px 20px 10px 10px;
-	//border-bottom: 1px dotted #D6C9BF;
 	border-bottom: 1px solid #369;
 }
 
@@ -203,6 +202,10 @@ padding:auto
 	color: #369;
 }
 
+#grades {
+	width: auto;
+}
+
 #gradetable {
 	border: 1px solid white;
 	width: 100%;
@@ -224,7 +227,6 @@ padding:auto
 table {
 	border-collapse: collapse;
 	width: 95%;
-	margin: 24px;
 	font-size: 1.1em;
 }
  
@@ -271,8 +273,7 @@ tr.over td, tr:hover td {
 
 #sidebar {
 	float: left;
-	padding: auto;
-	width: 15%;
+	width: 20%;
 }
 
 #sidebar ul {
@@ -632,14 +633,14 @@ height:42px;width: auto;float:left;text-decoration:none;padding:0px;color: #fff;
 /*URL: http://www.dynamicdrive.com/style/ */
 
 a.ovalbutton{
-background: transparent url('images/oval-left.gif') no-repeat top left;
-display: block;
-float: left;
-font: normal 13px Tahoma; /* Change 13px as desired */
-line-height: 16px; /* This value + 4px + 4px (top and bottom padding of SPAN) must equal height of button background (default is 24px) */
-height: 24px; /* Height of button background height */
-padding-left: 11px; /* Width of left menu image */
-text-decoration: none;
+	background: transparent url('images/oval-left.gif') no-repeat top left;
+	display: block;
+	float: left;
+	font: normal 13px Tahoma; /* Change 13px as desired */
+	line-height: 16px; /* This value + 4px + 4px (top and bottom padding of SPAN) must equal height of button background (default is 24px) */
+	height: 24px; /* Height of button background height */
+	padding-left: 11px; /* Width of left menu image */
+	text-decoration: none;
 }
 
 a:link.ovalbutton, a:visited.ovalbutton, a:active.ovalbutton {
