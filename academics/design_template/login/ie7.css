@@ -1,0 +1,71 @@
+/* IE 7 rules */
+#navbar { margin:0; }
+
+#navbar.hide {margin-top:0px !important;}
+span#motto { margin:0 0 0 650px; }
+#sitesearch { margin:-42px 0 0 55px; }
+
+#feat1,#feat2,#feat3,#feat4,#feat5 { margin-left:-21px; }
+#content ol { margin-left: 0; list-style-type: decimal; list-style-position: outside; }
+#content ol li {margin-left:25px;}
+div.grad ul li, #currentstaff ul li, #prospectivestaff ul li, div.undergrad ul li, body#academics #content ul li, body.lo5 #content ul li, body#directories #col1 ul li, body#directories #col2 ul li, #researchnews ul li, #quicklinks #content ul li, #spotlight ul li, #academicprogs ul li, #orgchart ul li { list-style-image: url(/i/template/greybullet_ie.gif); margin-left:18px; }
+body#research #content ul { margin-left: 2px; margin-top: -8px; }
+body#research #content ul li { list-style-image:url(/i/template/greybullet_ie.gif); }
+
+/* Homepage */
+
+#home #bottomrow { margin-top: 4px; }
+#home .lead h4 a, #home .story h4 a { font-size: .6em; }
+span#motto { position: absolute; margin: -13px 0 0 655px; height: 30px; }
+#sitesearch { margin-left: 720px; }
+#events dl { margin-top: -9px; }
+div#news, #mainfeature { height: 369px; }
+div#news h3 { margin-bottom: 5px; }
+#timelyfeature h3, #weeklyfeature h3 { margin-bottom: 3px; }
+
+/* Internal */
+
+form.awesome legend { margin-left: -6px; }
+hr { margin-bottom: 0; }
+div#vid h3 { font-size:1.1em; }
+div#controls { padding-bottom: 0; }
+div#curfeatures { padding-top: 10px; }
+div#curfeatures .hl h4 a { font-size:.8em; }
+div#curfeatures .story { height: 75px; }
+div#researchnews h3 { margin-bottom: 0; }
+div.undergrad h3, div.grad h3 { margin-top: 5px; }
+body#students #col1, body#students #col2 { margin-right:9px; }
+body#students #col3, 
+body#alumni #col2 { margin-right:0; }
+body#community #col3, 
+body#alumni #col2 { width:200px; }
+#content div#chicagolife p, #content div#comminvolve p { width: 360px; font-size: 1.1em; }
+body#community div#chicagolife p { width: 100%; }
+div#comminvolve { padding-bottom: 18px; }
+div#comminvolve h3 { margin-top: -6px !important; }
+div#chicagolife { float: left; }
+.imglt { margin-top:4px; }
+#story1, #story2, #story3, #story4, #story5 { margin-left:-21px; }
+#currentstaff dl { width: 210px; }
+blockquote p cite { clear: none; }
+#facts h3 { margin-bottom: 0px; }
+#facts h3 + dl { padding-top: 8px; }
+#facts dd  { background:transparent url(/i/template/greybullet.gif) 10px 11px no-repeat; }
+
+/* News pages */
+
+a#bookmark { margin-top: 13px; }
+body#feature div.staticmenu hr { margin-top: 5px; }
+.story h4 a { margin: 0  0pt 0em 80px; }
+h4.chrontop a { margin-top: -13px; }
+ul li.archive { font-size: 1.1em; }
+div#pr { padding-bottom: 0px; }
+div#pr h3 { margin-top: 8px; }
+div#pr dl { margin-bottom: -10px; }
+div#cin h3 { margin-top: 8px; }
+
+/*
+body#quicklinks #col1, body#quicklinks #col2 { height: 100%!important; position:relative; }
+*/
+
+table#searchresults {font-size:.9em;}
