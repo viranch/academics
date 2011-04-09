@@ -93,8 +93,7 @@
 		<div class="post">
 			<h2 class="title"><a href="#"> Anouncements</a></h2>
 			<div class="entry">
-        <?php if(isset($announcements)){
-              foreach ($announcements as $row){?>
+        <?php foreach ($announcements as $row){?>
           
         <p class="ann_p"><strong><text class ="ann_name">
           <?php 
@@ -109,7 +108,7 @@
         <strong><i><?php
           echo "{$row['sent_date']}";
         ?></i></strong></p>
-        <?php }}?>
+        <?php }?>
 
 				
 			</div>
@@ -118,15 +117,14 @@
 		<div class="post">
 			<h2 class="title"><a href="#">Deadlines</a></h2>
 			<div class="entry">
-      <?php   if(isset($deadlines)){
-              foreach ($deadlines as $row) {
+       <?php foreach ($deadlines as $row) {
                   if($row['deadline']!= 0000-00-00){ ?>
                     <p class="ann_p"><strong><text class="ann_name"> <?php echo "{$row['course_id']}";?></text></strong><br>&nbsp;&nbsp;
                     <?php echo "{$row['description']}";?>
                     <strong><br>&nbsp;&nbsp;<?php
                       echo "{$row['deadline']}";
                     ?></strong></p>
-              <?php }}} ?> 
+              <?php }} ?> 
 
 			</div>
 			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->

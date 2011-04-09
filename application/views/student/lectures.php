@@ -85,7 +85,7 @@
 		<div class="post">
 			<h2 class="title"><a href="#">Lectures</a></h2>
 			<div class="entry">
-        <?php 
+        <?php if(isset($lectures)){ 
         $dir=base_url()."lectures/";  
         foreach ($lectures as $row){?>
           
@@ -100,7 +100,7 @@
         <strong><i><?php
           echo "{$row['date']}";
         ?></i></strong></p>
-        <?php }?>
+        <?php }}?>
 
 				
 			</div>

@@ -93,7 +93,7 @@ class Student extends CI_Controller {
         }
         $count++;
       }
-    
+      
       $glo_count=0;
       
       for($count1=0;$count1 < $this->input->post('elective');$count1++){
@@ -154,21 +154,22 @@ class Student extends CI_Controller {
         }
         $count++;
       }
-      $total_courses=count($courses)+count($elec)+count($grade)+count($audit)+count($backlog);  
-      if(isset($restrictions)){
-        if($restrictions['0']['courses_number'] < $total_courses){
-          $message="Sorry_exceeding_total_courses";
-          redirect('student/student/show_unapproved/'.$message);
-        }
-        if($restrictions['0']['deadline'] < date("Y-m-d")){
-          $message="The_registration_is_closed";
-          redirect('student/student/show_unapproved/'.$message);
-        }
-        if($restrictions['0']['credits']< $totalcredits){
-          $message="Exceeding_credits";
-          redirect('student/student/show_unapproved/'.$message);
-        }
+      
+      $total_courses=count($courses)+count($elec)+count($grade)+count($audit)+count($backlog);
+      
+      if($restrictions['0']['courses_number'] < $total_courses){
+        $message="Sorry_exceeding_total_courses";
+        redirect('student/student/show_unapproved/'.$message);
       }
+      if($restrictions['0']['deadline'] < date("Y-m-d")){
+        $message="The_registration_is_closed";
+        redirect('student/student/show_unapproved/'.$message);
+      }
+      if($restrictions['0']['credits']< $totalcredits){
+        $message="Exceeding_credits";
+        redirect('student/student/show_unapproved/'.$message);
+      }
+      
       $status=$this->registration_model->get_unapproved();
       if($status==1){
         $this->registration_model->delete_unapproved();

@@ -106,6 +106,9 @@ class Student_model extends CI_model{
     if($query->num_rows() > 0) {
         return $query->result_array();
      }
+    else {
+      echo "No course is registered";
+    }
   }
   
   /*
@@ -115,15 +118,16 @@ class Student_model extends CI_model{
   function get_deadlines($num=1)
   {
     $courses=$this->get_present_courses();
-    if(isset($courses)){
-      $query="select * from acad_assig_create where course_id='".$courses['0']['course_id']."'";
-      foreach ($courses as $row) {
-        $query=$query." or '".$row['course_id']."'";
-      }  
-      $query = $this->db->query($query);
-      if($query->num_rows() > 0) {
+    $query="select * from acad_assig_create where course_id='".$courses['0']['course_id']."'";
+    foreach ($courses as $row) {
+      $query=$query." or '".$row['course_id']."'";
+    }  
+    $query = $this->db->query($query);
+    if($query->num_rows() > 0) {
         return $query->result_array();
-      }
+    }
+    else {
+      echo "No deadlines set";
     }
   }
   
@@ -155,6 +159,9 @@ class Student_model extends CI_model{
       
       if($query->num_rows() > 0) {
         return $query->result_array();
+      }
+      else{
+        echo "No announcements";
       }
     }
   

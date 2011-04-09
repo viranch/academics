@@ -83,8 +83,7 @@
 			<h2 class="title">Grades</h2>
 			<div class="entry">
       <p><strong><text class ="ann_name"><?php echo $course['0']['semester'];?></text></strong><br>
-        <?php if(isset($courses)){?>
-        <table id="sem1">
+				<table id="sem1">
 				<thead>
 				<tr>
 					<th width=50%>Course</th>
@@ -95,8 +94,7 @@
         </thead>
         <?php $count=0;$gradepoints=0; ?>
 				<tbody>
-          <?php 
-                foreach ($course as $row) {?>
+          <?php foreach ($course as $row) {?>
         <tr>
         <td><text class="sub_ann_name"><a href="http://link.to/course_page"><?php echo $row['course_name']." (.".$row['course_id'].")";?></a></text></td>
         <td><text class="sub_ann_name"><?php echo $row['credits'];?></text></td>
@@ -106,8 +104,7 @@
         <?php $count=$count+$row['credits'];
               $gradepoints=$gradepoints+$row['gradepoints'];}?>
 				</tbody>
-        </table>
-        <?php } ?>
+				</table>
 				<table id="gradetable_head">
 				<tr>
 				<td width=40%><strong>Current Semester Performance</strong></td>
