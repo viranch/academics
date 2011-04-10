@@ -2,7 +2,7 @@
 	<div id="sidebar1">
 		<ul>
 			<li>
-				<h2>Lecture Timetable</h2>
+				<h2>Lectures today</h2>
 				<table class="tab">
         <tr>
 				  <th>Course</th>
@@ -23,7 +23,7 @@
 				</table>
 			</li>
 			<li>
-							<h2>Lab timetable</h2>
+							<h2>Labs Today</h2>
 				<ul>
 					<table class="tab">
 				<tr>
@@ -51,25 +51,6 @@
 				</ul>
 			</li>
 			<li>
-				<h2>Important Dates</h2>
-				<ul>
-					<table class="tab">
-				<tr>
-				<th>start</th>
-        <th>Event</th>
-        <th>end</th>
-        </tr>
-        <?php
-        if(isset($important_dates)){  
-          foreach ($important_dates as $row) {
-            echo "<tr><td>{$row['start_date']}</td>";
-            echo "<td>{$row['description']}</td>";
-            echo "<td>{$row['end_date']}</td></tr>";
-          }
-        }
-        ?>
-				</table>
-				</ul>
 
 			</li>
 		</ul>
@@ -79,18 +60,16 @@
 	<div id="sidebar">
 		<ul>
 			<li>
-				<h2>Courses</h2>
+				<h2>Courses(Ongoing)</h2>
         <h3>
         <?php
-          if(isset($batch))
-            echo "{$batch['0']['semester']}";
         ?>
         </h3>
         <ul>
         <?php
          if(isset($courses)){
            foreach ($courses as $row) {
-              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."</li>";//all the courses links need to be given
+              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."<br>{$row['course_name']}</li>";//all the courses links need to be given
            }
          }
         ?>
@@ -102,7 +81,7 @@
 				<ul>
 					<li><a href="http://webmail.daiict.ac.in" target="_blank">Webmail</a></li>
 					<li><a href="http://resourcecentre.daiict.ac.in:8081/webslim/default.asp" target="_blank">Resource Center</a></li>
-					<li><a href="http://intranet.daiict.ac.in/~daiict_nt01/" target="_blank">\\daiictpdc</a></li>
+					<li><a href="http://library.daiict.ac.in" target="_blank">Library</a></li>
 					<li><a href="http://intranet.daiict.ac.in" target="_blank">Intranet</a></li>
 				</ul>
 			</li>

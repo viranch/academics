@@ -62,8 +62,12 @@ class announce_model extends CI_model{
   }
   function insert_restrictions()
   {
+    $this->input->post('sem_id');
     $data = array('program' =>$this->input->post('program'),
-                  'batch_year'=>$this->input->post('batch_year'),
+                  'sem_id'=>$this->input->post('sem_id'),
+                  'min_credits'=>$this->input->post('min_credits'),
+                  'min_courses'=>$this->input->post('min_courses'),
+                  'opening_date'=>$this->input->post('opening_date'),
                   'credits'=>$this->input->post('max_credits'),
                   'courses_number'=>$this->input->post('max_courses'),
                   'deadline'=>$this->input->post('deadline'));
@@ -73,14 +77,14 @@ class announce_model extends CI_model{
   function delete_restrictions()
   {
     $program=$this->input->post('program');
-    $year=$this->input->post('batch_year');
-    $query="delete from acad_restrictions where program='".$program."' and batch_year=".$year;
+    $sem_id=$this->input->post('sem_id');
+    $query="delete from acad_restrictions where program='".$program."'"." and sem_id=".$sem_id;
     $query = $this->db->query($query);
     
   }
   function get_acad_restrictions()
   {
-    $query="select * from acad_restrictions";
+    $query="select * from acad_restrictions A,acad_sem_list B where A.sem_id=B.sem_id";
     $query = $this->db->query($query);
      if($query->num_rows() > 0) {
         return $query->result_array();
@@ -90,19 +94,30 @@ class announce_model extends CI_model{
   {
     $array=array('credits'=>$this->input->post('max_credits'),
       'courses_number'=>$this->input->post('max_courses'),
+      'min_courses'=>$this->input->post('min_courses'),
+      'min_credits'=>$this->input->post('min_credits'),
+      'opening_date'=>$this->input->post('opening_date'),
       'deadline'=>$this->input->post('deadline'));
     $this->db->update('acad_restrictions',$array);
   
   }
   function is()
   {
-    $query="select * from acad_announce where program='".$this->input->post('program')."' and batch_year=".$this->input->post('batch_year');
+    $query="select * from acad_restrictions where program='".$this->input->post('program')."' and sem_id=".$this->input->post('sem_id');
     $query = $this->db->query($query);
     $data=1;
     if($query->num_rows() > 0) {
         return  $data;
     }
 
+  }
+  function sem_list()
+  {
+    $query="select * from acad_sem_list";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
   }
 }
 ?>

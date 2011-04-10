@@ -36,75 +36,67 @@ $slots['audit']=1;
 <div id="page">
 <!-- start of sidebar1 -->
 <div id="sidebar1">
-  <ul>
+    <ul>
     <li>
       <h2>Registration Status</h2>
       <table class="tab">
       <tr>
       <td>Student Registration</td>
-      <td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Complete" src="images/task-complete.png"></td>
+      <td align="center"><?php if($approval==1) echo "Submitted"; else echo "Not submitted";?></td>
       </tr>
       <tr>
-      <td>UGC/PGC Approval</td>
-      <td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Ongoing" src="images/chronometer.png"></td>
-      </tr>
-      <tr>
-      <td>Registrar Approval</td>
-      <td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Ongoing" src="images/chronometer.png"></td>
+      <td>UGC/PGC/Registrar Approval</td>
+      <td align="center"><?php if($ugcapproval==1) echo "approved"; else echo "pending";?></td>
       </tr>
       <tr>
       <td>Fees Approval</td>
-      <td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Ongoing" src="images/chronometer.png"></td>
+      <td align="center">Unknown</td>
       </tr>
       </table>
     </li>
-    <li>
-      <h2>Electives Status</h2>
-      <ul>
-      <table class="tab">
-        <tr>
-          <td>Group Electives</td>
-          <td align="right">1/2</td>
-        </tr>
-        <tr>
-          <td>Technical Electives</td>
-          <td align="right">2/4</td>
-        </tr>
-        <tr>
-          <td>Science Electives</td>
-          <td align="right">2/2</td>
-        </tr>
-        <tr>
-          <td>Open Electives</td>
-          <td align="right">2/2</td>
-        </tr>
-        <tr>
-          <td><strong>Elective Credits</strong></td>
-          <td align="right"><strong>25.5/31</strong></td>
-        </tr>
-      </table>
-      </ul>
-    </li>
-    <li>
-      <h2>Important Dates</h2>
-      <ul>
-        <table class="tab">
-      <tr>
-      <th>Date</th>
-      <th>Description</th>
-      </tr>
-      <tr>
-      <td>25 March, 2011</td>
-      <td>SEM VI</td>
-      </tr>
-      <tr>
-      <td>28 March, 2011</td>
-      <td>Hanuman Jayanti</td>
-      </tr>
-      </table>
-      </ul>
-
-    </li>
+   <li>
+				<h2>Electives Status</h2>
+				<ul>
+				<table class="tab">
+<?php $group=0;
+      $open=0;
+  $technical=0;
+      $science=0;
+      if(isset($elective)){ 
+      
+      foreach ($elective as $row) {
+        if($row['category']=='group')
+          $group++;
+        if($row['category']=='open')
+          $open++;
+        if($row['category']=='technical')
+          $technical++;
+      if($row['category']=='science')
+        $science++;
+      }
+    }
+?>
+          
+          <tr>
+						<td>Group Electives</td>
+            <td align="right"><?php echo $group;?></td>
+					</tr>
+					<tr>
+						<td>Technical Electives</td>
+            <td align="right"><?php echo $technical;?></td>
+					</tr>
+					<tr>
+						<td>Science Electives</td>
+            <td align="right"><?php echo $science;?></td>
+					</tr>
+					<tr>
+						<td>Open Electives</td>
+            <td align="right"><?php echo $open;?></td>
+					</tr>
+				</table>
+				</ul>
+			</li>
+    
   </ul>
 </div>
 <!-- end of sidebar2 -->
@@ -112,18 +104,14 @@ $slots['audit']=1;
 	<div id="sidebar">
 		<ul>
 			<li>
-				<h2>Courses</h2>
+				<h2>Courses(Ongoing)</h2>
         <h3>
-        <?php
-          if(isset($batch))
-            echo "{$batch['0']['semester']}";
-        ?>
         </h3>
         <ul>
         <?php
          if(isset($courses)){
            foreach ($courses as $row) {
-              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."</li>";//all the courses links need to be given
+              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."<br>{$row['course_name']}</li>";//all the courses links need to be given
            }
          }
         ?>
@@ -155,10 +143,15 @@ echo form_open('student/student/val_reg');
           <!-- semseter list display -->
           <p><strong><text class ="ann_name">
             <?php
+              echo "Register for ";
               echo "{$reg[0]['semester']}";
             ?>
           </text></strong><br><br>
-      
+           <?php 
+              if(isset($message)){
+                echo "<h2>{$message}</h2>";
+              }
+            ?>
 
       <!-- core courses list display -->
       <table id="core">
@@ -260,10 +253,11 @@ echo form_open('student/student/val_reg');
         <th>Credits</th>
       </tr>
       </thead>
-      
-      <tbody>
+
+    
       <?php if(isset($gradeimprovement)){
-            foreach ($gradeimprovement as $row) {?>
+            echo "<thead>";
+          foreach ($gradeimprovement as $row) {?>
       <tr>
         <td><?php echo form_checkbox($slots['next'],$row['course_id'], FALSE); ?></td>
         <td width=80%><text class="sub_ann_name"><a href="http://link.to/course_page"><?php
@@ -280,6 +274,7 @@ echo form_open('student/student/val_reg');
       ?>
       </tbody>
       </table>
+      <div></div>
       <table id="backlog">
       <thead>
       <tr>
@@ -348,10 +343,11 @@ echo form_open('student/student/val_reg');
       echo form_hidden('grade',$slots['grade']-1);      
       echo form_hidden('backlog',$slots['backlog']-1);      
       echo form_hidden('audit',$slots['audit']-1);      
+      echo "<br>";
       echo form_submit('submit','Submit');
       echo form_close();
+      echo "<br>";
     ?>
-    <a class="ovalbutton" href="#"><span>Submit</span></a> <a class="ovalbutton" href="#" style="margin-left: 6px"><span>Reset</span></a>
 		</div>	
 		</div> <!-- end entry -->
 		</div><!-- end post -->
@@ -361,4 +357,3 @@ echo form_open('student/student/val_reg');
 	<div style="clear: both;">&nbsp;</div>
 </div>
 <?php
-

@@ -176,3 +176,4 @@
 </div>
 </div><!-- end page -->
 <?php
+print_r($lectures);

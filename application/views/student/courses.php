@@ -95,25 +95,24 @@
 	</div>
 	<!-- end sidebar -->
 	<!-- start content -->
-	<div id="content">
+<div id="content">
 		<div class="post">
-			<h2 class="title"><a href="#"> Announcements</a></h2>
+			<h2 class="title"><a href="#">Lectures</a></h2>
 			<div class="entry">
-        <?php if(isset($announcements)){
-              foreach ($announcements as $row){?>
+        <?php if(isset($lectures)){ 
+        $dir=base_url()."lectures/";  
+        foreach ($lectures as $row){?>
           
         <p class="ann_p"><strong><text class ="ann_name">
           <?php 
-              if($row['course_id']!='')
-                echo "{$row['course_id']}:";
-              echo "{$row['candidate_name']}";
+              echo "{$row['description']}";
           ?> 
-        </text></strong><br>
-        &nbsp;&nbsp;
-        <?php echo "{$row['message']}";?> <br>
+        </text></strong><br/><br/>
+        &nbsp;&nbsp; 
+        <?php echo "<a href=\"".$dir.$row['filename']."\">".$row['filename']."</a>"?> <br/>
         &nbsp;&nbsp; Posted on 
         <strong><i><?php
-          echo "{$row['sent_date']}";
+          echo "{$row['date']}";
         ?></i></strong></p>
         <?php }}?>
 
@@ -122,17 +121,29 @@
 			
 		</div>
 		<div class="post">
-			<h2 class="title"><a href="#">Assignment Deadlines</a></h2>
+			<h2 class="title"><a href="#">Assignments</a></h2>
 			<div class="entry">
-      <?php   if(isset($deadlines)){
-              foreach ($deadlines as $row) {
-                  if($row['deadline']!= 0000-00-00){ ?>
-                    <p class="ann_p"><strong><text class="ann_name"> <?php echo "{$row['course_id']}";?></text></strong><br>&nbsp;&nbsp;
-                    <?php echo "{$row['description']}";?>
-                    <strong><br>&nbsp;&nbsp;<?php
-                      echo "{$row['deadline']}";
-                    ?></strong></p>
-              <?php }}} ?> 
+       <?php foreach ($assgn as $row) {?>
+              <p class="ann_p"><strong><text class="ann_name"> 
+                  <?php echo "{$row['description']}";?>
+              </text></strong><br>&nbsp;&nbsp;
+                     
+        <br>&nbsp;&nbsp;
+                  <?php
+                  $dir=base_url()."lectures/";
+                  echo "<a href=\"".$dir.$row['file']."\">".$row['file']."</a></text>"
+                  ?>
+              <?php 
+                  echo form_open_multipart('student/lectures/upload');
+                  
+                  echo form_hidden('course_id', $row['course_id']);
+                  echo form_hidden('id', $row['assignment_id']);
+                  echo form_hidden('faculty_id',$row['user_id']);
+                  echo form_upload('userfile');
+                  echo form_submit('submit','Upload');
+                  echo form_close(); 
+
+          }?>  </p>
 
 			</div>
 			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->

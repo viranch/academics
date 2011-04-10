@@ -57,7 +57,8 @@ class Registration_model extends CI_model{
   }
   function get_deadline($batch)
   {
-    $query="select * from acad_restrictions where program='".$batch['0']['program']."' and batch_year=".$batch['0']['batch_year'];
+    $sem_id=$this->get_sem_offered($batch);
+    $query="select * from acad_restrictions where program='".$batch['0']['program']."' and sem_id=".$sem_id[0]['sem_id'];
     $query = $this->db->query($query);
     if($query->num_rows() > 0) {
         return $query->result_array();
@@ -69,6 +70,25 @@ class Registration_model extends CI_model{
     $query = $this->db->query($query);
      if($query->num_rows() > 0) {
         return $query->result_array();
+     }
+  }
+  function get_sem_offered($batch)
+  {
+    $query="select A.sem_id,semester from acad_cou_offer A,acad_sem_list B where status='active' and A.sem_id=B.sem_id and program='".$batch['0']['program']."' group by semester"; 
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  function get_UGC_approval()
+  {
+    $query="select * from acad_stu_cou where user_id=".$this->session->userdata('user_id')." and status='unapproved'";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return 0;
+     }
+     else{
+        return 1;
      }
   }
 }

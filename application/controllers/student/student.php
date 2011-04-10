@@ -11,14 +11,14 @@ class Student extends CI_Controller {
 
     function index(){ 
       $data['css'] = 'style.css';
-      $data['javascript'] = '';
+      $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/home';
       $this->load->model('student/student_model');
       $data['courses']=$this->student_model->get_present_courses();
       $data['batch']=$this->student_model->get_batch();
       $data['timetable']=$this->student_model->get_timetable($data['batch']);
-      $data['important_dates']=$this->student_model->get_important_dates(4);
+      $data['important_dates']=$this->student_model->get_important_dates(2);
       $data['announcements']=$this->student_model->get_announcements($data['batch'],5);
       $data['deadlines']=$this->student_model->get_deadlines();
       $this->load->view('includes/template',$data);
@@ -35,11 +35,17 @@ class Student extends CI_Controller {
     {
       
       $this->load->model('student/student_model');
+      $this->load->model('student/registration_model');
+      if($this->uri->segment(4))
+        $data['message']=str_replace('_',' ',$this->uri->segment(4));
       $data['batch']=$this->student_model->get_batch();
+      $data['approval']=$this->student_model->unapproved_exist();
+      $data['ugcapproval']=$this->registration_model->get_UGC_approval();
       $data['reg']=$this->student_model->get_all_courses_offered($data['batch']);
       $data['backlog']=$this->student_model->get_backlog($data['batch']);
       $data['courses']=$this->student_model->get_present_courses();
 
+      $data['elective']=$this->student_model->elective_status();
       //$this->load->view('student/registration',$data);
       $data['css'] = 'style.css';
       $data['javascript'] = 'registration.js';
@@ -54,6 +60,9 @@ class Student extends CI_Controller {
       if($this->uri->segment(4))
         $data['message']=str_replace('_',' ',$this->uri->segment(4));
       $this->load->model('student/student_model');
+      $this->load->model('student/registration_model');
+      $data['approval']=$this->student_model->unapproved_exist();
+      $data['ugcapproval']=$this->registration_model->get_UGC_approval();
       if($this->student_model->unapproved_exist() == 0)
         redirect('student/student/registration');
       $data['batch']=$this->student_model->get_batch();
@@ -61,7 +70,9 @@ class Student extends CI_Controller {
       $data['css'] = 'style.css';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/course_reg1';
+      $data['elective']=$this->student_model->elective_status();
       $data['reg']=$this->student_model->get_all_courses_offered($data['batch']);   
+      $data['restrict']=$this->registration_model->get_deadline($data['batch']);
       $data['unapproved']=$this->student_model->get_unapproved();
       $this->load->view('includes/template',$data);
     }
@@ -71,6 +82,7 @@ class Student extends CI_Controller {
      */
     function val_reg()
     {
+      
       $this->load->model('student/registration_model');
       $data['batch']=$this->registration_model->get_batch();
       $restrictions=$this->registration_model->get_deadline($data['batch']);
@@ -154,22 +166,29 @@ class Student extends CI_Controller {
         }
         $count++;
       }
-      
       $total_courses=count($courses)+count($elec)+count($grade)+count($audit)+count($backlog);
       
       if($restrictions['0']['courses_number'] < $total_courses){
         $message="Sorry_exceeding_total_courses";
-        redirect('student/student/show_unapproved/'.$message);
+        redirect('student/student/registration/'.$message);
       }
       if($restrictions['0']['deadline'] < date("Y-m-d")){
         $message="The_registration_is_closed";
-        redirect('student/student/show_unapproved/'.$message);
+        redirect('student/student/registration/'.$message);
       }
       if($restrictions['0']['credits']< $totalcredits){
         $message="Exceeding_credits";
-        redirect('student/student/show_unapproved/'.$message);
+        redirect('student/student/registration/'.$message);
       }
-      
+      if($restrictions['0']['min_credits']>$totalcredits){
+        $message="sorry_minimum_credits_limit_is_".$restrictions['0']['min_credits'];
+        redirect('student/student/registration/'.$message);
+      }
+      if($restrictions['0']['min_courses']>$total_courses){
+        $message="sorry_minimum_courses_limit_is_".$restrictions['0']['min_courses'];
+        redirect('student/student/registration/'.$message);
+      }
+       
       $status=$this->registration_model->get_unapproved();
       if($status==1){
         $this->registration_model->delete_unapproved();
@@ -238,6 +257,7 @@ class Student extends CI_Controller {
     function grades()
     {
       $this->load->model('student/student_model');
+      $data['elective']=$this->student_model->elective_status();
       $data['css'] = 'style.css';
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';

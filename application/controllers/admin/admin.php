@@ -159,15 +159,18 @@ class Admin extends CI_Controller {
     {
       $this->load->model('admin/announce_model');
       $data['program']=$this->announce_model->get_program();
-      $data['year']=$this->announce_model->get_year();
+      $data['sem']=$this->announce_model->sem_list();
       if($this->input->post('submit')){
         $this->load->library('form_validation');
         $this->form_validation->set_rules('max_courses', 'Maximum courses', 'required|numeric');
         $this->form_validation->set_rules('max_credits', 'Maximum credits', 'required|numeric');
-        $this->form_validation->set_rules('deadline', 'Deadline', 'required');
+        $this->form_validation->set_rules('min_courses', 'Minimum courses', 'required|numeric');
+        $this->form_validation->set_rules('min_credits', 'Minimum credits', 'required|numeric');
+        $this->form_validation->set_rules('deadline', 'Closing date', 'required');
+        $this->form_validation->set_rules('opening_date', 'Opening date', 'required');
         if ($this->form_validation->run() == FALSE)
         {
-          redirect('admin/admin/deadline');    
+          redirect("admin/admin/deadline");
         }
         else
         {
@@ -177,8 +180,8 @@ class Admin extends CI_Controller {
           else{
             $this->announce_model->insert_restrictions();
           }
+          
         }
-        //$this->announce_model->insert();
       } 
       if($this->input->post('delete')){
         $this->announce_model->delete_restrictions();
@@ -191,9 +194,6 @@ class Admin extends CI_Controller {
       $this->load->view('includes/template',$data);
     }
   
-
-
-
 } 
- ?>
+?>
 

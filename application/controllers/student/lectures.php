@@ -10,10 +10,10 @@ class Lectures extends CI_Controller {
     }
 
     function index(){ 
-      $data['css'] = 'style_home1.css';
+      $data['css'] = 'style.css';
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';
-      $data['maincontent'] = 'student/lectures';
+      $data['maincontent'] = 'student/courses';
       $this->load->model('student/student_model');
       $this->load->model('student/lecture_model');
       $data['courses']=$this->student_model->get_present_courses();

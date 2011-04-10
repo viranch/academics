@@ -101,7 +101,7 @@ class Student_model extends CI_model{
   
   function get_present_courses()
   {
-    $query="select course_id from acad_stu_cou where status ='ongoing' AND user_id=".$this->session->userdata('user_id');
+    $query="select A.course_id,course_name from acad_stu_cou A,acad_courses B  where A.course_id=B.course_id and status ='ongoing' AND user_id=".$this->session->userdata('user_id');
     $query = $this->db->query($query);
     if($query->num_rows() > 0) {
         return $query->result_array();
@@ -326,7 +326,14 @@ class Student_model extends CI_model{
      }
   
   }
-  
+  function elective_status()
+  {
+    $query="select * from acad_stu_cou A,acad_courses B where A.course_id=B.course_id and user_id=". $this->session->userdata('user_id');
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+   }
 
 }
 ?>

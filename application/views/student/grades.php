@@ -5,48 +5,43 @@
 				<h2>Electives Status</h2>
 				<ul>
 				<table class="tab">
-					<tr>
+<?php $group=0;
+      $open=0;
+  $technical=0;
+      $science=0;
+      if(isset($elective)){ 
+      
+      foreach ($elective as $row) {
+        if($row['category']=='group')
+          $group++;
+        if($row['category']=='open')
+          $open++;
+        if($row['category']=='technical')
+          $technical++;
+      if($row['category']=='science')
+        $science++;
+      }
+    }
+?>
+          
+          <tr>
 						<td>Group Electives</td>
-						<td align="right">1/2</td>
+            <td align="right"><?php echo $group;?></td>
 					</tr>
 					<tr>
 						<td>Technical Electives</td>
-						<td align="right">2/4</td>
+            <td align="right"><?php echo $technical;?></td>
 					</tr>
 					<tr>
 						<td>Science Electives</td>
-						<td align="right">2/2</td>
+            <td align="right"><?php echo $science;?></td>
 					</tr>
 					<tr>
 						<td>Open Electives</td>
-						<td align="right">2/2</td>
-					</tr>
-					<tr>
-						<td><strong>Elective Credits</strong></td>
-						<td align="right"><strong>25.5/31</strong></td>
+            <td align="right"><?php echo $open;?></td>
 					</tr>
 				</table>
 				</ul>
-			</li>
-			<li>
-				<h2>Important Dates</h2>
-				<ul>
-					<table class="tab">
-				<tr>
-				<th>Date</th>
-				<th>Description</th>
-				</tr>
-				<tr>
-				<td>25 March, 2011</td>
-				<td>SEM VI</td>
-				</tr>
-				<tr>
-				<td>28 March, 2011</td>
-				<td>Hanuman Jayanti</td>
-				</tr>
-				</table>
-				</ul>
-
 			</li>
 		</ul>
 	</div>
@@ -72,8 +67,8 @@
 				<h2>Resources</h2>
 				<ul>
 					<li><a href="http://webmail.daiict.ac.in" target="_blank">Webmail</a></li>
-					<li><a href="http://resourcecentre.daiict.ac.in:8081/webslim/default.asp" target="_blank">Resource Center</a></li>
-					<li><a href="http://intranet.daiict.ac.in/~daiict_nt01/" target="_blank">\\daiictpdc</a></li>
+					<li><a href="http://library.daiict.ac.in" target="_blank">Resource Center</a></li>
+					<li><a href="http://placement.daiict.ac.in" target="_blank">placement</a></li>
 					<li><a href="http://intranet.daiict.ac.in" target="_blank">Intranet</a></li>
 				</ul>
 			</li>
@@ -125,8 +120,8 @@
 				</thead>
 				<tbody>
 					<tr>
-          <td><text class="sub_ann_name"><?php echo $count;?></text></td>
-          <td><text class="sub_ann_name"><?php echo $gradepoints; ?></text></td>
+          <td><text class="sub_ann_name"><?php echo $spi[0]['credits_registered'];?></text></td>
+          <td><text class="sub_ann_name"><?php echo $spi[0]['credits_earned']; ?></text></td>
           <td><text class="sub_ann_name"><?php echo $spi[0]['spi'];?></text></td>
 					</tr>
 				</tbody>
