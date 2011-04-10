@@ -57,8 +57,8 @@ class Faculty extends CI_Controller {
 		$data['btech_courses']=$this->faculty_model->get_present_btech_courses();
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
 		$data['details'] = $this->faculty_model->get_faculty_details();
+		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
 		$data['css'] = 'style.css';
-		//$data['css'] = 'faculty_profilepage.css';
 		$data['navigation'] = 'faculty/faculty_navigation.php';
 		$data['maincontent'] = 'faculty/profilepage.php';
 	    $this->load->view('includes/template', $data);
@@ -71,7 +71,8 @@ class Faculty extends CI_Controller {
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
 		$data['lectures'] = $this->faculty_model->get_lectures($cid);
 		$data['cid'] = $cid;
-		$data['css'] = 'faculty_lectures_display.css';
+		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
+		$data['css'] = 'style.css';
 		$data['navigation'] = 'faculty/faculty_navigation.php';
 		$data['maincontent'] = 'faculty/lectures_display.php';
 	    $this->load->view('includes/template', $data);
@@ -97,6 +98,7 @@ class Faculty extends CI_Controller {
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
 		$data['lectures'] = $this->faculty_model->get_lectures($cid);
 		$data['cid'] = $cid;
+		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
 		$config['upload_path'] = './lectures/'.$cid;
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']	= '1000';
@@ -104,7 +106,7 @@ class Faculty extends CI_Controller {
 		if ( ! $this->upload->do_upload())
 		{
 			$data['error'] = $this->upload->display_errors();
-			$data['css'] = 'faculty_lectures_display.css';
+			$data['css'] = 'style.css';
 			$data['navigation'] = 'faculty/faculty_navigation.php';
 			$data['maincontent'] = 'faculty/lectures_display.php';
 			$this->load->view('includes/template', $data);
@@ -122,7 +124,7 @@ class Faculty extends CI_Controller {
 						  'description'=>$this->input->post('description'),
 						  'date'	=> date("Y-m-d"));
 			$this->db->insert('acad_lectures',$inp);
-			$data['css'] = 'faculty_lectureupload_success.css';
+			$data['css'] = 'style.css';
 			$data['navigation'] = 'faculty/faculty_navigation.php';
 			$data['maincontent'] = 'faculty/lect_upload_successpage.php';
 			$this->load->view('includes/template', $data);
@@ -154,7 +156,8 @@ class Faculty extends CI_Controller {
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
 		$data['assignments'] = $this->faculty_model->get_assignments($cid);
 		$data['cid'] = $cid;
-		$data['css'] = 'faculty_assignments_display.css';
+		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
+		$data['css'] = 'style.css';
 		$data['navigation'] = 'faculty/faculty_navigation.php';
 		$data['maincontent'] = 'faculty/assignments_display.php';
 		$this->load->view('includes/template', $data);
@@ -167,6 +170,7 @@ class Faculty extends CI_Controller {
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
 		$data['assignments'] = $this->faculty_model->get_assignments($cid);
 		$data['cid'] = $cid;
+		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
 		$config['upload_path'] = './lectures/'.$cid;
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']	= '1000';
@@ -174,7 +178,7 @@ class Faculty extends CI_Controller {
 		if ( ! $this->upload->do_upload())
 		{
 			$data['error'] = $this->upload->display_errors();
-			$data['css'] = 'faculty_assignments_display.css';
+			$data['css'] = 'style.css';
 			$data['navigation'] = 'faculty/faculty_navigation.php';
 			$data['maincontent'] = 'faculty/assignments_display.php';
 			$this->load->view('includes/template', $data);
@@ -193,7 +197,7 @@ class Faculty extends CI_Controller {
 						  'description'=>$this->input->post('description'),
 						  'user_id' =>$this->session->userdata('user_id'));
 			$this->db->insert('acad_assig_create',$inp);
-			$data['css'] = 'faculty_assignmentupload_sucpage.css';
+			$data['css'] = 'style.css';
 			$data['navigation'] = 'faculty/faculty_navigation.php';
 			$data['maincontent'] = 'faculty/assignments_uploadsuccesspage.php';
 			$this->load->view('includes/template', $data);
