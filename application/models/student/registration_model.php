@@ -1,7 +1,7 @@
 <?php
 class Registration_model extends CI_model{
   function get_unapproved(){
-    $query="select * from acad_stu_cou where status='unapproved' and  user_id='".$this->session->userdata('user_id')."'";
+    $query="select * from acad_stu_cou where (status='unapproved' or status='grade_improvement') and  user_id='".$this->session->userdata('user_id')."'";
     $query = $this->db->query($query);
      if($query->num_rows() > 0) {
        return 1;

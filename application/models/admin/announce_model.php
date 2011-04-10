@@ -24,5 +24,85 @@ class announce_model extends CI_model{
         return $query->result_array();
      }
   }
+  function get_announce()
+  {
+    $query="select * from acad_announce";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  function insert()
+  {
+    $program= $this->input->post('program');
+    $batch_year=$this->input->post('batch_year');
+    $course_id=$this->input->post('course');
+    $message=$this->input->post('message');
+    if($batch_year==''){
+      $batch_year=0;
+    }
+    $data = array('program' =>$program,
+                  'batch_year'=>$batch_year,
+                  'course_id'=>$course_id,
+                  'message'=>$message,
+                  'sent_date'=>date('Y-m-d'),
+                  'sent_time'=>time(),
+                  'user_id'=>$this->session->userdata('user_id'));
+    if(!$this->db->insert('acad_announce',$data))
+      echo "fine";
+  }
+  function delete()
+  {
+    $data=$this->input->post('announce');
+    foreach ($data as $row) {
+      $query="delete from acad_announce where id=".$row;
+      $query = $this->db->query($query);
+    }
+  
+  }
+  function insert_restrictions()
+  {
+    $data = array('program' =>$this->input->post('program'),
+                  'batch_year'=>$this->input->post('batch_year'),
+                  'credits'=>$this->input->post('max_credits'),
+                  'courses_number'=>$this->input->post('max_courses'),
+                  'deadline'=>$this->input->post('deadline'));
+    $this->db->insert('acad_restrictions',$data);
+  
+  }
+  function delete_restrictions()
+  {
+    $program=$this->input->post('program');
+    $year=$this->input->post('batch_year');
+    $query="delete from acad_restrictions where program='".$program."' and batch_year=".$year;
+    $query = $this->db->query($query);
+    
+  }
+  function get_acad_restrictions()
+  {
+    $query="select * from acad_restrictions";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  function update_restrictions()
+  {
+    $array=array('credits'=>$this->input->post('max_credits'),
+      'courses_number'=>$this->input->post('max_courses'),
+      'deadline'=>$this->input->post('deadline'));
+    $this->db->update('acad_restrictions',$array);
+  
+  }
+  function is()
+  {
+    $query="select * from acad_announce where program='".$this->input->post('program')."' and batch_year=".$this->input->post('batch_year');
+    $query = $this->db->query($query);
+    $data=1;
+    if($query->num_rows() > 0) {
+        return  $data;
+    }
+
+  }
 }
 ?>

@@ -54,23 +54,23 @@ class Admin extends CI_Controller {
       $list=$this->input->post('users');
       if(!empty($list)){
         foreach ($list as $row) {
-          $this->admin_model->delete_userid($row);
-          $data['message']="Succesfully deleted";
+          $this->admin_model->getback_userid($row);
+          $data['message']="Succesfully retrieved";
         }
       }
       if($this->input->post('user_id')!=''){
-        $data['details']=$this->admin_model->get_details_id(intval($this->input->post('user_id')));
+        $data['details']=$this->admin_model->get_details_id_r(intval($this->input->post('user_id')));
       }
       else if($this->input->post('name')!=''){
-        $data['details']=$this->admin_model->get_details_name($this->input->post('name'));
+        $data['details']=$this->admin_model->get_details_name_r($this->input->post('name'));
       }  
       $permissions=$this->admin_model->get_eligibility();
-      if($permissions[0]['delete_user']!=1)
-        die("sorry you don't have permissions to navigate to this page");
+      //if($permissions[0]['delete_user']!=1)
+        //die("sorry you don't have permissions to navigate to this page");
       $data['css'] = 'admin_home.css';
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';
-      $data['maincontent'] = 'admin/delete_user';
+      $data['maincontent'] = 'admin/retrieve_user';
       $this->load->view('includes/template',$data);
     }  
     
@@ -88,6 +88,11 @@ class Admin extends CI_Controller {
         }
         else{
             $user_id=$this->input->post('user_id');
+        }
+      }
+      if($this->input->post('approve')){
+        if($this->reg_model->approve($this->input->post('user_id'))){
+          $data['message']="Succesfully approved";
         }
       }
       if(isset($user_id)){
@@ -136,12 +141,59 @@ class Admin extends CI_Controller {
       $data['program']=$this->announce_model->get_program();
       $data['year']=$this->announce_model->get_year();
       $data['courses']=$this->announce_model->announce_courses();
+      if($this->input->post('submit')){
+        $this->announce_model->insert();
+      } 
+      if($this->input->post('delete')){
+        $this->announce_model->delete();
+      }
       $data['css'] = 'admin_home.css';
+      $data['announcements']=$this->announce_model->get_announce();
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'admin/announce';
       $this->load->view('includes/template',$data);
     }
- } 
+
+    function deadline()
+    {
+      $this->load->model('admin/announce_model');
+      $data['program']=$this->announce_model->get_program();
+      $data['year']=$this->announce_model->get_year();
+      if($this->input->post('submit')){
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('max_courses', 'Maximum courses', 'required|numeric');
+        $this->form_validation->set_rules('max_credits', 'Maximum credits', 'required|numeric');
+        $this->form_validation->set_rules('deadline', 'Deadline', 'required');
+        if ($this->form_validation->run() == FALSE)
+        {
+          redirect('admin/admin/deadline');    
+        }
+        else
+        {
+          if($this->announce_model->is()==1){
+            $this->announce_model->update_restrictions();
+          } 
+          else{
+            $this->announce_model->insert_restrictions();
+          }
+        }
+        //$this->announce_model->insert();
+      } 
+      if($this->input->post('delete')){
+        $this->announce_model->delete_restrictions();
+      }
+      $data['css'] = 'admin_home.css';
+      $data['rest']=$this->announce_model->get_acad_restrictions();
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'admin/offer_restrict';
+      $this->load->view('includes/template',$data);
+    }
+  
+
+
+
+} 
  ?>
 

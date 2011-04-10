@@ -36,7 +36,8 @@
         <?php if(isset($batch)) 
           echo "<h3>".$batch[0]['program']." ".$batch[0]['batch_year']."</h3>";
         ?> 
-        <?php if(isset($courses)){ ?>
+        <?php if(!isset($message)){
+              if(isset($courses)){ ?>
       
         <table >
           <tr>
@@ -59,9 +60,13 @@
         <?php }?>
         </table>
         
-        <?php echo form_submit('submit','approve');
+        <?php echo form_submit('approve','approve');
           echo form_close();
-        }
+              }}
+          else{
+            echo "<h2>".$message."</h2>";
+          }
+
         ?>
         </div>
         
