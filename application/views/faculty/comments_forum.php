@@ -1,14 +1,3 @@
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Name       : Economics
-Description: A two-column, fixed-width template suitable for business sites and blogs.
-Version    : 1.0
-Released   : 20080116
-
---
 <!-- start page -->
 <div id="wrapper">
 <div id="page">
@@ -57,32 +46,26 @@ Released   : 20080116
 	<!-- start content -->
 	<div id="content">
 		<div class="post">
-			<h2 class="title"><a href="#">Upcoming Lectures</a></h2>
+			<h2 class="title"><a href="#">Comments</a></h2>
 			<div class="entry">
-				<?php   if($timetable !=null){
-							foreach($timetable as $row){
-								echo "<p><strong><text class ='ann_name'>{$row['course_id']}: {$row['course_name']}</text></strong><br><strong><i>&nbsp;&nbsp;28th March:</i></strong> {$row['start_time']} - {$row['end_time']} ({$row['venue']})<br></p> ";
-							}
-						}
-				?>
-			</div>
-			
-		</div>
-		<div class="post">
-			<h2 class="title"><a href="#">Announcements</a></h2>
-			<div class="entry">
-				<?php 	if($announcements != null){
-						foreach($announcements as $row){
-					echo "<p>&nbsp;&nbsp;{$row['message']} <p style='text-align: right;'> From :<b>{$row['candidate_name']}</b></p></p>";
-					}}
-				?>
+			<?php if($comments != null){
+					foreach($comments as $comment){ ?>
+			 <h4><?php echo $comment['user_id'] ;?></h4>
+			<p ><?php echo $comment['content'] ;?></p ><p class="postcomments">Posted on <?php echo date(" d-m-Y", $comment['timeofpost']) ;?></p>
+			<?php } }
+			else echo "no comments till now";
+			?>
+        <?php echo form_open('faculty/faculty/commnentingpage/'.$this->uri->segment(4));?>
+        <input type="submit" value="Comment" style="height:25px;width:130px;color:#fff;font-weight:bold;background:#3E83C9" name="comment">
+        </form>
+			 
 			</div>
 			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
 		</div>
 	</div>
 	<!-- end content -->
 	<!-- start sidebar -->
-		<div id="sidebar">
+	<div id="sidebar">
 		<ul>
 			<li>
 				<h2>Courses</h2>
@@ -94,8 +77,8 @@ Released   : 20080116
 										echo "<h3>B.Tech : {$row['batch_year']}</h3>";
 										$btechyear = $row['batch_year'];
 										}
-											$var = $row['course_id'];
-									echo "<li><a href='/academics/index.php/faculty/faculty/lectures_display/$var'>{$row['course_id']}</a></li>";
+									$var = $row['course_id'];
+									echo "<li><a href='/academics/index.php/faculty/faculty/forum/$var'>{$row['course_id']}</a></li>";
 								}
 							}
 					?>
@@ -109,8 +92,9 @@ Released   : 20080116
 										echo "<h3>M.Tech : {$row['batch_year']}</h3>";
 										$btechyear = $row['batch_year'];
 									}
-										$var = $row['course_id'];
-									echo "<li><a href='/academics/index.php/faculty/faculty/lectures_display/$var'>{$row['course_id']}</a></li>";								}
+									$var = $row['course_id'];
+									echo "<li><a href='/academics/index.php/faculty/faculty/forum/$var'>{$row['course_id']}</a></li>";
+								}
 							}
 					?>
 				</ul>

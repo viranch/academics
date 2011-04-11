@@ -2,15 +2,16 @@
 <ul class="adxm menu">
 <li class="navac"><a href="/academics/index.php/faculty/faculty/" title="Home">Home</a>
 </li>
-<li><a href="/academics/index.php/faculty/faculty/profile" title="Nested fly-out menu, standard-compliant">Profile</a>
+<li><a href="/academics/index.php/faculty/faculty/profile" >Profile</a>
 </li>
-<li><a href="/academics/index.php/faculty/faculty/gradehome" title="Windowed Controls Hider, for Win IE">Grade</a>
+<li><a href="/academics/index.php/faculty/faculty/gradehome" >Grade</a>
 </li>
-<li><a href="/academics/index.php/faculty/faculty/lectureshome" title="Reusable web techniques">Lectures</a>
+<li><a href="/academics/index.php/faculty/faculty/lectureshome" >Lectures</a>
 </li>
-<li><a href="/academics/index.php/faculty/faculty/assignmentshome" title="Various sites I (co-)did">Assignments</a>
+<li><a href="/academics/index.php/faculty/faculty/assignmentshome">Assignments</a>
 </li>
-<li><a href="/Projects/faculty/testhomepage" title="Relevant info about me">Fees</a></li>
+<li><a href="/academics/index.php/faculty/faculty/anouncementshome" >Annouce</a></li>
+<li><a href="/academics/index.php/faculty/faculty/forumhome" >Discussion Forum</a></li>
 <li><a href="http://www.aplus.co.yu/about/contact/">Logout</a></li>
 </ul>
 </div>	

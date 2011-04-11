@@ -1,15 +1,3 @@
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Name       : Economics
-Description: A two-column, fixed-width template suitable for business sites and blogs.
-Version    : 1.0
-Released   : 20080116
-
---
-<!-- start page -->
 <div id="wrapper">
 <div id="page">
 <!-- start of sidebar1 -->
@@ -17,18 +5,14 @@ Released   : 20080116
 		<ul>
 			<li>
 				<h2>Assignments</h2>
-				<?php
-					if($assignment_info != null){
-						foreach($assignment_info as $row){
-			//			echo date('m',$row['deadline']);
-						echo "<ul>&nbsp;&nbsp; 
-							<strong>{$row['file']}</strong><br>&nbsp;&nbsp;
-							<i>C0urse: <strong>{$row['course_id']}</strong></i><br>
-							<i>Deadline: <strong>{$row['deadline']}</strong></i><br><br>
-							</ul>";
-						}
-					}
-				?>
+				<ul>&nbsp;&nbsp;
+				<strong>Project Plan</strong><br>&nbsp;&nbsp;
+				<i>Deadline: <strong>28th March</strong></i><br><br>
+				</ul>
+				<ul>&nbsp;&nbsp;
+				<strong>Project Report</strong><br>&nbsp;&nbsp;
+				<i>Deadline: <strong>28th March</strong></i>
+				</ul>
 				
 			</li>
 			<li>
@@ -57,32 +41,31 @@ Released   : 20080116
 	<!-- start content -->
 	<div id="content">
 		<div class="post">
-			<h2 class="title"><a href="#">Upcoming Lectures</a></h2>
+			<h2 class="title"><a href="#">Submitted Assignment Details</a></h2>
 			<div class="entry">
-				<?php   if($timetable !=null){
-							foreach($timetable as $row){
-								echo "<p><strong><text class ='ann_name'>{$row['course_id']}: {$row['course_name']}</text></strong><br><strong><i>&nbsp;&nbsp;28th March:</i></strong> {$row['start_time']} - {$row['end_time']} ({$row['venue']})<br></p> ";
-							}
+			
+			<table class="tab_assign">
+			<?php 
+					if($details == null){
+						echo " There are no submissions for this assignment till now";}
+					else{
+						foreach($details as $row){
+							
+							$var = base_url(). "index.php/faculty/faculty/lectures/".$row['course_id'].'/'. $row['filename'];
+							echo "<tr><td>{$row['user_id']}</td>";
+							echo "<td><a href= '$var'> {$row['filename']} </a> </td>";
+							echo "<td>{$row['submission_time'] }</td></tr>";
+						//	echo "<p align='right'> {$row['description']} </p>";
 						}
-				?>
+					} ?>			
+				</table>
 			</div>
 			
-		</div>
-		<div class="post">
-			<h2 class="title"><a href="#">Announcements</a></h2>
-			<div class="entry">
-				<?php 	if($announcements != null){
-						foreach($announcements as $row){
-					echo "<p>&nbsp;&nbsp;{$row['message']} <p style='text-align: right;'> From :<b>{$row['candidate_name']}</b></p></p>";
-					}}
-				?>
-			</div>
-			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
 		</div>
 	</div>
 	<!-- end content -->
 	<!-- start sidebar -->
-		<div id="sidebar">
+			<div id="sidebar">
 		<ul>
 			<li>
 				<h2>Courses</h2>
@@ -94,8 +77,9 @@ Released   : 20080116
 										echo "<h3>B.Tech : {$row['batch_year']}</h3>";
 										$btechyear = $row['batch_year'];
 										}
-											$var = $row['course_id'];
-									echo "<li><a href='/academics/index.php/faculty/faculty/lectures_display/$var'>{$row['course_id']}</a></li>";
+										$var = $row['course_id'];
+									echo "<li><a href='/academics/index.php/faculty/faculty/assignments_display/$var'>{$row['course_id']}</a></li>";
+
 								}
 							}
 					?>
@@ -109,8 +93,10 @@ Released   : 20080116
 										echo "<h3>M.Tech : {$row['batch_year']}</h3>";
 										$btechyear = $row['batch_year'];
 									}
-										$var = $row['course_id'];
-									echo "<li><a href='/academics/index.php/faculty/faculty/lectures_display/$var'>{$row['course_id']}</a></li>";								}
+									$var = $row['course_id'];
+									echo "<li><a href='/academics/index.php/faculty/faculty/assignments_display/$var'>{$row['course_id']}</a></li>";
+
+								}
 							}
 					?>
 				</ul>
@@ -132,6 +118,7 @@ Released   : 20080116
 	<div style="clear: both;">&nbsp;</div>
 </div>
 </div><!-- end page -->
+
 </div>
 
 </body>

@@ -119,5 +119,24 @@ class announce_model extends CI_model{
         return $query->result_array();
      }
   }
+  function get_faculty()
+  {
+    $query="select * from acad_users where user_type='faculty' and status='active'";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  
+  }
+  function course_assign()
+  {
+    $data = array('course_id' =>$this->input->post('course_id'),
+      'user_id'=>$this->input->post('user_id'),
+      'program'=>$this->input->post('program'),
+      'batch_year'=>$this->input->post('batch_year') );
+    $query="update"
+    
+  
+  }
 }
 ?>

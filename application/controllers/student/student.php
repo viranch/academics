@@ -273,8 +273,14 @@ class Student extends CI_Controller {
     function drop_courses()
     {
       $this->load->model('student/student_model');
+      $this->load->model('student/registration_model');
       $data['batch']=$this->student_model->get_batch();
       $data['courses']=$this->student_model->get_present_courses();
+      if($this->input->post('submit')){
+        $this->registration_model->drop($data['batch']);
+      }
+      $data['approval']=$this->student_model->unapproved_exist();
+      $data['ugcapproval']=$this->registration_model->get_UGC_approval();
       $data['drop']=$this->student_model->get_drop_courses();
       $data['css'] = 'style.css';
       $data['navigation'] = 'student/student_navigation.php';

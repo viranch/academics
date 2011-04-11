@@ -1,3 +1,15 @@
+ <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-1.3.2.min.js"></script>  
+      <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/ui/ui.core.js"></script>
+      <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/ui/ui.datepicker.js"></script>
+
+<script type="text/javascript">
+
+$(function() {
+  $("#deadline").datepicker();
+});
+</script>
+
+
 <!-- start of sidebar1 -->
 	<div id="sidebar1">
 		<ul>
@@ -100,7 +112,9 @@
 						echo " There are no assignments uploaded";}
 					else{
 						foreach($assignments as $row){
-							echo "<p>" .$row['description'] .'<br>';
+							$var = base_url()."lectures/".$row['course_id'].'/'. $row['file'];
+							echo "<p><a href= '$var'> {$row['file']} </a>";
+							echo $row['description'] .'<br>';
 							$var = "/academics/index.php/faculty/faculty/display_assignment_submissions/".$row['course_id'].'/'. $row['assignment_id'];
 							echo "Deadline: {$row['deadline']} <br>";
 							$var1 = "/academics/index.php/faculty/faculty/assignmentdelete/".$row['course_id'].'/'. $row['assignment_id'];
@@ -119,7 +133,7 @@
 						$url = base_url(). "index.php/faculty/faculty/assignment_upload/". $cid;
 						echo form_open_multipart($url);?>
 					Description:<textarea name="description" rows=5 cols=65% ></textarea> <br><br>
-					Deadline :<input name="deadline" type="text" />(YY-MM-DD HH-MM-SS)<br><br>
+					Deadline :<input name="deadline" type="text" id="deadline"/><br><br>
 					<input type="file" name="userfile" size="20" />
 					<input type="submit" value="Upload" />
 					</form>

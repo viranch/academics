@@ -116,7 +116,7 @@ class Faculty_model extends CI_model{
 	
 	
 	function get_faculty_details(){
-			$query = "select p.name, p.user_id, p.area_of_expertise, u.gender, u.image, p.date_of_joining, p.degrees , p.experience  from acad_users u, acad_fac_profile p where u.user_id={$this->session->userdata('user_id')} and u.user_type='faculty' and u.status='active' and u.user_id = p.user_id";
+			$query = "select u.email_id, u.dob,p.name, p.user_id, p.area_of_expertise, u.gender, u.image, p.date_of_joining, p.degrees , p.experience  from acad_users u, acad_fac_profile p where u.user_id={$this->session->userdata('user_id')} and u.user_type='faculty' and u.status='active' and u.user_id = p.user_id";
 			$query = $this->db->query($query);
 			if($query->num_rows() > 0){
 			return $query->result_array();
@@ -134,7 +134,7 @@ class Faculty_model extends CI_model{
 			else return null;
 	}
 	function get_assignments($cid){
-			$query = "select l.deadline ,l.assignment_id, l.description, l.course_id from acad_assig_create l , acad_teaching u where  l.user_id=u.user_id and u.status='active' and u.course_id =l.course_id and l.course_id = '$cid' ORDER BY assignment_id DESC"; 
+			$query = "select l.deadline ,l.assignment_id, l.description, l.course_id, l.file from acad_assig_create l , acad_teaching u where  l.user_id=u.user_id and u.status='active' and u.course_id =l.course_id and l.course_id = '$cid' ORDER BY assignment_id DESC"; 
 				$query = $this->db->query($query);
 			if($query->num_rows() > 0){
 			return $query->result_array();
@@ -151,6 +151,21 @@ class Faculty_model extends CI_model{
 			else return null;
 	}
 	
+		function insertannouncement(){
+		if($_POST['batch'] !=null){
+			foreach($_POST['batch'] as $index => $val){
+				$d['message'] = $this->input->post('message');
+				$d['program'] = $this->input->post('progrm');
+				$d['course_id'] = $this->input->post('courseid');
+				$d['batch_year']  = $val;
+				$d['user_id'] = '200801047';
+				$d['sent_time'] = date('G') .":". date('i') .":". date('s');
+				$d['sent_date'] = date('Y') ."-". date('m') ."-". date('d');
+				$this->db->insert('acad_announce',$d);
+			}
+		}
+	}
+	
 	function deletelecture($cid, $filename){
 			$v = base_url()."lectures/".$cid.'/'.$filename;
 			unlink($v);
@@ -161,4 +176,43 @@ class Faculty_model extends CI_model{
 			$query = "delete from acad_assig_create where course_id ='$cid' and assignment_id='$aid' and user_id='{$this->session->userdata('user_id')}'";
 			$query = $this->db->query($query);
 	}
+	
+	function forums($cid){
+		$query = "SELECT fid,user_id,subject,description FROM forum where course_id='$cid' order by 'fid' desc limit 0,20";
+		$query = $this->db->query($query);
+			if($query->num_rows() > 0){
+			return $query->result_array();
+		}
+			else return null;
+	}
+
+	function insertforum($cid){
+		$inp = array('user_id' => '200801047',
+					 'course_id' => $cid,
+					 'description' => $this->input->post('description'),
+					 'subject' => $this->input->post('subject'),
+					 'timeofpost' => time()
+					 );
+		$this->db->insert('forum',$inp);
+	}
+	
+	function getcomments($fid){
+	    $query= "select content,user_id ,fid, timeofpost from comments where fid = '$fid'";
+      $query = $this->db->query($query);
+			if($query->num_rows() > 0){
+			return $query->result_array();
+		}
+			else return null;
+	}
+	
+	function insertcomment($fid){
+		$r['user_id'] = "200801047";
+	    $r['timeofpost'] = time();
+		$r['fid'] = $fid;
+		$r['content'] = $_POST['Comment'];
+		$this->db->insert('comments',$r);
+	}
+	
+	
+	
 }

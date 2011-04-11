@@ -193,6 +193,24 @@ class Admin extends CI_Controller {
       $data['maincontent'] = 'admin/offer_restrict';
       $this->load->view('includes/template',$data);
     }
+    function course_assign()
+    {
+      $this->load->model('admin/announce_model');
+      if($this->input->post('submit')){
+         $this->announce_model->course_assign();
+      }
+      
+      $data['css'] = 'style.css';
+      $data['faculty']= $this->announce_model->get_faculty();
+      $data['program']=$this->announce_model->get_program();
+      $data['year']=$this->announce_model->get_year();
+      $data['courses']=$this->announce_model->announce_courses();
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'admin/course_assign';
+      $this->load->view('includes/template',$data);
+    
+    }
   
 } 
 ?>

@@ -111,7 +111,7 @@
 				<tr>
 					<td>Email:</td>
           <td><?php foreach($details as $detail)
-                                        echo $detail['email']; ?></td>
+                                        echo $detail['email_id']; ?></td>
 				</tr>
 				<tr>
 					<td>Date of Birth:</td>
