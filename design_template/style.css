@@ -259,6 +259,10 @@ tr.over td, tr:hover td {
 	background: #bcd4ec;
 }
 
+.nohover td, tr:hover td {
+	background: #fff;
+}
+
 .ttentry {
 	font-size: 1em;
 }
