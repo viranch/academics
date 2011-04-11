@@ -5,67 +5,88 @@ $(document).ready(function(){
   });
 });
 </script>
+<!-- start page -->
+<div id="wrapper">
+<div id="page">
 <!-- start of sidebar1 -->
 <div id="sidebar1">
   <ul>
-<li>
+    <li>
       <h2>Registration Status</h2>
       <table class="tab">
       <tr>
       <td>Student Registration</td>
-      <td align="center"><?php if($approval==1) echo "Submitted"; else echo "Not submitted";?></td>
+      <td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Complete" src="images/task-complete.png"></td>
       </tr>
       <tr>
-      <td>UGC/PGC/Registrar Approval</td>
-      <td align="center"><?php if($ugcapproval==1) echo "approved"; else echo "pending";?></td>
+      <td>UGC/PGC Approval</td>
+      <td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Ongoing" src="images/chronometer.png"></td>
+      </tr>
+      <tr>
+      <td>Registrar Approval</td>
+      <td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Ongoing" src="images/chronometer.png"></td>
       </tr>
       <tr>
       <td>Fees Approval</td>
-      <td align="center">Unknown</td>
+      <td align="center"><img title="Pending" src="images/task-attention.png"> or <img title="Ongoing" src="images/chronometer.png"></td>
       </tr>
       </table>
     </li>
-      
-    
+    <li>
+      <h2>Electives Status</h2>
+      <ul>
+      <table class="tab">
+        <tr>
+          <td>Group Electives</td>
+          <td align="right">1/2</td>
+        </tr>
+        <tr>
+          <td>Technical Electives</td>
+          <td align="right">2/4</td>
+        </tr>
+        <tr>
+          <td>Science Electives</td>
+          <td align="right">2/2</td>
+        </tr>
+        <tr>
+          <td>Open Electives</td>
+          <td align="right">2/2</td>
+        </tr>
+        <tr>
+          <td><strong>Elective Credits</strong></td>
+          <td align="right"><strong>25.5/31</strong></td>
+        </tr>
+      </table>
+      </ul>
+    </li>
+    <li>
+      <h2>Important Dates</h2>
+      <ul>
+        <table class="tab">
+      <tr>
+      <th>Date</th>
+      <th>Description</th>
+      </tr>
+      <tr>
+      <td>25 March, 2011</td>
+      <td>SEM VI</td>
+      </tr>
+      <tr>
+      <td>28 March, 2011</td>
+      <td>Hanuman Jayanti</td>
+      </tr>
+      </table>
+      </ul>
 
+    </li>
   </ul>
 </div>
 <!-- end of sidebar2 -->
-<!-- start sidebar -->
-	<div id="sidebar">
-		<ul>
-			<li>
-				<h2>Courses(Ongoing)</h2>
-        <h3>
-        </h3>
-        <ul>
-        <?php
-         if(isset($courses)){
-           foreach ($courses as $row) {
-              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."<br>{$row['course_name']}</li>";//all the courses links need to be given
-           }
-         }
-        ?>
-        </ul>
-      </li>
-			<li>
-				<h2>Resources</h2>
-				<ul>
-					<li><a href="http://webmail.daiict.ac.in" target="_blank">Webmail</a></li>
-					<li><a href="http://placement.daiict.ac.in" target="_blank">Placement</a></li>
-					<li><a href="http://library.daiict.ac.in" target="_blank">Library</a></li>
-					<li><a href="http://intranet.daiict.ac.in" target="_blank">Intranet</a></li>
-				</ul>
-			</li>
-			
-		</ul>
-	</div>
-	<!-- end sidebar -->
 <!-- start content -->
 <div id="content">
   <div class="post">
     
-    <h2 class="title"><a href="#">Drop Course </a></h2>
+    <h2 class="title"><a href="#">Course Registration</a></h2>
       <div class="entry">
           
           <!-- semseter list display -->
@@ -87,13 +108,12 @@ $(document).ready(function(){
 
       
       <tbody>
-      <?php echo form_open('student/student/drop_courses');  
+      <?php echo form_open('student/student/val_drop');  
             if(isset($drop)){
-            $total=0;
-	    foreach ($drop as $row) {?>
+            foreach ($drop as $row) {?>
       <tr>
         <td>
-          <?php echo form_checkbox('drop[]',$row['course_id'], FALSE); ?>
+          <?php echo form_checkbox($row['slot_no'],$row['course_id'], FALSE); ?>
         </td>
         <td width=80%>
           <text class="sub_ann_name">
@@ -103,8 +123,7 @@ $(document).ready(function(){
         <td>
             <?php
               echo $row['credits'];
-		$total++;            
-		?>
+            ?>
         </td>
       </tr>
       <?php  } }?>
@@ -114,8 +133,8 @@ $(document).ready(function(){
           <td></td>
           <td>
           <?php
-		echo form_hidden('count',$total);            
-		echo form_submit('submit','Submit');
+            echo form_hidden('number','22');
+            echo form_submit('submit','Submit');
           ?></td>
           
       </tr>
@@ -124,8 +143,48 @@ $(document).ready(function(){
       </table>
       
       <!-- start of elective courses -->
+		<div class="buttonwrapper">
+		</div>	
 		</div> <!-- end entry -->
 		</div><!-- end post -->
 	</div>
 <!-- end content -->
+<!-- start sidebar -->
+	<div id="sidebar">
+		<ul>
+			<li>
+				<h2>Courses</h2>
+        <h3>
+        <?php
+          if(isset($batch))
+            echo "{$batch['0']['semester']}";
+        ?>
+        </h3>
+        <ul>
+        <?php
+         if(isset($courses)){
+           foreach ($courses as $row) {
+              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."</li>";//all the courses links need to be given
+           }
+         }
+        ?>
+        </ul>
+      </li>
+			<li>
+				<h2>Resources</h2>
+				<ul>
+					<li><a href="http://webmail.daiict.ac.in" target="_blank">Webmail</a></li>
+					<li><a href="http://resourcecentre.daiict.ac.in:8081/webslim/default.asp" target="_blank">Resource Center</a></li>
+					<li><a href="http://intranet.daiict.ac.in/~daiict_nt01/" target="_blank">\\daiictpdc</a></li>
+					<li><a href="http://intranet.daiict.ac.in" target="_blank">Intranet</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+	<!-- end sidebar -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<?php
 

@@ -21,8 +21,8 @@ $(function() {
 			<h2 class="title">Assign Course</h2>
 			<div class="entry">
 			<p>
-      <form action="http://10.100.98.103/academics/index.php/admin/admin/course_add" method="post" accept-charset="utf-8">
-	  <table class="admin_tab " table style="width:40%">
+<?php echo form_open('admin/admin/course_assign');?>  
+  <table class="admin_tab " table style="width:40%">
       
 	<tr>
 		<td>Course ID</td>
@@ -32,7 +32,7 @@ $(function() {
           foreach ($courses as $row) {
             $options[$row['course_id']]=$row['course_name']."(".$row['course_id'].")";
           }
-          echo form_dropdown('course', $options);?>
+          echo form_dropdown('course_id', $options);?>
 		</td>
 	</tr>
 	<tr>
@@ -43,7 +43,7 @@ $(function() {
           foreach ($faculty as $row) {
             $options[$row['user_id']]=$row['user_id']."(".$row['candidate_name'].")";
           }
-          echo form_dropdown('program', $options);?>
+          echo form_dropdown('user_id', $options);?>
 		</td>
   </tr>
 <tr>

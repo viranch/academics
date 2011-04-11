@@ -211,6 +211,39 @@ class Admin extends CI_Controller {
       $this->load->view('includes/template',$data);
     
     }
+    function course_create()
+    {
+      $this->load->library('form_validation');
+      $this->load->model('admin/utilities');
+      $this->load->model('admin/announce_model');
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('category', 'Category', 'required|trim');
+        $this->form_validation->set_rules('course_name', 'Course name', 'required|trim');
+        $this->form_validation->set_rules('course_id', 'Course id', 'required|trim');
+        $this->form_validation->set_rules('category', 'Category', 'required|trim');
+        $this->form_validation->set_rules('credits', 'Credits', 'required|numeric');
+        $this->form_validation->set_rules('description', 'Description', 'required|trim');
+        if ($this->form_validation->run() == FALSE){
+              $data['message']="Not entered";
+        }
+        else
+        {
+          $this->utilities->course_create();
+          $data['message']="Succesfully created";
+        }
+      }
+      if($this->input->post('delete')){
+        $this->utilities->delete_course();
+      }
+      
+      $data['courses']=$this->announce_model->announce_courses();
+      $data['css'] = 'style.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'admin/course_reg';
+      $this->load->view('includes/template',$data);
+    
+    }
   
 } 
 ?>

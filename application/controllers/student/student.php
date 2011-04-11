@@ -8,7 +8,22 @@ class Student extends CI_Controller {
       parent::__construct();
       $this->isstudent();     
     }
-
+    function lectures()
+    {
+      $data['css'] = 'style.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'student/courses_lectures';
+      $this->load->model('student/student_model');
+      $data['batch']=$this->student_model->get_batch();
+      $data['courses']=$this->student_model->get_present_courses();
+      $data['timetable']=$this->student_model->get_timetable($data['batch']);
+      $this->load->view('includes/template',$data);
+    
+    }
+    
+    
+    
     function index(){ 
       $data['css'] = 'style.css';
       $data['javascript'] = 'default.js';
@@ -23,6 +38,36 @@ class Student extends CI_Controller {
       $data['deadlines']=$this->student_model->get_deadlines();
       $this->load->view('includes/template',$data);
     }
+    function announcements()
+    {
+      
+      $data['css'] = 'style.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'student/announcements';
+      $this->load->model('student/student_model');
+      $data['courses']=$this->student_model->get_present_courses();
+      $data['batch']=$this->student_model->get_batch();
+      $data['timetable']=$this->student_model->get_timetable($data['batch']);
+      $data['announcements']=$this->student_model->get_announcements($data['batch'],35);
+       $this->load->view('includes/template',$data);
+    }
+    function importantdates()
+    {
+       
+      $data['css'] = 'style.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
+      $data['maincontent'] = 'student/important_dates';
+      $this->load->model('student/student_model');
+      $data['courses']=$this->student_model->get_present_courses();
+      $data['batch']=$this->student_model->get_batch();
+      $data['timetable']=$this->student_model->get_timetable($data['batch']);
+      $data['important_dates']=$this->student_model->get_important_dates(35);
+      $this->load->view('includes/template',$data);
+     
+    }
+    
     function isstudent()
     {
       $is_logged_in=$this->session->userdata('is_logged_in');

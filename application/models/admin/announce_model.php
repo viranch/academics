@@ -18,7 +18,7 @@ class announce_model extends CI_model{
   }
   function announce_courses()
   {
-    $query="select course_id,course_name from acad_courses";
+    $query="select * from acad_courses";
     $query = $this->db->query($query);
      if($query->num_rows() > 0) {
         return $query->result_array();
@@ -134,9 +134,11 @@ class announce_model extends CI_model{
       'user_id'=>$this->input->post('user_id'),
       'program'=>$this->input->post('program'),
       'batch_year'=>$this->input->post('batch_year') );
-    $query="update"
-    
-  
+    $query="delete from acad_teaching where user_id=".$this->input->post('user_id')." and course_id='".$this->input->post('course_id')."' and program='".$this->input->post('program')."' and batch_year=".$this->input->post('batch_year');
+    $query = $this->db->query($query);
+    $query="update acad_teaching set status='completed' where status='active' and program='".$this->input->post('program')."' and batch_year=".$this->input->post('batch_year');
+    $query = $this->db->query($query);
+    $this->db->insert('acad_teaching',$data);
   }
 }
 ?>
