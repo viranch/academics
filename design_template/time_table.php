@@ -50,7 +50,7 @@ Released   : 20080116
 				<td><strong>Batch</strong></td>
 				<td><select name="batch"><option value="2010">2010</option><option value="2008">2008</option></select></td>
 			</tr></table><br><br>
-			<table id="timetable"><thead><tr>
+			<table id="timetable" class="nohover"><thead><tr>
 				<th></th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th>
 			</tr></thead><tbody>
 			<?php for ($i=0; $i<4; $i++) { ?>

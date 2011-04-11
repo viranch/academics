@@ -162,7 +162,7 @@ hr {
 	float: center;
 	margin-right:auto;
 	margin-left:auto;
-	width: 57%;
+	width: 80%;
 	min-height: 500px;
 }
 
@@ -243,7 +243,7 @@ th {
 	padding: 2px 11px;
 	text-align: left;
 	border-right: 1px solid #fff;
-	line-height: 1.2;
+	border-bottom: 1px solid #fff;
 }
  
 td {
@@ -257,6 +257,19 @@ tr.alt td {
 
 tr.over td, tr:hover td {
 	background: #bcd4ec;
+}
+
+.nohover tr:hover td {
+	background: #fff;
+}
+
+.ttentry {
+	font-size: 1em;
+}
+
+.ttentry td {
+	padding: 0 0;
+	border-bottom: 0px solid #fff;
 }
 
 #profiletable table {
@@ -379,6 +392,11 @@ tr.over td, tr:hover td {
 }
 
 #calendar thead th {
+	border-bottom: 2px solid #F2F2F2;
+	border-top: 1px solid #F2F2F2;
+}
+
+#calendar tbody th {
 	border-bottom: 2px solid #F2F2F2;
 	border-top: 1px solid #F2F2F2;
 }
