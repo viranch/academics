@@ -17,26 +17,6 @@
 				?>
 				
 			</li>
-			<li>
-				<h2>Important Dates</h2>
-				<ul>
-					<table class="tab">
-				<tr>
-				<th>Date</th>
-				<th>Description</th>
-				</tr>
-				<tr>
-				<td>25 March, 2011</td>
-				<td>SEM VI</td>
-				</tr>
-				<tr>
-				<td>28 March, 2011</td>
-				<td>Hanuman Jayanti</td>
-				</tr>
-				</table>
-				</ul>
-
-			</li>
 		</ul>
 	</div>
 <!-- end of sidebar2 -->

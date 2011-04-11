@@ -2,40 +2,26 @@
 	<div id="sidebar1">
 		<ul>
 			<li>
+				<h2>Links for course <?php echo $cid; ?></h2>
+					&nbsp;&nbsp;<strong><a href="/academics/index.php/faculty/faculty/lectures_display/<?php echo $cid; ?>">Lectures</a></strong><br><br>
+					&nbsp;&nbsp;<strong><a href="/academics/index.php/faculty/faculty/assignments_display/<?php echo $cid; ?>">Assignments</a></strong><br><br>
+					&nbsp;&nbsp;<strong><a href="/academics/index.php/faculty/faculty/forum/<?php echo $cid; ?>">Discussion Forum</a></strong><br><br>
+					&nbsp;&nbsp;<strong><a href="/academics/index.php/faculty/faculty/grade/<?php echo $cid; ?>">Grades</a></strong><br><br>
 				<h2>Assignments</h2>
 				<?php
 					if($assignment_info != null){
 						foreach($assignment_info as $row){
-			//			echo date('m',$row['deadline']);
-						echo "<ul>&nbsp;&nbsp; 
+						if ($row['course_id']==$cid) {
+						echo "<ul> 
 							<strong>{$row['file']}</strong><br>&nbsp;&nbsp;
-							<i>C0urse: <strong>{$row['course_id']}</strong></i><br>
+							<i>Course: <strong>{$row['course_id']}</strong></i><br>&nbsp;&nbsp;
 							<i>Deadline: <strong>{$row['deadline']}</strong></i><br><br>
 							</ul>";
+						}
 						}
 					}
 				?>
 				
-			</li>
-			<li>
-				<h2>Important Dates</h2>
-				<ul>
-					<table class="tab">
-				<tr>
-				<th>Date</th>
-				<th>Description</th>
-				</tr>
-				<tr>
-				<td>25 March, 2011</td>
-				<td>SEM VI</td>
-				</tr>
-				<tr>
-				<td>28 March, 2011</td>
-				<td>Hanuman Jayanti</td>
-				</tr>
-				</table>
-				</ul>
-
 			</li>
 		</ul>
 	</div>
