@@ -40,7 +40,7 @@ Released   : 20080116
 	<!-- start content -->
 	<div id="content">
 		<div class="post">
-			<h2 class="title">Set the lecture timetable</h2>
+			<h2 class="title">Set the lab/tutorial timetable</h2>
 			<div class="entry">
 			<form action="settimetable.php" method="post">
 			<table class="nohover"><tr>
@@ -58,63 +58,84 @@ Released   : 20080116
 				<th>Start Time</th>
 				<th>End Time</th>
 				<th>Course ID/Slot No</th>
+				<th>Group No</th>
 				<th>Venue</th>
 			</tr></thead>
 			<tbody><tr>
-				<td><input type="time" title="Enter the start time for the lecture" /></td>
-				<td><input type="time" title="Enter the end time for the lecture" /></td>
+				<td><input type="time" title="Enter the start time for the lab/tutorial" /></td>
+				<td><input type="time" title="Enter the end time for the lab/tutorial" /></td>
 				<td><select><option value="it314">IT314</option><option value="el114">EL114</option></select></td>
-				<td><input type="text" title="Enter the venue for the lecture" /></td>
+				<td><input type="text" title="Enter the group no. for the lab/tutorial" size=5% /></td>
+				<td><input type="text" title="Enter the venue for the lab/tutorial" size=5% /></td>
 			</tr><tr>
-				<td><input type="time" title="Enter the start time for the lecture" /></td>
-				<td><input type="time" title="Enter the end time for the lecture" /></td>
+				<td><input type="time" title="Enter the start time for the lab/tutorial" /></td>
+				<td><input type="time" title="Enter the end time for the lab/tutorial" /></td>
 				<td><select><option value="it314">IT314</option><option value="el114">EL114</option></select></td>
-				<td><input type="text" title="Enter the venue for the lecture" /></td>
+				<td><input type="text" title="Enter the group no. for the lab/tutorial" size=5% /></td>
+				<td><input type="text" title="Enter the venue for the lab/tutorial" size=5% /></td>
 			</tr><tr>
-				<td><input type="time" title="Enter the start time for the lecture" /></td>
-				<td><input type="time" title="Enter the end time for the lecture" /></td>
+				<td><input type="time" title="Enter the start time for the lab/tutorial" /></td>
+				<td><input type="time" title="Enter the end time for the lab/tutorial" /></td>
 				<td><select><option value="it314">IT314</option><option value="el114">EL114</option></select></td>
-				<td><input type="text" title="Enter the venue for the lecture" /></td>
+				<td><input type="text" title="Enter the group no. for the lab/tutorial" size=5% /></td>
+				<td><input type="text" title="Enter the venue for the lab/tutorial" size=5% /></td>
 			</tr><tr>
-				<td><input type="time" title="Enter the start time for the lecture" /></td>
-				<td><input type="time" title="Enter the end time for the lecture" /></td>
+				<td><input type="time" title="Enter the start time for the lab/tutorial" /></td>
+				<td><input type="time" title="Enter the end time for the lab/tutorial" /></td>
 				<td><select><option value="it314">IT314</option><option value="el114">EL114</option></select></td>
-				<td><input type="text" title="Enter the venue for the lecture" /></td>
+				<td><input type="text" title="Enter the group no. for the lab/tutorial" size=5% /></td>
+				<td><input type="text" title="Enter the venue for the lab/tutorial" size=5% /></td>
+			</tr><tr>
+				<td><input type="time" title="Enter the start time for the lab/tutorial" /></td>
+				<td><input type="time" title="Enter the end time for the lab/tutorial" /></td>
+				<td><select><option value="it314">IT314</option><option value="el114">EL114</option></select></td>
+				<td><input type="text" title="Enter the group no. for the lab/tutorial" size=5% /></td>
+				<td><input type="text" title="Enter the venue for the lab/tutorial" size=5% /></td>
 			</tr></tbody></table><br><br>
 			<table class="nohover">
 			<thead><tr>
-				<th>Weekday</th><th>Lecture-1</th><th>Lecture-2</th><th>Lecture-3</th><th>Lecture-4</th>
+				<th>Weekday</th>
+				<th>CT114<br><i>(8:30-9:30, LAB001)</i></th>
+				<th>CT114<br><i>(8:30-9:30, LAB001)</i></th>
+				<th>CT114<br><i>(8:30-9:30, LAB001)</i></th>
+				<th>CT114<br><i>(8:30-9:30, LAB001)</i></th>
+				<th>CT114<br><i>(8:30-9:30, LAB001)</i></th>
 			</tr></thead>
 			<tbody><tr>
 				<th>Monday</th>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
 			</tr><tr>
 				<th>Tuesday</th>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
 			</tr><tr>
 				<th>Wednesday</th>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
 			</tr><tr>
 				<th>Thursday</th>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
 			</tr><tr>
 				<th>Friday</th>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
-				<td>CT114<br><i>(8:30-9:30, LT1)</i></td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
+				<td>Group 1</td>
 			</tr></tbody></table>
 			<br><br><input type="submit" value="Submit" />
 			</form>
