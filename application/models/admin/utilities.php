@@ -36,5 +36,27 @@ class Utilities extends CI_model{
       }
     }
   }
+  function course_create()
+  {
+    $data = array('category' => $this->input->post('category'),
+      'course_name'=>$this->input->post('course_name'),
+      'course_id'=>$this->input->post('course_id'),
+      'pass_course'=>$this->input->post('pass'),
+      'credits'=>$this->input->post('credits'),
+      'description'=>$this->input->post('description'));
+    
+    $this->db->insert('acad_courses',$data);
+  }
+  function delete_course()
+  {
+    $courses=$this->input->post('courses');
+    if(!empty($courses)){
+    foreach ($courses as $row) {
+      $query="delete from acad_courses where course_id='".$row."'";
+      $query = $this->db->query($query);
+    }
+  }
+  }
+
 }
 ?>

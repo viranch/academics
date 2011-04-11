@@ -20,19 +20,31 @@
     ?>
   </li>
   <li>
-    <a href="http://www.aplus.co.yu/deliver/" title="Various sites I (co-)did">Add/Drop Courses</a>
+    <?php echo anchor('student/student/drop_courses', 'Drop courses');?>
   </li>
   <li>
     <a href="http://www.aplus.co.yu/about/" title="Relevant info about me">Fees</a>
   </li>
   <li>
-    <a href="http://www.aplus.co.yu/about/contact/">Utilities</a>
+    <?php
+    echo anchor('student/student/announcements', 'Announcements');
+    ?>  
+</li>
+  <li>
+    <?php
+    echo anchor('student/student/importantdates', 'Important dates');
+    ?>  
+</li>
+  <li>
+  
+    <?php echo anchor('login/change_password', 'Change password');?>
   </li>
   <li>
     <?php
     echo anchor('login/logout', 'Logout');
     ?>  
 </li>
+
 </ul>
 
 </div>  

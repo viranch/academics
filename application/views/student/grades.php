@@ -93,7 +93,7 @@
         </thead>
         <?php $count=0;$gradepoints=0; ?>
 				<tbody>
-          <?php foreach ($course as $row) {?>
+          <?php if(isset($course)){foreach ($course as $row) {?>
         <tr>
         <td><text class="sub_ann_name"><a href="http://link.to/course_page"><?php echo $row['course_name']." (".$row['course_id'].")";?></a></text></td>
         <td><text class="sub_ann_name"><?php echo $row['credits'];?></text></td>
@@ -101,7 +101,7 @@
         <td><text class="sub_ann_name"><?php echo $row['gradepoints'];?></text></td>
         </tr>
         <?php $count=$count+$row['credits'];
-              $gradepoints=$gradepoints+$row['gradepoints'];}?>
+              $gradepoints=$gradepoints+$row['gradepoints'];}}?>
 				</tbody>
 				</table><br>
 				<table id="gradetable_head">

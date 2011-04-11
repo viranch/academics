@@ -12,9 +12,16 @@ class login_model extends CI_model{
   function update_passwd()
   {
     $user_id=$this->session->userdata('user_id');
+    $old_password=$this->input->post('old_password');
+    $query="select * from acad_users where password='".md5($old_password)."' and user_id=".$this->session->userdata('user_id');
+    $query = $this->db->query($query);
+    if($query->num_rows() == 0) {
+        return 0;
+    }
     $new_password=$this->input->post('new_password');
     $query="UPDATE acad_users SET password='".md5($new_password)."' WHERE user_id=".$user_id; 
-    return $this->db->query($query);
+    $query=$this->db->query($query);
+    return 1;
   }
   
 }

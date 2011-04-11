@@ -1,5 +1,10 @@
 <?php
 class Student_model extends CI_model{
+  
+  
+  
+  
+  
   function get_drop_courses()
   {
     $query=" select * from acad_stu_cou A,acad_courses B,acad_sem_list C where (status='ongoing' or status='grade_improvement') and user_id='".$this->session->userdata('user_id')."' and A.course_id=B.course_id and A.sem_id=C.sem_id";
@@ -221,10 +226,11 @@ class Student_model extends CI_model{
   function get_important_dates($number=null)
   {
     $query="select * from acad_important_dates where end_date > '".date("Y-m-d")."' order by start_date";
-    if(empty($number))
+    if($number==null)
       $query = $this->db->query($query);
     else
       $query = $this->db->query($query,$number);
+  
     if($query->num_rows() > 0) {
         return $query->result_array();
     }

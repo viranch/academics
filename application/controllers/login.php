@@ -10,12 +10,13 @@ class Login extends CI_Controller {
 
     function index($message="")//default controller which calls the login page
     {
-      $data['css']='login.css';
+      $data['css']='style_login.css';
       $data['javascript']='login.js';
-      $data['maincontent'] = 'login_form'; 
+      $data['maincontent'] = 'login_test'; 
+      if($this->uri->segment(3))
+        $data['message']=str_replace('_',' ',$this->uri->segment(4));
       $this->load->view('includes/template',$data);
-      if($message!="")
-      echo "{$message}";  
+      
     }
     
     
@@ -50,8 +51,8 @@ class Login extends CI_Controller {
         }
       }
       else {
-        $message="Username/password is incorrect";
-        $this->index($message);
+        $message="Username/password_is_incorrect";
+        redirect('login/index/'.$message);
       }
     
     }
@@ -65,7 +66,11 @@ class Login extends CI_Controller {
     
     function change_password()//function to change the password
     {
+      $data['css'] = 'style.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent']='change_password';
+      $data['message']=$this->uri->segment(3);
       $this->load->view('includes/template',$data);
       
       
@@ -74,8 +79,8 @@ class Login extends CI_Controller {
     function chk_and_change()//function called when the password change form is submitted
     {
       $this->load->library('form_validation');
-      $this->form_validation->set_rules('old_password', 'Old_Password', 'required|trim');
-      $this->form_validation->set_rules('new_password', 'New_password', 'required|trim');
+      $this->form_validation->set_rules('old_password', 'Old Password', 'required|trim');
+      $this->form_validation->set_rules('new_password', 'New password', 'required|trim');
       $this->form_validation->set_rules('confpassword', 'Confirm password', 'required|matches[new_password]|trim');
       if ($this->form_validation->run() == FALSE)
       {
@@ -84,8 +89,10 @@ class Login extends CI_Controller {
       else
       {
           $this->load->model('login_model');
-          if($this->login_model->update_passwd())
-          echo "Your password succesfully changed";
+          if($this->login_model->update_passwd()==0)
+            redirect('login/change_password/Password_wrong');
+          else
+            redirect('login/change_password/Succesfully_changed');
       }    
     }
 

@@ -136,6 +136,12 @@ hr {
 	background: url(images/img04.jpg) no-repeat left top;
 }
 
+.formLabel {
+    font-size: 11px;
+    color: #666;
+    display: block;
+    padding: 10px 0 7px 0;
+}
 /* Header */
 
 #header {
