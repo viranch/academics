@@ -12,7 +12,7 @@
 </li>
 <li><a href="/academics/index.php/faculty/faculty/anouncementshome" >Annouce</a></li>
 <li><a href="/academics/index.php/faculty/faculty/forumhome" >Discussion Forum</a></li>
-<li><a href="http://www.aplus.co.yu/about/contact/">Logout</a></li>
+<li><a href="/academics/index.php/login/logout">Logout</a></li>
 </ul>
 </div>	
 

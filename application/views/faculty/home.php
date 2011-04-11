@@ -1,17 +1,3 @@
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Name       : Economics
-Description: A two-column, fixed-width template suitable for business sites and blogs.
-Version    : 1.0
-Released   : 20080116
-
---
-<!-- start page -->
-<div id="wrapper">
-<div id="page">
 <!-- start of sidebar1 -->
 	<div id="sidebar1">
 		<ul>
@@ -20,7 +6,6 @@ Released   : 20080116
 				<?php
 					if($assignment_info != null){
 						foreach($assignment_info as $row){
-			//			echo date('m',$row['deadline']);
 						echo "<ul>&nbsp;&nbsp; 
 							<strong>{$row['file']}</strong><br>&nbsp;&nbsp;
 							<i>C0urse: <strong>{$row['course_id']}</strong></i><br>
@@ -54,33 +39,6 @@ Released   : 20080116
 		</ul>
 	</div>
 <!-- end of sidebar2 -->
-	<!-- start content -->
-	<div id="content">
-		<div class="post">
-			<h2 class="title"><a href="#">Upcoming Lectures</a></h2>
-			<div class="entry">
-				<?php   if($timetable !=null){
-							foreach($timetable as $row){
-								echo "<p><strong><text class ='ann_name'>{$row['course_id']}: {$row['course_name']}</text></strong><br><strong><i>&nbsp;&nbsp;28th March:</i></strong> {$row['start_time']} - {$row['end_time']} ({$row['venue']})<br></p> ";
-							}
-						}
-				?>
-			</div>
-			
-		</div>
-		<div class="post">
-			<h2 class="title"><a href="#">Announcements</a></h2>
-			<div class="entry">
-				<?php 	if($announcements != null){
-						foreach($announcements as $row){
-					echo "<p>&nbsp;&nbsp;{$row['message']} <p style='text-align: right;'> From :<b>{$row['candidate_name']}</b></p></p>";
-					}}
-				?>
-			</div>
-			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
-		</div>
-	</div>
-	<!-- end content -->
 	<!-- start sidebar -->
 		<div id="sidebar">
 		<ul>
@@ -128,11 +86,31 @@ Released   : 20080116
 		</ul>
 	</div>
 	<!-- end sidebar -->
+	<!-- start content -->
+	<div id="content">
+		<div class="post">
+			<h2 class="title"><a href="#">Upcoming Lectures</a></h2>
+			<div class="entry">
+				<?php   if($timetable !=null){
+							foreach($timetable as $row){
+								echo "<p><strong><text class ='ann_name'>{$row['course_id']}: {$row['course_name']}</text></strong><br><strong><i>&nbsp;&nbsp;28th March:</i></strong> {$row['start_time']} - {$row['end_time']} ({$row['venue']})<br></p> ";
+							}
+						}
+				?>
+			</div>
+			
+		</div>
+		<div class="post">
+			<h2 class="title"><a href="#">Announcements</a></h2>
+			<div class="entry">
+				<?php 	if($announcements != null){
+						foreach($announcements as $row){
+					echo "<p>&nbsp;&nbsp;{$row['message']} <p style='text-align: right;'> From :<b>{$row['candidate_name']}</b></p></p>";
+					}}
+				?>
+			</div>
+			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
+		</div>
+	</div>
+	<!-- end content -->
 
-	<div style="clear: both;">&nbsp;</div>
-</div>
-</div><!-- end page -->
-</div>
-
-</body>
-</html>

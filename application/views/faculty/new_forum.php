@@ -1,6 +1,3 @@
-<!-- start page -->
-<div id="wrapper">
-<div id="page">
 <!-- start of sidebar1 -->
 	<div id="sidebar1">
 		<ul>
@@ -9,7 +6,6 @@
 				<?php
 					if($assignment_info != null){
 						foreach($assignment_info as $row){
-			//			echo date('m',$row['deadline']);
 						echo "<ul>&nbsp;&nbsp; 
 							<strong>{$row['file']}</strong><br>&nbsp;&nbsp;
 							<i>C0urse: <strong>{$row['course_id']}</strong></i><br>
@@ -43,25 +39,6 @@
 		</ul>
 	</div>
 <!-- end of sidebar2 -->
-	<!-- start content -->
-	<div id="content">
-		<div class="post">
-			<h2 class="title"><a href="#">Start new forum</a></h2>
-			<div class="entry">			
-			<?php echo form_open('faculty/faculty/updateforum/'.$cid);?>
-			<p><h2>Subject</h2></p>
-			<input type="text" size="90" name="subject" maxlength="150"/>
-			<p><h2>Description</h2></p>
-			<textarea rows="10" cols="70" name="description"></textarea>
-     <p align="center">
-<input type="submit" value="Submit" style="height:25px;width:130px;color:#fff;font-weight:bold;background:#3E83C9">
-</p>
-        </form>
-			</div>
-			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
-		</div>
-	</div>
-	<!-- end content -->
 	<div id="sidebar">
 		<ul>
 			<li>
@@ -109,11 +86,23 @@
 		</ul>
 	</div>
 	<!-- end sidebar -->
+	<!-- start content -->
+	<div id="content">
+		<div class="post">
+			<h2 class="title"><a href="#">Start new forum</a></h2>
+			<div class="entry">			
+			<?php echo form_open('faculty/faculty/updateforum/'.$cid);?>
+			<p><h2>Subject</h2></p>
+			<input type="text" size="90" name="subject" maxlength="150"/>
+			<p><h2>Description</h2></p>
+			<textarea rows="10" cols="70" name="description"></textarea>
+     <p align="center">
+<input type="submit" value="Submit" style="height:25px;width:130px;color:#fff;font-weight:bold;background:#3E83C9">
+</p>
+        </form>
+			</div>
+			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
+		</div>
+	</div>
+	<!-- end content -->
 
-	<div style="clear: both;">&nbsp;</div>
-</div>
-</div><!-- end page -->
-</div>
-
-</body>
-</html>

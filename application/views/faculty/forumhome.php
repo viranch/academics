@@ -1,5 +1,3 @@
-<div id="wrapper">
-<div id="page">
 <!-- start of sidebar1 -->
 	<div id="sidebar1">
 		<ul>
@@ -8,7 +6,6 @@
 				<?php
 					if($assignment_info != null){
 						foreach($assignment_info as $row){
-			//			echo date('m',$row['deadline']);
 						echo "<ul>&nbsp;&nbsp; 
 							<strong>{$row['file']}</strong><br>&nbsp;&nbsp;
 							<i>C0urse: <strong>{$row['course_id']}</strong></i><br>
@@ -42,16 +39,6 @@
 		</ul>
 	</div>
 <!-- end of sidebar2 -->
-	<!-- start content -->
-	<div id="content">
-		<div class="post">
-			<h2 class="title"><a href="#">Welcome to Forums</a></h2>
-				<p>Please click on the course to view or write forum for that course</p>
-			</div>
-			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
-		</div>
-	</div>
-	<!-- end content -->
 	<!-- start sidebar -->
 	<div id="sidebar">
 		<ul>
@@ -100,11 +87,14 @@
 		</ul>
 	</div>
 	<!-- end sidebar -->
+	<!-- start content -->
+	<div id="content">
+		<div class="post">
+			<h2 class="title"><a href="#">Welcome to Forums</a></h2>
+				<p>Please click on the course to view or write forum for that course</p>
+			</div>
+			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
+		</div>
+	</div>
+	<!-- end content -->
 
-	<div style="clear: both;">&nbsp;</div>
-</div>
-</div><!-- end page -->
-</div>
-
-</body>
-</html>

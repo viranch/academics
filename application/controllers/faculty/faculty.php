@@ -45,6 +45,7 @@ class Faculty extends CI_Controller {
 		$data['stu_list'] = $this->faculty_model->get_stu_list($cid);
 		$data['btech_courses']=$this->faculty_model->get_present_btech_courses();
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
+		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
 		$data['css'] = 'style.css';
 		$data['navigation'] = 'faculty/faculty_navigation.php';
 		$data['maincontent'] = 'faculty/gradingpage.php';

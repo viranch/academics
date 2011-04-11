@@ -1,18 +1,19 @@
-<div id="wrapper">
-<div id="page">
 <!-- start of sidebar1 -->
 	<div id="sidebar1">
 		<ul>
 			<li>
 				<h2>Assignments</h2>
-				<ul>&nbsp;&nbsp;
-				<strong>Project Plan</strong><br>&nbsp;&nbsp;
-				<i>Deadline: <strong>28th March</strong></i><br><br>
-				</ul>
-				<ul>&nbsp;&nbsp;
-				<strong>Project Report</strong><br>&nbsp;&nbsp;
-				<i>Deadline: <strong>28th March</strong></i>
-				</ul>
+				<?php
+					if($assignment_info != null){
+						foreach($assignment_info as $row){
+						echo "<ul>&nbsp;&nbsp; 
+							<strong>{$row['file']}</strong><br>&nbsp;&nbsp;
+							<i>C0urse: <strong>{$row['course_id']}</strong></i><br>
+							<i>Deadline: <strong>{$row['deadline']}</strong></i><br><br>
+							</ul>";
+						}
+					}
+				?>
 				
 			</li>
 			<li>
@@ -38,32 +39,6 @@
 		</ul>
 	</div>
 <!-- end of sidebar2 -->
-	<!-- start content -->
-	<div id="content">
-		<div class="post">
-			<h2 class="title"><a href="#">Submitted Assignment Details</a></h2>
-			<div class="entry">
-			
-			<table class="tab_assign">
-			<?php 
-					if($details == null){
-						echo " There are no submissions for this assignment till now";}
-					else{
-						foreach($details as $row){
-							
-							$var = base_url(). "index.php/faculty/faculty/lectures/".$row['course_id'].'/'. $row['filename'];
-							echo "<tr><td>{$row['user_id']}</td>";
-							echo "<td><a href= '$var'> {$row['filename']} </a> </td>";
-							echo "<td>{$row['submission_time'] }</td></tr>";
-						//	echo "<p align='right'> {$row['description']} </p>";
-						}
-					} ?>			
-				</table>
-			</div>
-			
-		</div>
-	</div>
-	<!-- end content -->
 	<!-- start sidebar -->
 			<div id="sidebar">
 		<ul>
@@ -114,12 +89,30 @@
 		</ul>
 	</div>
 	<!-- end sidebar -->
+	<!-- start content -->
+	<div id="content">
+		<div class="post">
+			<h2 class="title"><a href="#">Submitted Assignment Details</a></h2>
+			<div class="entry">
+			
+			<table class="tab_assign">
+			<?php 
+					if($details == null){
+						echo " There are no submissions for this assignment till now";}
+					else{
+						foreach($details as $row){
+							
+							$var = base_url(). "index.php/faculty/faculty/lectures/".$row['course_id'].'/'. $row['filename'];
+							echo "<tr><td>{$row['user_id']}</td>";
+							echo "<td><a href= '$var'> {$row['filename']} </a> </td>";
+							echo "<td>{$row['submission_time'] }</td></tr>";
+						//	echo "<p align='right'> {$row['description']} </p>";
+						}
+					} ?>			
+				</table>
+			</div>
+			
+		</div>
+	</div>
+	<!-- end content -->
 
-	<div style="clear: both;">&nbsp;</div>
-</div>
-</div><!-- end page -->
-
-</div>
-
-</body>
-</html>
