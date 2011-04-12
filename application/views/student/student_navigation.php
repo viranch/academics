@@ -23,7 +23,7 @@
     <?php echo anchor('student/student/drop_courses', 'Drop courses');?>
   </li>
   <li>
-    <?php echo anchor('student/student/fee/1', 'fee structure');?>
+    <?php echo anchor('student/student/fee/1', 'Fee Structure');?>
   </li>
   <li>
     <?php

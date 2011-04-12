@@ -154,12 +154,18 @@ hr {
 /* Content */
 
 #content {
-	float:right px;
+	float:right;
 	margin-right:15px;
 	/*width: 650px;*/
 	width: 62%;
 }
 
+#content_fee {
+	float:right;
+	margin-right:15px;
+	/*width: 650px;*/
+	width: 82%;
+}
 .post {
 padding:auto
 }
@@ -622,7 +628,7 @@ height:42px;width: auto;float:left;text-decoration:none;padding:0px;color: #fff;
 	background: #fff;
 	margin: auto;
 	border-bottom: 1px solid #fff;
-	width: 120%;
+	width: 80%;
 	border-collapse: collapse;
 }
 .tab_fee th

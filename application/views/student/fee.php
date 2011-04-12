@@ -1,10 +1,23 @@
-	<!-- start content -->
-	<div id="content">
+<div id="sidebar">
+  <ul>
+			<li>
+				<h2>Semesters</h2>
+				<ul>
+					<li><a href="#">Sem I</a></li>
+					<li><a href="#">Sem II</a></li>
+				</ul>
+      </li>
+  <ul>
+</div>
+			
+
+  <!-- start content -->
+	<div id="content_fee">
 		<div class="post">
 			<h2 class="title"><a href="#"> Fee Details</a></h2>
 
 			<div class="entry">
-			<table class="tab_fee" class="alt_fee_details" table style="margin-left:120px">
+			<table class="tab_fee" class="alt_fee_details" table style="margin-left:10px">
 			
 	<tr> 
 	<td class="alt_fee_details">Student Name</td>
@@ -44,7 +57,7 @@
 
 <br></br>
 
-<table class="tab_fee" table style="margin-left:120px">
+<table class="tab_fee" table style="margin-left:10px">
 
                 <tr>
 				<th>Fee/Charge(s)</th>
@@ -108,7 +121,7 @@
 
 <br></br>
 
-<table class="tab_fee" table style="margin-left:120px">
+<table class="tab_fee" table style="margin-left:10px">
 
                 <tr>
 				<th>Payment(s)</th>

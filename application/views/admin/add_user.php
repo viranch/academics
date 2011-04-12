@@ -1,14 +1,3 @@
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Name       : Economics
-Description: A two-column, fixed-width template suitable for business sites and blogs.
-Version    : 1.0
-Released   : 20080116
-
--->
 <script type="text/javascript">
 window.onload=function() {
 student=document.getElementById("student").innerHTML;
@@ -30,11 +19,6 @@ function toggleForm(who) {
 </script>
 <body>
 
-
-<!-- start page -->
-<div id="wrapper">
-<div id="page">
-<!-- start of sidebar1 -->
 	<!-- start content -->
 	<div id="content">
 		<div class="post">
@@ -61,7 +45,7 @@ function toggleForm(who) {
 					</td>
 				</tr><tr>
 					<td>Image</td>
-					<td><input type="text" name="dob" size=35%>Place the image in images/&lt;id&gt;.jpg</td>
+					<td><input type="file" name="image" size=35%></td>
 				</tr><tr>
 					<td>User type</td>
 					<td><select onchange="toggleForm(this.value)"><option value="stu">Student</option><option value="fac">Faculty</option></select></td>
@@ -113,26 +97,4 @@ function toggleForm(who) {
 		</div>
 	</div>
 	<!-- end content -->
-	<!-- start sidebar -->
-<!--	<div id="sidebar1">
-		<ul>
-			<li>
-				<h2>Resources</h2>
-				<ul>
-					<li><a href="http://webmail.daiict.ac.in" target="_blank">Webmail</a></li>
-					<li><a href="http://resourcecentre.daiict.ac.in:8081/webslim/default.asp" target="_blank">Resource Center</a></li>
-					<li><a href="http://intranet.daiict.ac.in/~daiict_nt01/" target="_blank">\\daiictpdc</a></li>
-					<li><a href="http://intranet.daiict.ac.in" target="_blank">Intranet</a></li>
-				</ul>
-			</li>	
-		</ul>
-	</div> -->
-	<!-- end sidebar -->
 
-	<div style="clear: both;">&nbsp;</div>
-</div>
-</div><!-- end page -->
-</div>
-
-</body>
-</html>
