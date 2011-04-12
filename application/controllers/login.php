@@ -66,11 +66,22 @@ class Login extends CI_Controller {
     
     function change_password()//function to change the password
     {
-      $data['css'] = 'style.css';
+      $data['css'] = 'admin_home.css';
+      $this->load->model('admin/admin_model');
       $data['javascript'] = 'default.js';
-      $data['navigation'] = 'student/student_navigation.php';
+      $data['permissions']=$this->admin_model->get_eligibility();
+      if($this->session->userdata('user_type')=='student'){
+        $data['navigation'] = 'student/student_navigation.php';
+        $data['css']='style.css';
+      }
       $data['maincontent']='change_password';
+      if($this->session->userdata('user_type')=='faculty'){
+        $data['navigation'] = 'faculty/faculty_navigation.php';
+        $data['css']='style.css';
+      }
       $data['message']=$this->uri->segment(3);
+      if($this->session->userdata('user_type')=='admin')
+      $data['navigation'] = 'admin/admin_navigation.php';
       $this->load->view('includes/template',$data);
       
       

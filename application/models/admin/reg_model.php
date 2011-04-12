@@ -33,7 +33,7 @@ class Reg_model extends CI_model{
   }
  function get_regcourses($userid)
   {
-    $query="select * from acad_stu_cou where user_id=".$userid." and (status='ongoing' or status='grade_improvement')";
+    $query="select * from acad_stu_cou where user_id=".$userid." and (status='unapproved' or status='grade_improvement')";
     $query = $this->db->query($query);
      if($query->num_rows() > 0) {
         return $query->result_array();
@@ -44,7 +44,7 @@ class Reg_model extends CI_model{
     $courses=$this->get_regcourses($userid);  
     $query="update acad_stu_cou set status='completed' where status='ongoing' and user_id=".$userid;
     $query = $this->db->query($query);
-    $query="update acad_stu_cou set status='ongoing' where status='unapproved' and user_id=".$userid;
+    $query="update acad_stu_cou set status='ongoing' where (status='unapproved' or status='grade_improvement')  and user_id=".$userid;
     $query = $this->db->query($query);
     if(isset($courses)){
     foreach ($courses as $row) {

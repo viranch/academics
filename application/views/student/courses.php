@@ -2,62 +2,14 @@
 	<div id="sidebar1">
 		<ul>
 			<li>
-				<h2>Lectures Today</h2>
-				<table class="tab">
-        <?php   if(isset($timetable)){ ?>
-        <tr>
-				  <th>Course</th>
-				  <th>Start</th>
-				  <th>End</th>
-				</tr>
-          <?php
-            foreach ($timetable as $row) {
-              if($row['type']=='lecture'){
-                echo "<tr><td>{$row['course_id']}</td>";
-                echo "<td>{$row['start_time']}</td>";
-                echo "<td>{$row['end_time']}</td></tr>";
-              }
-            }
-        }
-        else{
-          echo "No clasess today";
+        <h2>Forum</h2>
+        <?php
+        foreach ($info as $row) {
+          echo anchor('student/student/f/'.$row['fid']."/".$this->uri->segment(4),$row['subject'])."<br/><br/>";
         }
         ?>
-				</table>
-			</li>
-			<li>
-				<h2>Labs Today</h2>
-				<ul>
-					<table class="tab">
-        <?php   if(isset($timetable)){?>          
-				<tr>
-				<th>Course</th>
-				<th>Start</th>
-				<th>End</th>
-				</tr>
-         <?php                
-               
-              $count=0;
-              foreach ($timetable as $row) {  
-                  if($row['type']=='lab'){     
-                      echo "<tr><td>{$row['course_id']}</td>";
-                      echo "<td>{$row['start_time']}</td>";
-                      echo "<td>{$row['end_time']}</td></tr>";
-                      $count++;
-                  }
-              }
-            if($count==0)
-              echo "<tr><td>Not yet set</td></tr>";
-          }
-          else{
-            echo "No labs today";
-          }
-        
-          ?>
-
-				</table>
-				</ul>
-			</li>
+      
+      </li>
 			<li>
 
 			</li>

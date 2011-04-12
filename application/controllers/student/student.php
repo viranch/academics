@@ -335,11 +335,89 @@ class Student extends CI_Controller {
       $this->load->view('includes/template',$data);
     
     }
-    function val_drop()
-    {
-      $number=$this->input->post('number');
-      echo $number;
-    }
+
+	
+	
+	function newforum($cid){
+		$this->load->model("student/student_model");
+		$data['courses']=$this->student_model->get_present_courses();
+		$data['batch']=$this->student_model->get_batch();
+		$data['timetable']=$this->student_model->get_timetable($data['batch']);
+		$data['important_dates']=$this->student_model->get_important_dates(2);
+		$data['announcements']=$this->student_model->get_announcements($data['batch'],5);
+		$data['deadlines']=$this->student_model->get_deadlines();
+		$data['css'] = 'style.css';
+		$data['navigation'] = 'student/student_navigation.php';
+		$data['maincontent'] = 'student/new_forum.php';
+		$data['cid'] = $cid;
+		$this->load->view("includes/template", $data);
+	
+	}
+	
+	function updateforum($cid){
+		$this->load->model("student/student_model");
+		$this->student_model->insertforum($cid);
+		redirect("/student/student/forum/".$cid);
+	}
+	
+	
+	function commnentingpage($fid){
+		$this->load->model("student/student_model");
+		$data['comments'] = $this->student_model->getcomments($fid);
+		$data['courses']=$this->student_model->get_present_courses();
+		$data['batch']=$this->student_model->get_batch();
+		$data['timetable']=$this->student_model->get_timetable($data['batch']);
+		$data['important_dates']=$this->student_model->get_important_dates(2);
+		$data['announcements']=$this->student_model->get_announcements($data['batch'],5);
+		$data['deadlines']=$this->student_model->get_deadlines();
+		$data['css'] = 'style.css';
+		$data['navigation'] = 'student/student_navigation.php';
+		$data['maincontent'] = 'student/commenting_forum.php';
+		$this->load->view("includes/template", $data);
+		}
+  function forum($cid){
+    $this->load->model("student/student_model");
+    $data['courses']=$this->student_model->get_present_courses();
+    $data['batch']=$this->student_model->get_batch();
+    $data['timetable']=$this->student_model->get_timetable($data['batch']);
+    $data['important_dates']=$this->student_model->get_important_dates(2);
+    $data['announcements']=$this->student_model->get_announcements($data['batch'],5);
+    $data['deadlines']=$this->student_model->get_deadlines();
+    $data['info'] = $this->student_model->forums($cid);
+    $data['css'] = 'style.css';
+    $data['navigation'] = 'student/student_navigation.php';
+    $data['maincontent'] = 'student/forummainpage.php';
+    $data['cid'] =$cid;
+    $this->load->view("includes/template", $data);
+  }
+    
+
+	function insertcomment($fid,$cid){
+		$this->load->model("student/student_model");
+    $this->student_model->insertcomment($fid);
+		redirect("/student/student/f/".$fid."/".$cid);	
+	}
+  
+  function f(){
+    $fid=$this->uri->segment(4);
+    $cid=$this->uri->segment(5); 
+    $data['cid']=$cid;   
+		$this->load->model("student/student_model");
+		$data['forum'] = $this->student_model->getforum($fid);
+		$data['comments'] = $this->student_model->getcomments($fid);
+		$data['courses']=$this->student_model->get_present_courses();
+		$data['batch']=$this->student_model->get_batch();
+		$data['timetable']=$this->student_model->get_timetable($data['batch']);
+		$data['important_dates']=$this->student_model->get_important_dates(2);
+		$data['announcements']=$this->student_model->get_announcements($data['batch'],5);
+		$data['deadlines']=$this->student_model->get_deadlines();
+		$data['css'] = 'style.css';
+		$data['navigation'] = 'student/student_navigation.php';
+		$data['maincontent'] = 'student/commenting_forum.php';
+		$this->load->view("includes/template", $data);
+	}
+	
+  
 
 } 
  ?>

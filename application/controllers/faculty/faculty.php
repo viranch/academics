@@ -102,8 +102,8 @@ class Faculty extends CI_Controller {
 		$data['cid'] = $cid;
 		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
 		$config['upload_path'] = './lectures/'.$cid;
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '1000';
+		$config['allowed_types'] = 'gif|jpg|png|pdf';
+		$config['max_size']	= '10000';
 		$this->load->library('upload', $config);
 		if ( ! $this->upload->do_upload())
 		{

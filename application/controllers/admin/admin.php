@@ -10,7 +10,14 @@ class Admin extends CI_Controller {
     }
 
     function index(){ 
-      echo "You are admin";
+      $this->load->model('admin/admin_model');
+      $data['candidate']=$this->admin_model->get_details_id($this->session->userdata('user_id'));
+      $data['permissions']=$this->admin_model->get_eligibility();
+      $data['css'] = 'admin_home.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'admin/admin_navigation.php';
+      $data['maincontent'] = 'admin/admin_home';
+      $this->load->view('includes/template',$data);
     }
     function isadmin()
     {
@@ -37,12 +44,13 @@ class Admin extends CI_Controller {
       else if($this->input->post('name')!=''){
         $data['details']=$this->admin_model->get_details_name($this->input->post('name'));
       }  
-      $permissions=$this->admin_model->get_eligibility();
-      if($permissions[0]['delete_user']!=1)
+      $data['permissions']=$this->admin_model->get_eligibility();
+      if($data['permissions'][0]['delete_user']!=1)
         die("sorry you don't have permissions to navigate to this page");
+      
       $data['css'] = 'admin_home.css';
       $data['javascript'] = 'default.js';
-      $data['navigation'] = 'student/student_navigation.php';
+      $data['navigation'] = 'admin/admin_navigation';
       $data['maincontent'] = 'admin/delete_user';
       $this->load->view('includes/template',$data);  
     
@@ -64,12 +72,12 @@ class Admin extends CI_Controller {
       else if($this->input->post('name')!=''){
         $data['details']=$this->admin_model->get_details_name_r($this->input->post('name'));
       }  
-      $permissions=$this->admin_model->get_eligibility();
+      $data['permissions']=$this->admin_model->get_eligibility();
       //if($permissions[0]['delete_user']!=1)
         //die("sorry you don't have permissions to navigate to this page");
       $data['css'] = 'admin_home.css';
       $data['javascript'] = 'default.js';
-      $data['navigation'] = 'student/student_navigation.php';
+      $data['navigation'] = 'admin/admin_navigation';
       $data['maincontent'] = 'admin/retrieve_user';
       $this->load->view('includes/template',$data);
     }  
@@ -101,9 +109,10 @@ class Admin extends CI_Controller {
         $data['courses']=$this->reg_model->courses_registered($user_id);
       }
 
+      $data['permissions']=$this->admin_model->get_eligibility();
       $data['css'] = 'admin_home.css';
       $data['javascript'] = 'default.js';
-      $data['navigation'] = 'student/student_navigation.php';
+      $data['navigation'] = 'admin/admin_navigation.php';
       $data['maincontent'] = 'admin/approve_courses';
       $this->load->view('includes/template',$data);
     
@@ -112,6 +121,7 @@ class Admin extends CI_Controller {
     function important_dates()
     {
       $this->load->model('admin/utilities');
+      $this->load->model('admin/admin_model');
       if($this->input->post('submit')){
         $this->utilities->insert_dates();
       }
@@ -119,9 +129,10 @@ class Admin extends CI_Controller {
         $this->utilities->delete_dates();
       }
       $data['dates']=$this->utilities->get_important_dates();
+      $data['permissions']=$this->admin_model->get_eligibility();
       $data['css'] = 'admin_home.css';
       $data['javascript'] = 'default.js';
-      $data['navigation'] = 'student/student_navigation.php';
+      $data['navigation'] = 'admin/admin_navigation.php';
       $data['maincontent'] = 'admin/important_dates';
       $this->load->view('includes/template',$data);
     
@@ -129,7 +140,7 @@ class Admin extends CI_Controller {
     
     function add_user()
     {
-      $data['css'] = 'style_home.css';
+      $data['css'] = 'style.css';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'admin/add_user';
       $this->load->view('includes/template',$data);
@@ -138,8 +149,10 @@ class Admin extends CI_Controller {
     function announce()
     {
       $this->load->model('admin/announce_model');
+      $this->load->model('admin/admin_model');
       $data['program']=$this->announce_model->get_program();
       $data['year']=$this->announce_model->get_year();
+      $data['permissions']=$this->admin_model->get_eligibility();
       $data['courses']=$this->announce_model->announce_courses();
       if($this->input->post('submit')){
         $this->announce_model->insert();
@@ -150,7 +163,7 @@ class Admin extends CI_Controller {
       $data['css'] = 'admin_home.css';
       $data['announcements']=$this->announce_model->get_announce();
       $data['javascript'] = 'default.js';
-      $data['navigation'] = 'student/student_navigation.php';
+      $data['navigation'] = 'admin/admin_navigation.php';
       $data['maincontent'] = 'admin/announce';
       $this->load->view('includes/template',$data);
     }
@@ -158,6 +171,8 @@ class Admin extends CI_Controller {
     function deadline()
     {
       $this->load->model('admin/announce_model');
+      $this->load->model('admin/admin_model');
+      $data['permissions']=$this->admin_model->get_eligibility();
       $data['program']=$this->announce_model->get_program();
       $data['sem']=$this->announce_model->sem_list();
       if($this->input->post('submit')){
@@ -189,24 +204,26 @@ class Admin extends CI_Controller {
       $data['css'] = 'admin_home.css';
       $data['rest']=$this->announce_model->get_acad_restrictions();
       $data['javascript'] = 'default.js';
-      $data['navigation'] = 'student/student_navigation.php';
+      $data['navigation'] = 'admin/admin_navigation.php';
       $data['maincontent'] = 'admin/offer_restrict';
       $this->load->view('includes/template',$data);
     }
     function course_assign()
     {
       $this->load->model('admin/announce_model');
+      $this->load->model('admin/admin_model');
       if($this->input->post('submit')){
          $this->announce_model->course_assign();
       }
       
-      $data['css'] = 'style.css';
+      $data['css'] = 'admin_home.css';
       $data['faculty']= $this->announce_model->get_faculty();
+      $data['permissions']=$this->admin_model->get_eligibility();
       $data['program']=$this->announce_model->get_program();
       $data['year']=$this->announce_model->get_year();
       $data['courses']=$this->announce_model->announce_courses();
       $data['javascript'] = 'default.js';
-      $data['navigation'] = 'student/student_navigation.php';
+      $data['navigation'] = 'admin/admin_navigation.php';
       $data['maincontent'] = 'admin/course_assign';
       $this->load->view('includes/template',$data);
     
@@ -216,6 +233,7 @@ class Admin extends CI_Controller {
       $this->load->library('form_validation');
       $this->load->model('admin/utilities');
       $this->load->model('admin/announce_model');
+      $this->load->model('admin/admin_model');
       if($this->input->post('submit')){
         $this->form_validation->set_rules('category', 'Category', 'required|trim');
         $this->form_validation->set_rules('course_name', 'Course name', 'required|trim');
@@ -236,14 +254,290 @@ class Admin extends CI_Controller {
         $this->utilities->delete_course();
       }
       
+      $data['permissions']=$this->admin_model->get_eligibility();
       $data['courses']=$this->announce_model->announce_courses();
-      $data['css'] = 'style.css';
+      $data['css'] = 'admin_home.css';
       $data['javascript'] = 'default.js';
-      $data['navigation'] = 'student/student_navigation.php';
+      $data['navigation'] = 'admin/admin_navigation.php';
       $data['maincontent'] = 'admin/course_reg';
       $this->load->view('includes/template',$data);
     
     }
+	
+	function createuser(){
+			$data['css'] = 'admin_home.css';
+		//	$data['navigation'] = 'faculty/faculty_navigation.php';
+			$data['maincontent'] = 'admin/createuser';
+			$this->load->view('includes/template', $data);
+	}
+	
+	function updatemainpage(){
+		$data['css'] = 'admin_create_user.css';
+		//	$data['navigation'] = 'faculty/faculty_navigation.php';
+			$data['maincontent'] = 'admin/updateusermainpage';
+			$data['error'] = '';
+			$this->load->view('includes/template', $data);
+	}
+	function updateuser_1(){
+			if(isset($_POST['sid']))
+				if($_POST['sid'] != '')
+					$user_id = $this->input->post('sid');
+			else if(isset($_POST['user_id']))
+				$user_id = $this->input->post('user_id');
+			else if(1)
+				redirect("/admin/admin/updatemainpage/");
+			$data['css'] = 'admin_create_user.css';
+		//	$data['navigation'] = 'faculty/faculty_navigation.php';
+			$data['maincontent'] = 'admin/showing_userinfo';
+			$this->load->model('admin/admin_model');
+			$data['details'] = $this->admin_model->get_stu_details($user_id);
+			if($data['details'] != null)
+				$this->load->view('includes/template', $data);
+			else{
+				$data['css'] = 'admin_create_user.css';
+		//		$data['navigation'] = 'faculty/faculty_navigation.php';
+				$data['maincontent'] = 'admin/updateusermainpage';
+				$data['error'] ="userId does not exists, please enter correctly or create a new one" ;
+				$this->load->view('includes/template', $data);
+			}
+	}
+	
+
+	function updateuser(){
+	//		$user_id = $this->input->post('sid');
+			$data['css'] = 'admin_create_user.css';
+	//		$data['navigation'] = 'faculty/faculty_navigation.php';
+			$data['maincontent'] = 'admin/updateuser';
+			$this->load->model('admin/admin_model');
+		//	$data['details'] = $this->faculty_model->get_stu_details($user_id);
+			$this->load->view('includes/template', $data);
+	}
+
+	
+	function val_user_data(){
+		$this->load->library('form_validation');
+		//rules for validation
+		$this->form_validation->set_rules('user_id', 'UserId', 'required|min_length[9]|max_length[10]');
+		$this->form_validation->set_rules('user_id', 'UserId' ,'callback_checkuser');
+		$this->form_validation->set_rules('user_name', 'UserName', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('confirm_password', 'Password confirmation', 'required|matches[password]');
+        $this->form_validation->set_rules('user_type', 'Usertype', 'required');
+		$this->form_validation->set_rules('dob', 'Date of Birth', 'required');
+		$this->form_validation->set_rules('gender', 'Gender', 'required');
+		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('email_id', 'EmailId', 'required|valid_email');
+		$this->form_validation->set_rules('emergency_address', 'Emergency address', 'required');
+		$this->form_validation->set_rules('phone', 'Phone No', 'required|numeric');
+		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('identification_mark', 'Identification mark', 'required');		
+		if ($this->form_validation->run() == FALSE){
+			$data['css'] = 'admin_create_user.css';
+		//	$data['navigation'] = 'faculty/faculty_navigation.php';
+			$data['maincontent'] = 'admin/createuser';
+			$this->load->view('includes/template', $data);
+		}
+		else{
+		if($this->input->post('creation_date') =='')
+		$creationdate = date(" 'Y'-'m'-'d'");
+		else
+		$creationdate = $this->input->post('creation_date');
+		$inp = array( 'user_id' => $this->input->post('user_id'),
+					'candidate_name' => $this->input->post('user_name'),
+					'password'=> md5($this->input->post('password')),
+					'user_type'=>$this->input->post('user_type'),
+					'email_id' =>$this->input->post('email_id'),
+					'first_name' =>$this->input->post('first_name'),
+					'last_name' => $this->input->post('last_name'),
+					'dob'       => $this->input->post('dob'),
+					'gender'    => $this->input->post('gender'),
+					'status'    => $this->input->post('status'),
+					'image'    => $this->input->post('image'),
+					'address'   => $this->input->post('address'),
+					'emergency_address'   => $this->input->post('emergency_address'),
+					'phone_no'  => $this->input->post('phone'),
+					'creation_date' => $creationdate,
+					'bloodgroup' => $this->input->post('bloodgroup'),
+					'identification_mark' =>$this->input->post('identification_mark'),
+					'officephone' => $this->input->post('officephone'));				
+			$this->db->insert('acad_users',$inp);
+			$data['css'] = 'admin_create_user.css';
+		//	$data['navigation'] = 'faculty/faculty_navigation.php';
+			$this->load->view('includes/template', $data);
+			echo "successfully Registered";
+		}
+	}
+	
+	function checkuser($str)
+		{
+		if ($str)
+		{
+			$query = "select * from acad_users where user_id=$str";
+			$query = $this->db->query($query);
+			if($query->num_rows() == 1){
+			$this->form_validation->set_message('checkuser', '%s has already been taken');
+			return FALSE;
+			}
+			return true;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+	
+	
+	function val_updateuser(){
+		$this->load->model('admin/admin_model');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('user_id', 'UserId', 'required|min_length[9]|max_length[10]');
+		$this->form_validation->set_rules('user_id', 'UserId' ,'callback_changeuser');
+		$this->form_validation->set_rules('user_name', 'UserName', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('confirm_password', 'Password confirmation', 'required|matches[password]');
+        $this->form_validation->set_rules('user_type', 'Usertype', 'required');
+		$this->form_validation->set_rules('dob', 'Date of Birth', 'required');
+		$this->form_validation->set_rules('gender', 'Gender', 'required');
+		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('email_id', 'EmailId', 'required|valid_email');
+		$this->form_validation->set_rules('emergency_address', 'Emergency address', 'required');
+		$this->form_validation->set_rules('phone', 'Phone No', 'required|numeric');
+		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('identification_mark', 'Identification mark', 'required');
+		if ($this->form_validation->run() == FALSE){
+			$data['css'] = 'admin_create_user.css';
+	//		$data['navigation'] = 'faculty/faculty_navigation.php';
+			$data['maincontent'] = 'admin/showing_userinfo';
+			$user_id = $_POST['user_id'];
+			$data['details'] = $this->faculty_model->get_stu_details($user_id);
+			if($data['details'] != null)
+				$this->load->view('includes/template', $data);
+			else{
+				$data['css'] = 'admin_create_user.css';
+	//			$data['navigation'] = 'faculty/faculty_navigation.php';
+				$data['maincontent'] = 'admin/updateusermainpage';
+				$data['error'] ="userId does not exists, please enter correctly or create a new one" ;
+				$this->load->view('includes/template', $data);
+			}
+		}
+		else {
+		if($this->input->post('creation_date') =='')
+		$creationdate = date(" 'Y'-'m'-'d'");
+		else
+		$creationdate = $this->input->post('creation_date');
+			$inp = array( 'user_id' => $this->input->post('user_id'),
+					'candidate_name' => $this->input->post('user_name'),
+					'password'=> md5($this->input->post('password')),
+					'user_type'=>$this->input->post('user_type'),
+					'email_id' =>$this->input->post('email_id'),
+					'first_name' =>$this->input->post('first_name'),
+					'last_name' => $this->input->post('last_name'),
+					'dob'       => $this->input->post('dob'),
+					'gender'    => $this->input->post('gender'),
+					'status'    => $this->input->post('status'),
+					'image'    => $this->input->post('image'),
+					'address'   => $this->input->post('address'),
+					'emergency_address'   => $this->input->post('emergency_address'),
+					'phone_no'  => $this->input->post('phone'),
+					'creation_date' => $creationdate,
+					'bloodgroup' => $this->input->post('bloodgroup'),
+					'identification_mark' =>$this->input->post('identification_mark'),
+					 'officephone' => $this->input->post('officephone'));
+				$uid =$this->input->post('user_id');
+				$this->db->where('user_id', $uid);
+				$this->db->update('acad_users', $inp); 
+		//		$query = $this->db->query($query);
+			    echo "Update was successful";
+		}
+	}
+	
+	
+	function changeuser($str)
+		{
+		if ($str){
+			$query = "select * from acad_users where user_id='$str'";
+			$query = $this->db->query($query);
+			if($query->num_rows() == 0){
+			$this->form_validation->set_message('changeuser', '%s doesn\'t exist, Please enter the valid user to proceed');
+			return FALSE;
+		}
+			return true;
+		}
+		else{
+			return TRUE;
+		}
+	}
+	
+	function feedetails(){
+		$data['css'] = 'admin_feeform.css';
+	//	$data['navigation'] = 'admin/faculty_navigation.php';
+		$data['maincontent'] = 'admin/fee_form';
+		$this->load->view('includes/template', $data);
+		
+	}
+	
+	function enterfeedetails(){
+		
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('studentname', 'Student Name' ,'required');
+		$this->form_validation->set_rules('studentid', 'StudentId' ,'callback_changeuser|required');
+		$this->form_validation->set_rules('progrm', 'program' ,'required');
+		$this->form_validation->set_rules('batch', 'Batch' ,'required|numeric');
+		$this->form_validation->set_rules('Semster', 'program' ,'required');
+		$this->form_validation->set_rules('receiptno', 'receiptno' ,'required');
+		if ($this->form_validation->run() == FALSE){
+		$data['css'] = 'admin_feeform.css';
+	//	$data['navigation'] = 'faculty/faculty_navigation.php';
+		$data['maincontent'] = 'admin/fee_form';
+		$this->load->view('includes/template', $data);
+		}
+		else{
+			$semid = $this->input->post('Semster');
+			echo $semid;
+			$query = "select * from acad_sem_list where semester='$semid'";
+			$query = $this->db->query($query);
+			$res = $query->result_array();
+			foreach($res as $row)
+			$semid = $row['sem_id'];
+			$inp = array( 'user_id' => $this->input->post('studentid'),
+					'candidate_name' => $this->input->post('studentname'),
+					'program' =>$this->input->post('progrm'),
+					'batch_year' =>$this->input->post('batch'),
+					'reciept_number' => $this->input->post('receiptno'),
+					'tution_fee'       => $this->input->post('tutionfee'),
+					'excess_payment'    => $this->input->post('excesspayment'),
+					'total'    => $this->input->post('total'),
+					'cash_amount'    => $this->input->post('cashamount'),
+					'DD/cheque_amount'   => $this->input->post('dd/chequeamount'),
+					'DD/cheque_numbers'   => $this->input->post('dd/chequeno'),
+					'DD/cheque_date'  => $this->input->post('dd/chqquedate'),
+					'DD/cheque_iss_bank' =>  $this->input->post('dd/chequebank'),
+					'hostel_fee' =>$this->input->post('hostelfee'),
+					'medical_insurance' =>$this->input->post('medialinsurance'),
+					'registration_fee' =>$this->input->post('registrationfee'),
+					'approved_date' =>$this->input->post('approveddate'),
+					'Electricity_charges ' =>$this->input->post('electricitycharges'),
+					'late_fee ' =>$this->input->post('latefee'),
+					'sem_id' =>$semid 
+					 );
+				
+			$r = $this->db->insert('acad_fee_structure',$inp);
+			if(!$r){
+				echo "There is some error in the details provided, may be you are inserting for the second time";
+				$data['css'] = 'admin_feeform.css';
+			//	$data['navigation'] = 'faculty/faculty_navigation.php';
+				$data['maincontent'] = 'admin/fee_form';
+				$this->load->view('includes/template', $data);
+			}
+		//	$data['navigation'] = 'faculty/faculty_navigation.php';
+			$data['css'] = 'admin_feeform.css';
+			$this->load->view('includes/template', $data);
+			echo "successful entry";
+		}
+	
+	
+  
+}
   
 } 
 ?>

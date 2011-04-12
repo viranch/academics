@@ -161,9 +161,15 @@ hr {
 }
 #content_admin
 {
-  margin-left:auto
+  margin-left:auto;
   margin-right:auto;
   width:82%;
+}
+#content_ad_home
+{
+  float:right;
+  margin-left:2%;
+  width:80%;
 }
 
 .post {
@@ -484,7 +490,6 @@ height:42px;width: auto;float:left;text-decoration:none;padding:0px;color: #fff;
 	margin: 0;
 	padding: 0;
 	border: 0;
-	
 	list-style-type: none;
 	display: block;
 }
@@ -494,6 +499,7 @@ height:42px;width: auto;float:left;text-decoration:none;padding:0px;color: #fff;
 	padding: 0;
 	border: 0;
 	display: block;
+  font-size:12px;
 	float: left;	/* move all main list items into one row, by floating them */
 	position: relative;	/* position each LI, thus creating potential IE.win overlap problem */
 	z-index: 5;		/* thus we need to apply explicit z-index here... */
@@ -511,7 +517,6 @@ height:42px;width: auto;float:left;text-decoration:none;padding:0px;color: #fff;
 }
 
 .menu ul {User
-	visibility: hidden;	/* initially hide all submenus. */
 	position: absolute;
 	z-index: 10;
 	left: 0;	/* while hidden, always keep them at the top left corner, */
@@ -519,7 +524,6 @@ height:42px;width: auto;float:left;text-decoration:none;padding:0px;color: #fff;
 }
 
 .menu li:hover>ul {
-	visibility: visible;	/* display submenu them on hover */
 	top: 100%;	/* 1st level go below their parent item */
 }
 
@@ -577,7 +581,7 @@ height:42px;width: auto;float:left;text-decoration:none;padding:0px;color: #fff;
 .menu a {
 	text-decoration: none;
 	color: #ffffff;
-	padding: .4em 1em;
+	padding: .2em 0.6em;
 	display: block;
 	position: relative;
 	font-weight: bold;
@@ -600,6 +604,7 @@ height:42px;width: auto;float:left;text-decoration:none;padding:0px;color: #fff;
 	top: 5px;
 	left: 90%;
 }
+
 .tab
 {
 	/*font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;*/
@@ -691,4 +696,12 @@ width: 100%;
 .admin_tab tr
 {
   margin:auto auto auto auto;
+}
+
+.formLabel
+{
+  font-size:11px;
+  color:#666;
+  display:block;
+  padding:10px 0 7px 0;
 }

@@ -22,6 +22,7 @@ class Lectures extends CI_Controller {
       $data['important_dates']=$this->student_model->get_important_dates(4);
       $courseid=$this->uri->segment(4);
       $data['lectures']=$this->lecture_model->get_lectures($courseid);
+		  $data['info'] = $this->student_model->forums($courseid);
       $data['assgn']=$this->lecture_model->get_assignment($courseid);
       $data['announcements']=$this->student_model->get_announcements($data['batch'],5);
       $data['deadlines']=$this->student_model->get_deadlines();

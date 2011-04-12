@@ -2,6 +2,14 @@
 class Student_model extends CI_model{
   
   
+  function ongoing()
+  {
+    $query="select sem_id from acad_stu_cou where status='ongoing' and user_id=".$this->session->userdata('user_id');
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
   
   
   
@@ -57,13 +65,13 @@ class Student_model extends CI_model{
    */
   function get_batch()
   {
-    $query="select * from acad_batch A,acad_sem_list B where user_id=".$this->session->userdata('user_id')." and A.present_sem_id=B.sem_id";
+    $semid=$this->ongoing();
+    if(!empty($semid)){
+    $query="select * from acad_batch A,acad_sem_list B where user_id=".$this->session->userdata('user_id')." and B.sem_id=".$semid[0]['sem_id'];
     $query = $this->db->query($query);
     if($query->num_rows() > 0) {
         return $query->result_array();
     }
-    else {
-      echo "Sorry the user doesnot seem to be a student";
     }
 
     /*$user = $this->session->userdata('user_id');
@@ -84,6 +92,7 @@ class Student_model extends CI_model{
   
   function get_timetable($data)
   {
+    if(isset($data)){
     $query = "select A.course_id,T.start_time,T.end_time,T.type from acad_stu_cou A,acad_timetable T 
               where A.slot_no=T.slot_no AND 
               status='ongoing' AND 
@@ -95,7 +104,7 @@ class Student_model extends CI_model{
      if($query->num_rows() > 0) {
         return $query->result_array();
      }
-    
+    }
   }
   
   
@@ -151,7 +160,7 @@ class Student_model extends CI_model{
         $query = $query ." or course_id='" .$row['course_id']."'";
       }
       //$query= $query.") order by sent_date";
-      $query= $query.") and A.user_id=B.user_id order by sent_date";
+      $query= $query.") and A.user_id=B.user_id order by sent_date desc";
       //echo "{$query}";
       if(empty($number))
         $query = $this->db->query($query);
@@ -307,7 +316,7 @@ class Student_model extends CI_model{
   function get_grade_improvement()
   {
     $user_id=$this->session->userdata('user_id');
-    $query="select * from acad_stu_cou A ,acad_cou_grad B,acad_grade C,acad_courses D where B.grade=C.grade and A.course_id=B.course_id and grade_value <= 5 and (status ='completed' or status='grade_improvement') and A.user_id=B.user_id and A.course_id=D.course_id and A.user_id='".$user_id."'";
+    $query="select * from acad_stu_cou A ,acad_cou_grad B,acad_grade C,acad_courses D where B.grade=C.grade and A.course_id=B.course_id and grade_value <= 5 and (status ='completed' or status='grade_improvement' or status='ongoing') and A.user_id=B.user_id and A.course_id=D.course_id and A.user_id='".$user_id."'";
     $query = $this->db->query($query);
     if($query->num_rows() > 0) {
         return $query->result_array();
@@ -340,6 +349,49 @@ class Student_model extends CI_model{
         return $query->result_array();
      }
    }
+
+	function insertforum($cid){
+		$inp = array('user_id' => $this->session->userdata('user_id'),
+					 'course_id' => $cid,
+					 'description' => $this->input->post('description'),
+					 'subject' => $this->input->post('subject'),
+					 'timeofpost' => time()
+					 );
+		$this->db->insert('forum',$inp);
+	}
+	
+	function getcomments($fid){
+	    $query= "select content,user_id ,fid, timeofpost from comments where fid = '$fid' order by 'timeofpost' desc limit 0,20";
+      $query = $this->db->query($query);
+			if($query->num_rows() > 0){
+			return $query->result_array();
+		}
+			else return null;
+	}
+	
+	function insertcomment($fid){
+		$r['user_id'] = $this->session->userdata('user_id');
+	    $r['timeofpost'] = time();
+		$r['fid'] = $fid;
+		$r['content'] = $_POST['Comment'];
+		$this->db->insert('comments',$r);
+	}
+	function getforum($fid){
+		$query = "select * from forum where fid='".$fid."'";
+		 $query = $this->db->query($query);
+			if($query->num_rows() > 0){
+			return $query->result_array();
+		}
+			else return null;
+  }
+  function forums($cid){
+          $query = "SELECT fid,user_id,subject,description FROM forum where course_id='$cid' order by 'fid' desc limit 0,20 ";
+              $query = $this->db->query($query);
+                if($query->num_rows() > 0){
+                        return $query->result_array();
+                            }
+        else return null;
+  }
 
 }
 ?>

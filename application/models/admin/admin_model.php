@@ -9,7 +9,7 @@ class Admin_model extends CI_model{
   }
   function get_details_id($id)
   {
-    $query="select * from acad_users where status='active' and user_id LIKE ".$id;
+    $query="select * from acad_users where status='active' and user_id=".$id;
     $query = $this->db->query($query);
      if($query->num_rows() > 0) {
         return $query->result_array();
@@ -52,6 +52,15 @@ class Admin_model extends CI_model{
         return $query->result_array();
      }
   }
+  function get_stu_details($uid){
+		$query = "select * from acad_users where user_id=$uid";
+		$query = $this->db->query($query);
+		if($query->num_rows() > 0){
+				//echo $u[1];
+				return $query->result_array();
+		}   
+			return null;
+	}
 
 }
 ?>
