@@ -24,6 +24,23 @@ class Admin extends CI_Controller {
       $this->load->view('includes/template',$data);
     
     }
+    function timetable1()
+    {
+      
+      $this->load->model('admin/admin_model');
+      if($this->input->post('submit')){
+        $this->admin_model->timetable();
+      }  
+      $data['timetable']=$this->admin_model->show_timetable();
+      $data['everything']=$this->admin_model->get_slots_courses();
+      $data['permissions']=$this->admin_model->get_eligibility();
+      $data['css'] = 'admin_home.css';
+      $this->load->model('admin/announce_model');
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'admin/admin_navigation.php';
+      $data['maincontent'] = 'admin/time_table2';
+      $this->load->view('includes/template',$data);
+    }
     function index(){ 
       $this->load->model('admin/admin_model');
       $data['candidate']=$this->admin_model->get_details_id($this->session->userdata('user_id'));
@@ -180,8 +197,12 @@ class Admin extends CI_Controller {
     
     function add_user()
     {
-      $data['css'] = 'style.css';
-      $data['navigation'] = 'student/student_navigation.php';
+      $data['css'] = 'admin_home.css';
+      $this->load->model('admin/admin_model');
+      $data['permissions']=$this->admin_model->get_eligibility();
+      if($data['permissions'][0]['important_dates']!=1)
+        die("sorry you don't have permissions to navigate to this page");
+      $data['navigation'] = 'admin/admin_navigation.php';
       $data['maincontent'] = 'admin/add_user';
       $this->load->view('includes/template',$data);
     
@@ -586,6 +607,36 @@ class Admin extends CI_Controller {
 	
   
 }
+function course_offerhome(){
+		$this->load->view('admin/c_offerhome');
+	}
+  
+	function course_offer(){
+		$this->load->model('admin/admin_model');
+		$batch = $_POST['batch'];
+		$semid = $_POST['semid'];
+		$program = $_POST['program'];
+		$data['batch'] = $batch;
+		$data['program'] = $program;
+		$data['semester'] = $this->admin_model->get_semester($semid);
+		$data['semid'] = $semid;
+		$data['c_offered']= $this->admin_model->get_courses_offered($batch,$semid, $program);
+		$this->load->view('admin/c_offered',$data);
+	}
+	
+	function course_offer_insert(){
+		$inp = array('program' => $_POST['program'],
+					 'course_id' => $_POST['cid'],
+					 'batch_year' => $_POST['batch'],
+					 'present_year'=> date('Y'),
+					 'sem_id'      => $_POST['semid'],
+					 'audit'       => $_POST['audit'],
+					 'slot_no'     => $_POST['slot_no'],
+					 'status'     => $_POST['status']);
+		$this->db->insert('acad_cou_offer',$inp);
+		redirect("/admin/admin/course_offerhome");
+	}
+  
   
 } 
 ?>

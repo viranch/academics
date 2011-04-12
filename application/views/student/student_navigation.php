@@ -23,7 +23,7 @@
     <?php echo anchor('student/student/drop_courses', 'Drop courses');?>
   </li>
   <li>
-    <a href="http://www.aplus.co.yu/about/" title="Relevant info about me">Fees</a>
+    <?php echo anchor('student/student/fee/1', 'fee structure');?>
   </li>
   <li>
     <?php

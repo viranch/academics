@@ -1,7 +1,7 @@
 <html xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">  
   <head>  
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-      <title>Academics @ DA-IICT</title>
+      <title>Academics</title>
       <?php if(isset($css)):?>
       <link href="<?php echo base_url(); ?>assets/css/<?php echo "{$css}";?>" media="screen" rel="stylesheet" type="text/css" />
       <link type="text/css" href="<?php echo base_url(); ?>assets/js/theme/ui.all.css" rel="stylesheet">  
@@ -16,5 +16,5 @@
   <body>
   <div id="page">
     <div id="logo">
-      <img src="<?php echo base_url(); ?>assets/images/new2_01.png"/>
+      <img src="<?php echo base_url(); ?>assets/images/new2_01.png" title="College Logo" alt="College Logo" />
     </div>  
