@@ -44,12 +44,6 @@ Released   : 20080116
 			<div class="entry">
 			<form action="settimetable.php" method="post">
 			<table class="nohover"><tr>
-				<td><strong>Program</strong></td>
-				<td><select name="program"><option value="btech">BTech</option><option value="mtech">MTech</option></select></td>
-			</tr><tr>
-				<td><strong>Batch</strong></td>
-				<td><select name="batch"><option value="2010">2010</option><option value="2008">2008</option></select></td>
-			</tr><tr>
 				<td><strong>Weekday</strong></td>
 				<td><select name="day"><option value="mon">Monday</option><option value="tue">Tuesday</option><option value="wed">Wednesday</option><option value="thu">Thursday</option><option value="fri">Friday</option></select></td>
 			</tr></table><br><br>
