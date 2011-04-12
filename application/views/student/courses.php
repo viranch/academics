@@ -79,17 +79,33 @@
 		<div class="post">
 			<h2 class="title"><a href="#">Assignments</a></h2>
 			<div class="entry">
-       <?php if(isset($assgn)){foreach ($assgn as $row) {?>
-              <p class="ann_p"><strong><text class="ann_name"> 
-                  <?php echo "{$row['description']}";?>
-              </text></strong><br>&nbsp;&nbsp;
-                     
-        <br>&nbsp;&nbsp;
+      <?php  /*if(isset($this->uri->segment(5))){
+                $data=str_replace('%20',' ',$this->uri->segment(5));
+                echo $data;
+      }*/
+          if(isset($assgn)){
+              
+              foreach ($assgn as $row) {?>
+              
+            
+                <p class="ann_p"><strong><text class="ann_name"> <?php echo "{$row['description']}";?></text></strong><br>&nbsp;&nbsp;<br>&nbsp;&nbsp;
+
                   <?php
-                  $dir=base_url()."lectures/";
+                  $dir=base_url()."lectures/".$row['course_id']."/";
                   echo "<a href=\"".$dir.$row['file']."\">".$row['file']."</a></text>"
                   ?>
-              <?php 
+                <?php   
+                        foreach($submitted as $row1){
+                        if($row['assignment_id']==$row1['assignment_id']){
+                          echo "<br/><br/>";
+                          echo anchor('student/lectures/download_assignment/'.$row1['filename'].'/'.$row['course_id'], $row1['filename']);    
+                          echo "<br/>".$row1['submission_time'];
+                        }
+                 
+                       }?>
+            
+
+        <?php 
                   echo form_open_multipart('student/lectures/upload');
                   
                   echo form_hidden('course_id', $row['course_id']);
@@ -109,4 +125,3 @@
 
 	<div style="clear: both;">&nbsp;</div>
 <?php
-

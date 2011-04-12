@@ -1,3 +1,4 @@
+
 <!-- start page -->
 <div id="wrapper">
 <div id="page">
@@ -109,7 +110,8 @@
 		<div class="post">
 			<h2 class="title"><a href="#">Assignments</a></h2>
 			<div class="entry">
-       <?php foreach ($assgn as $row) {?>
+       <?php echo $this->uri->segment(4);
+              if(isset($assgn)){foreach ($assgn as $row) {?>
               <p class="ann_p"><strong><text class="ann_name"> 
                   <?php echo "{$row['description']}";?>
               </text></strong><br>&nbsp;&nbsp;
@@ -129,7 +131,7 @@
                   echo form_submit('submit','Upload');
                   echo form_close(); 
 
-          }?>  </p>
+          }}?>  </p>
 
 			</div>
 			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
@@ -176,4 +178,4 @@
 </div>
 </div><!-- end page -->
 <?php
-print_r($lectures);
+

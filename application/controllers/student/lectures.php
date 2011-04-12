@@ -26,6 +26,7 @@ class Lectures extends CI_Controller {
       $data['assgn']=$this->lecture_model->get_assignment($courseid);
       $data['announcements']=$this->student_model->get_announcements($data['batch'],5);
       $data['deadlines']=$this->student_model->get_deadlines();
+      $data['submitted']=$this->lecture_model->get_assig_sub($courseid);
       $this->load->view('includes/template',$data);
     }
     function isstudent()
@@ -38,28 +39,43 @@ class Lectures extends CI_Controller {
     }
     function upload()
     {
-     $path = realpath(APPPATH);
-     $path = $path."/assignments";
-     echo "{$path}";
+     $courseid= $this->input->post('course_id');
+      $path = realpath(APPPATH.'../lectures/'.$courseid."/assignments/");
      $config['upload_path'] = $path; 
-     $config['allowed_types'] = 'zip';
-     $config['encrypt_name']  = TRUE;   
-     $config['max_size']  = '100';  
+     $config['allowed_types'] = 'zip|doc|rar|pdf|tar';   
+     $config['max_size']  = '1024';  
      $this->load->library('upload',$config);
      if (!$this->upload->do_upload()){
        $error =  $this->upload->display_errors();
-       echo "{$error}";
+       redirect('student/lectures/index/'.$courseid.'/'.$error);
      }
      else {                   
        $data = array('upload_data' => $this->upload->data());
        $this->load->model('student/lecture_model');
        $assignment_id=$this->input->post('id');
        $faculty_id=$this->input->post('faculty_id');
-       $course_id=$this->input->post('course_id');
        $filename=$data['upload_data']['file_name'];
-       $this->lecture_model->submit_assignment($assignment_id,$faculty_id,$course_id,$filename);
-       redirect('student/lectures/index/'.$course_id);
+       $this->lecture_model->submit_assignment($assignment_id,$faculty_id,$courseid,$filename);
+       redirect('student/lectures/index/'.$courseid);
      }
+    }
+    function download_assignment($filename,$courseid)
+    {
+      if($filename!=''){
+        $this->load->model('student/lecture_model');
+        if($this->lecture_model->chk($filename)==1){
+        $this->load->helper('download');
+        $path = realpath(APPPATH.'../lectures/'.$courseid."/assignments/".$filename);
+        $data = file_get_contents($path);
+        force_download($filename, $data);
+        }
+        else{
+          echo "Sorry  not accessible";
+        }
+      }
+      else{
+        echo "File name empty";
+      }
     }
 }
 ?>

@@ -348,6 +348,8 @@ class Admin extends CI_Controller {
           $this->utilities->course_create();
           mkdir(realpath(APPPATH.'../lectures/').'/'.$this->input->post('course_id'),0777);
           chmod (realpath(APPPATH.'../lectures/').'/'.$this->input->post('course_id'),0777);
+          mkdir(realpath(APPPATH.'../lectures/').'/'.$this->input->post('course_id').'/assignments',0777);
+          chmod (realpath(APPPATH.'../lectures/').'/'.$this->input->post('course_id').'/assignments',0777);
           $data['message']="Succesfully created";
         }
       }

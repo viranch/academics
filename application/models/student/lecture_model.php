@@ -1,5 +1,17 @@
 <?php
 class Lecture_model extends CI_model{
+  function get_assig_sub($courseid)
+  {
+    $query="select * from acad_assig_sub where user_id=".$this->session->userdata('user_id')." and course_id='".$courseid."' group by assignment_id order by submission_time desc";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  
+  
+  
+  
   function get_lectures($courseid){
     $batch=$this->get_batch();
     $query="select * from acad_lectures A,acad_teaching B where A.user_id=B.user_id and status='active' and A.course_id='".$courseid."' and program='".$batch[0]['program']."' and batch_year=".$batch[0]['batch_year']." order by date desc";
@@ -23,7 +35,8 @@ class Lecture_model extends CI_model{
                   'faculty_user_id' =>$faculty_id,
                   'user_id' =>$this->session->userdata('user_id'),
                   'filename'=> $filename,
-                  'submission_time'=>'0000'
+                  'course_id'=>$course_id,
+                  'submission_time'=>date('y-m-d H:i:s')
                   );
     $this->db->insert('acad_assig_sub',$data);
   
@@ -47,6 +60,18 @@ class Lecture_model extends CI_model{
      if($query->num_rows() > 0) {
         return $query->result_array();
      }
+  }
+  function chk($filename)
+  {
+    $query="select * from acad_assig_sub where user_id=".$this->session->userdata('user_id')." and filename='".$filename."'";
+    $query = $this->db->query($query);   
+     if($query->num_rows() > 0) {
+       return 1;
+     }
+     else {
+       return 0;
+     }
+  
   }
 }
 ?>
