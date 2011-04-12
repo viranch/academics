@@ -6,8 +6,11 @@
         <?php
         if(isset($info)){
         foreach ($info as $row) {
-          echo anchor('student/student/f/'.$row['fid']."/".$this->uri->segment(4),$row['subject'])."<br/><br/>";
-        }}
+          echo anchor('student/student/f/'.$row['fid']."/".$this->uri->segment(4),$row['subject'])."<br/>";
+        }
+	$url = '/academics/index.php/student/student/newforum/'. $cid;?>
+	<i><a href="<?php echo $url ?>">Start new topic...</a></i>
+	<?php }
         else {
           echo "<h3>No forums created yet</h3>";
         }

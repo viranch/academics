@@ -116,7 +116,7 @@
           echo "{$row['sent_date']}";
         ?></i></strong></p>
         <?php }}?>
-
+		<div class="more"><i><a href="student/student/announcements">More...</a></i></div>
 				
 			</div>
 			

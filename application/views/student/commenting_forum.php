@@ -97,33 +97,31 @@
 <!-- start content -->
 <div id="content">
 		<div class="post">
-			<?php $url = '/academics/index.php/student/student/newforum/'. $cid;
-			echo "<h2><a href='$url'>Start new forum</a></h2>";
-			if($forum != null) {foreach($forum as $row){
-			echo "<h2>Subject :". $row['subject']. "</h2>" ;
-		    echo "<p > Desription".$row['Description']. "</p >";
-			echo "<p class='postcomments'>By:".$row['user_id']."</p>";
-			}}
-			else echo "no forums yet";?>
-			
-			
-			<h2 class="title"><a href="#">Comments</a></h2>
-			<div class="entry">
+			<?php
+			if($forum != null) {foreach($forum as $row){?>
+			<h2 class='title'><?php echo $row['subject'] ?></h2>
+		    	<br>&nbsp;&nbsp;&nbsp;<i>Posted by </i><strong><?php echo $row['user_id']?></strong><i> on </i><strong><?php echo date("d-m-Y", $row['Timeofpost']) ?></strong>
+			<div class='entry'>
+		    	<p><text class="ann_name"><?php echo $row['Description'] ?></text></p>
+			<?php }}
+			else echo "No topics yet";?>
+			<br>			
+
+			<h2>Comments</h2>
 		   	<?php if($comments != null){
 					foreach($comments as $comment){ ?>
-			 <h4><?php echo $comment['user_id'] ;?></h4>
-			<p ><?php echo $comment['content'] ;?></p ><p class="postcomments">Posted on <?php echo date(" d-m-Y", $comment['timeofpost']) ;?></p>
+			 <h4 class="forumuser"><?php echo $comment['user_id'] ;?></h4>
+			<p ><?php echo $comment['content'] ;?></p ><p class="postcomments"><i>Posted on <?php echo date(" d-m-Y", $comment['timeofpost']) ;?></i></p>
 			<?php } }
 			else echo "no comments till now";
 			?>
-			
+			<br><strong>Leave a comment:</strong><br><br>
 			 <?php echo form_open('/student/student/insertcomment/'.$this->uri->segment(4).'/'.$cid);?>
-			 <textarea rows="10" cols="60" name="Comment"></textarea>
-        <input type="submit" value="Submit Comment" style="height:25px;width:130px;color:#fff;font-weight:bold;background:#3E83C9" name="submitcomment">
+			 <textarea rows="10" cols="60" name="Comment"></textarea><br><br>
+        <input type="submit" value="Post Comment" name="submitcomment">
         </form>
 			 
 			</div>
-			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
 		</div>
 	</div>
 	<!-- end content -->

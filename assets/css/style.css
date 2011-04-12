@@ -208,6 +208,10 @@ padding:auto
 	color: #369;
 }
 
+.more {
+	text-align: right;
+}
+
 #grades {
 	width: auto;
 }
@@ -689,6 +693,11 @@ color: black;
 .buttonwrapper { /* Container you can use to surround a CSS button to clear float */
 overflow: hidden; /*See: http://www.quirksmode.org/css/clearing.html */
 width: 100%;
+}
+
+.forumuser {
+	background: #bcd4ec;
+	color: #669;
 }
 
 .ann_p
