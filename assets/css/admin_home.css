@@ -154,7 +154,7 @@ hr {
 /* Content */
 
 #content {
-  float:right;
+  float:center;
 	margin-right:15px;
 	/*width: 650px;*/
 	width: 62%;

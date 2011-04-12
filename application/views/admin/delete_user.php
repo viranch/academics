@@ -57,8 +57,6 @@
         else {
           if(isset($message))
             echo "<h3>{$message}</h3>";
-          else
-          echo "<h3>No user with the entered user id </h3>";
         }
 
         ?>

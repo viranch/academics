@@ -17,7 +17,8 @@ $(function() {
 		<div class="post">
 			<h2 class="title">Important dates</h2>
 			<div class="entry">
-			<p>
+      <h3><?php if(isset($message))echo "{$message}";?></h3>
+      <p>
       <?php echo form_open('admin/admin/important_dates');?>
         <table class="admin_tab " table style="width:40%">
         <tr>

@@ -9,6 +9,21 @@ class Admin extends CI_Controller {
       $this->isadmin();
     }
 
+    function timetable()
+    {
+      
+      $this->load->model('admin/admin_model');
+      $data['permissions']=$this->admin_model->get_eligibility();
+      $data['css'] = 'admin_home.css';
+      $this->load->model('admin/announce_model');
+      $data['program']=$this->announce_model->get_program();
+      $data['year']=$this->announce_model->get_year();
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'admin/admin_navigation.php';
+      $data['maincontent'] = 'admin/time_table';
+      $this->load->view('includes/template',$data);
+    
+    }
     function index(){ 
       $this->load->model('admin/admin_model');
       $data['candidate']=$this->admin_model->get_details_id($this->session->userdata('user_id'));
@@ -38,11 +53,17 @@ class Admin extends CI_Controller {
           $data['message']="Succesfully deleted";
         }
       }
-      if($this->input->post('user_id')!=''){
-        $data['details']=$this->admin_model->get_details_id(intval($this->input->post('user_id')));
-      }
-      else if($this->input->post('name')!=''){
-        $data['details']=$this->admin_model->get_details_name($this->input->post('name'));
+      if($this->input->post('submit')){
+        if($this->input->post('user_id')!=''){
+          $data['details']=$this->admin_model->get_details_id(intval($this->input->post('user_id')));
+          if(empty($data['details']))
+            $data['message']='No user with entered data';
+        }
+        else if($this->input->post('name')!=''){
+          $data['details']=$this->admin_model->get_details_name($this->input->post('name'));
+          if(!empty($data['details']))
+            $data['message']='';
+        }
       }  
       $data['permissions']=$this->admin_model->get_eligibility();
       if($data['permissions'][0]['delete_user']!=1)
@@ -73,6 +94,8 @@ class Admin extends CI_Controller {
         $data['details']=$this->admin_model->get_details_name_r($this->input->post('name'));
       }  
       $data['permissions']=$this->admin_model->get_eligibility();
+      if($data['permissions'][0]['retrieve_user']!=1)
+        die("sorry you don't have permissions to navigate to this page");
       //if($permissions[0]['delete_user']!=1)
         //die("sorry you don't have permissions to navigate to this page");
       $data['css'] = 'admin_home.css';
@@ -111,6 +134,8 @@ class Admin extends CI_Controller {
 
       $data['permissions']=$this->admin_model->get_eligibility();
       $data['css'] = 'admin_home.css';
+      if($data['permissions'][0]['approve_courses']!=1)
+        die("sorry you don't have permissions to navigate to this page");
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'admin/admin_navigation.php';
       $data['maincontent'] = 'admin/approve_courses';
@@ -120,16 +145,31 @@ class Admin extends CI_Controller {
     
     function important_dates()
     {
+      $this->load->library('form_validation');
       $this->load->model('admin/utilities');
       $this->load->model('admin/admin_model');
       if($this->input->post('submit')){
-        $this->utilities->insert_dates();
+        if($this->input->post('start_date')>$this->input->post('end_date')){
+          $data['message']="start date and end date not choosen correct";
+        }
+        else{
+          $this->form_validation->set_rules('description', 'Descriptin', 'required');
+          if ($this->form_validation->run() == FALSE)
+          {
+                $data['message']="Description cannot be empty";
+          }
+          else{
+          $this->utilities->insert_dates();
+          }  
+        }
       }
       if($this->input->post('delete')){
         $this->utilities->delete_dates();
       }
       $data['dates']=$this->utilities->get_important_dates();
       $data['permissions']=$this->admin_model->get_eligibility();
+      if($data['permissions'][0]['important_dates']!=1)
+        die("sorry you don't have permissions to navigate to this page");
       $data['css'] = 'admin_home.css';
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'admin/admin_navigation.php';
@@ -153,6 +193,8 @@ class Admin extends CI_Controller {
       $data['program']=$this->announce_model->get_program();
       $data['year']=$this->announce_model->get_year();
       $data['permissions']=$this->admin_model->get_eligibility();
+      if($data['permissions'][0]['announce']!=1)
+        die("sorry you don't have permissions to navigate to this page");
       $data['courses']=$this->announce_model->announce_courses();
       if($this->input->post('submit')){
         $this->announce_model->insert();
@@ -173,6 +215,8 @@ class Admin extends CI_Controller {
       $this->load->model('admin/announce_model');
       $this->load->model('admin/admin_model');
       $data['permissions']=$this->admin_model->get_eligibility();
+      if($data['permissions'][0]['deadlines']!=1)
+        die("sorry you don't have permissions to navigate to this page");
       $data['program']=$this->announce_model->get_program();
       $data['sem']=$this->announce_model->sem_list();
       if($this->input->post('submit')){
@@ -219,6 +263,8 @@ class Admin extends CI_Controller {
       $data['css'] = 'admin_home.css';
       $data['faculty']= $this->announce_model->get_faculty();
       $data['permissions']=$this->admin_model->get_eligibility();
+      if($data['permissions'][0]['course_assign']!=1)
+        die("sorry you don't have permissions to navigate to this page");
       $data['program']=$this->announce_model->get_program();
       $data['year']=$this->announce_model->get_year();
       $data['courses']=$this->announce_model->announce_courses();
@@ -255,6 +301,8 @@ class Admin extends CI_Controller {
       }
       
       $data['permissions']=$this->admin_model->get_eligibility();
+      if($data['permissions'][0]['course_create']!=1)
+        die("sorry you don't have permissions to navigate to this page");
       $data['courses']=$this->announce_model->announce_courses();
       $data['css'] = 'admin_home.css';
       $data['javascript'] = 'default.js';
