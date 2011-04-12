@@ -429,7 +429,7 @@ tr.over td, tr:hover td {
 	width: 1000px;
 	height: 50px;
 	margin: 0 auto;
-	background: #FFFFFF url(images/img05.jpg) repeat-x top left;
+	background: #FFFFFF url(../images/img05.jpg) repeat-x top left;
 }
 
 #footer p {

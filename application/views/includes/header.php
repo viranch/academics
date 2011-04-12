@@ -16,5 +16,5 @@
   <body>
   <div id="page">
     <div id="logo">
-      <img src="<?php echo base_url(); ?>assets/images/new2_01.gif"/>
+      <img src="<?php echo base_url(); ?>assets/images/new2_01.png"/>
     </div>  
