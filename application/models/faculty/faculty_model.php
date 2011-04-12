@@ -61,8 +61,8 @@ class Faculty_model extends CI_model{
 	
 
     function get_stu_list($cid){
-		$query = "select c.user_id, g.marks_insem1 , g.marks_insem2, g.marks_endsem, g.marks_misc, g.marks_effective, g.grade , g.course_id , g.sem_id from acad_stu_cou c, acad_cou_grad g where c.course_id='{$cid}' and 
-		c.course_id = g.course_id and c.user_id=g.user_id and c.status ='ongoing' and g.sem_id=c.sem_id";
+		$query = "select a.pass_course, c.audit, c.user_id, g.marks_insem1 , g.marks_insem2, g.marks_endsem, g.marks_misc, g.marks_effective, g.grade , g.course_id , g.sem_id from acad_stu_cou c, acad_courses a, acad_cou_grad g where c.course_id='{$cid}' and a.course_id = c.course_id and a.course_id = g.course_id and
+		c.course_id = g.course_id and c.user_id=g.user_id and c.status ='ongoing' and g.sem_id=c.sem_id ";
 		 $query = $this->db->query($query);
 		if($query->num_rows() > 0){
 			return $query->result_array();
@@ -109,12 +109,29 @@ class Faculty_model extends CI_model{
 			else
 			$query = "update acad_cou_grad set marks_insem1='$insem1' , marks_insem2='$insem2' , marks_endsem='$endsem' , marks_misc ='$misc' , marks_effective='$effective' , grade ='$grade' where user_id='$user_id' and sem_id='$sem_id' and course_id ='$course_id'" ;
 			$query = $this->db->query($query);
-		}
+		}		print_r($_POST);
+				$wt1 = $this->input->post('wt_insem1');
+				$wt2 = $this->input->post('wt_insem2');
+				$wt3 = $this->input->post('wt_endsem');
+				$wt4 = $this->input->post('wt_misc');
+				$course_id = $this->uri->segment(4);
+				$user_id = $this->session->userdata('user_id');
+				echo $wt1. $wt2. $wt3 .$course_id .$user_id;
+				$query = "Update acad_teaching set wt_insem1 = '$wt1', wt_insem2 = '$wt2' , wt_endsem ='$wt3' ,wt_misc ='$wt4' where user_id = $user_id and course_id = '$course_id'";
+				$query = $this->db->query($query);
+				
 				return $query;
 			
 	}
 	
-	
+	function get_course_wts($cid){
+		$query = "select * from acad_teaching where course_id='$cid'";
+		 $query = $this->db->query($query);
+		if($query->num_rows() > 0){
+			return $query->result_array();
+		}
+		else return null;
+	}
 	function get_faculty_details(){
 			$query = "select u.email_id, u.dob,p.name, p.user_id, p.area_of_expertise, u.gender, u.image, p.date_of_joining, p.degrees , p.experience  from acad_users u, acad_fac_profile p where u.user_id={$this->session->userdata('user_id')} and u.user_type='faculty' and u.status='active' and u.user_id = p.user_id";
 			$query = $this->db->query($query);
@@ -134,8 +151,8 @@ class Faculty_model extends CI_model{
 			else return null;
 	}
 	function get_assignments($cid){
-			$query = "select l.deadline ,l.assignment_id, l.description, l.course_id, l.file from acad_assig_create l , acad_teaching u where  l.user_id=u.user_id and u.status='active' and u.course_id =l.course_id and l.course_id = '$cid' ORDER BY assignment_id DESC"; 
-				$query = $this->db->query($query);
+			$query = "select l.deadline ,l.assignment_id, l.description, l.course_id, l.file from acad_assig_create l , acad_teaching u where  l.user_id=u.user_id and u.status='active' and u.course_id =l.course_id and l.course_id = '$cid' group by assignment_id ORDER BY assignment_id DESC"; 
+      $query = $this->db->query($query);
 			if($query->num_rows() > 0){
 			return $query->result_array();
 		}
@@ -178,7 +195,7 @@ class Faculty_model extends CI_model{
 	}
 	
 	function forums($cid){
-		$query = "SELECT fid,user_id,subject,description FROM forum where course_id='$cid' order by 'fid' desc limit 0,20";
+		$query = "SELECT * FROM forum where course_id='$cid' order by 'fid' desc limit 0,20";
 		$query = $this->db->query($query);
 			if($query->num_rows() > 0){
 			return $query->result_array();
@@ -198,8 +215,8 @@ class Faculty_model extends CI_model{
 	
 	function getcomments($fid){
 	    $query= "select content,user_id ,fid, timeofpost from comments where fid = '$fid'";
-      $query = $this->db->query($query);
-			if($query->num_rows() > 0){
+		$query = $this->db->query($query);
+		if($query->num_rows() > 0){
 			return $query->result_array();
 		}
 			else return null;
@@ -213,6 +230,34 @@ class Faculty_model extends CI_model{
 		$this->db->insert('comments',$r);
 	}
 	
+	function deleteforum($fid){
+		
+		$query = "select * from forum where fid =$fid";
+		$query = $this->db->query($query);
+		$res = $query->result_array();
+		if($this->session->userdata('user_id') ==$res[0]['user_id']){
+			$query = "delete from forum where fid = $fid";
+			$query = $this->db->query($query);
+		}
+		}
+		
+	function deletecomment($fid, $time){
+		$query = "delete from comments where fid =$fid and Timeofpost=$time";
+		$query = $this->db->query($query);
+		}
+	function get_recent_notifs(){
+		$uid = $this->session->userdata('user_id');
+		$query = "select * from acad_announce where user_id=$uid ";
+		$query = $this->db->query($query);
+		if($query->num_rows() > 0){
+			return $query->result_array();
+		}
+			else return null;
+	}
 	
+	function delannoucement($uid, $time){
+		$query = "delete from acad_announce where id=$uid and sent_time='$time'";
+		$this->db->query($query);
 	
+	}
 }

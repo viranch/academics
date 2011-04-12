@@ -141,6 +141,10 @@
 					<td>Year of passing Std 12:</td>
           <td><?php echo "{$student['0']['twelfth_year']}";?></td>
 				</tr>
+				<tr>
+					<td>Address</td>
+          <td><?php echo "{$profile['0']['address']}";?></td>
+				</tr>
 				</table>
 			</div>
 		</div>

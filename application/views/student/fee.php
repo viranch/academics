@@ -3,8 +3,14 @@
 			<li>
 				<h2>Semesters</h2>
 				<ul>
-					<li><a href="#">Sem I</a></li>
-					<li><a href="#">Sem II</a></li>
+<?php if(isset($sems)){
+      foreach ($sems as $row) {?>
+     
+      <li><?php echo anchor('student/student/fee/'.$row['sem_id'], $row['semester']);?></li>
+
+
+
+      <?php }}?>
 				</ul>
       </li>
   <ul>

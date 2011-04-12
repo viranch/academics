@@ -106,16 +106,29 @@
 	<td class="alt_fee_details">Announcement</td>
 	<td><textarea rows="3" cols="40" name="message"></textarea></td>
    </tr>
-   
-   
-   
 </table>
-
+<input type="submit" value="Submit" style="height:25px;width:130px;color:#fff;font-weight:bold;background:#3E83C9" name="submit">
+        </form>
+<h2 class="title">Recent Announcements</h2>
+		<br></br>
+		<table class="tab_assign">
+				<tr>
+				<th width=30%>Course ID</th>
+				<th width=50%>Announcement</th>
+				</tr>
+				<?php if($notifications != null){
+					foreach($notifications as $row){
+					$url = "faculty/faculty/deleteannouncement/".$row['id'].'/'.$row['sent_time'];
+					echo "<tr><td>".$row['course_id']."</td><td>".$row['message']."</td><td>".anchor($url,'delete')."</td></tr>";
+					}
+					}
+					else echo "<tr>No announcements by you </tr>";
+				?>
+				</table>
 			
 			<p></p>
 			
-        <input type="submit" value="Submit" style="height:25px;width:130px;color:#fff;font-weight:bold;background:#3E83C9" name="submit">
-        </form>
+        
 			</div>
 		</div>
 	</div>

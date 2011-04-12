@@ -44,6 +44,10 @@
     <?php echo anchor('admin/admin/course_create', 'Create course');?>
   </li>
   <li>
+  <?php if($permissions[0]['reset_password'])?>
+    <?php echo anchor('admin/admin/set_password', 'Reset password');?>
+  </li>
+  <li>
   
     <?php echo anchor('login/change_password', 'Change password');?>
   </li>

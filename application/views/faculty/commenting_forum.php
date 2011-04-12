@@ -71,10 +71,12 @@
 	<div id="content">
 		<div class="post">
 			<h2 class="title"><a href="#">Comments</a></h2>
-			<div class="entry">
+			<div class="entry"
 		   	<?php if($comments != null){
 					foreach($comments as $comment){ ?>
-			 <h4><?php echo $comment['user_id'] ;?></h4>
+			 <h4><?php echo $comment['user_id'];
+			 if($this->session->userdata('user_id') == $comment['user_id'])
+			 echo anchor('faculty/faculty/deletecomment/'.$comment['fid'].'/'.$comment['timeofpost'], 'delete');?></h4>
 			<p ><?php echo $comment['content'] ;?></p ><p class="postcomments">Posted on <?php echo date("d-m-Y", $comment['timeofpost']) ;?></p>
 			<?php } }
 			else echo "no comments till now";

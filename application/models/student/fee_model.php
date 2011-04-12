@@ -7,5 +7,14 @@ class Fee_model extends CI_model{
         return $query->result_array();
      }
   }
+  function get_sems()
+  {
+    $query="select semester,A.sem_id from acad_fee_structure A,acad_sem_list B where A.sem_id=B.sem_id and A.user_id=".$this->session->userdata('user_id');
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  
+  }
 }
 ?>

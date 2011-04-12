@@ -43,6 +43,7 @@ class Faculty extends CI_Controller {
 	function grade($cid){
 		$this->load->model('faculty/faculty_model');
 		$data['stu_list'] = $this->faculty_model->get_stu_list($cid);
+		$data['weights'] = $this->faculty_model->get_course_wts($cid);
 		$data['btech_courses']=$this->faculty_model->get_present_btech_courses();
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
 		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
@@ -102,7 +103,7 @@ class Faculty extends CI_Controller {
 		$data['cid'] = $cid;
 		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
 		$config['upload_path'] = './lectures/'.$cid;
-		$config['allowed_types'] = 'gif|jpg|png|pdf';
+		$config['allowed_types'] = 'gif|jpg|png|pdf|ppt|xls|doc|txt';
 		$config['max_size']	= '10000';
 		$this->load->library('upload', $config);
 		if ( ! $this->upload->do_upload())
@@ -174,7 +175,7 @@ class Faculty extends CI_Controller {
 		$data['cid'] = $cid;
 		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
 		$config['upload_path'] = './lectures/'.$cid;
-		$config['allowed_types'] = 'gif|jpg|png';
+		$config['allowed_types'] = 'gif|jpg|png|pdf|doc|txt|zip|rar|ppt';
 		$config['max_size']	= '1000';
 		$this->load->library('upload', $config);
 		if ( ! $this->upload->do_upload())
@@ -189,11 +190,11 @@ class Faculty extends CI_Controller {
 		else
 		{   
 			$year = $this->input->post('deadline');
-			echo $year;
+		
 			$time = date("G:i:s");
-			echo $time;
+		
 			$deadline = $year .' '.$time;
-			echo $deadline;
+		
 			$data1 = $this->upload->data();
 			$filename = $data1['file_name'];
 			$path     = $data1['full_path'];
@@ -239,6 +240,7 @@ class Faculty extends CI_Controller {
 		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
 		$data['timetable']=$this->faculty_model->get_upcoming_lectures();
 		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
+		$data['notifications'] = $this->faculty_model->get_recent_notifs();
 		$data['css'] = 'style.css';
 		$data['navigation'] = 'faculty/faculty_navigation.php';
 		$data['maincontent'] = 'faculty/announcement_form.php';
@@ -267,18 +269,7 @@ class Faculty extends CI_Controller {
 			redirect("/faculty/faculty/grade/".$cid);
 	}
 	
-	function forumhome(){
-		$this->load->model("faculty/faculty_model");
-		$data['btech_courses']=$this->faculty_model->get_present_btech_courses();
-		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
-		$data['mtech_courses']=$this->faculty_model->get_present_mtech_courses();
-		$data['timetable']=$this->faculty_model->get_upcoming_lectures();
-		$data['assignment_info'] =$this->faculty_model->get_assignmentdeadlines();
-		$data['css'] = 'style.css';
-		$data['maincontent'] = 'faculty/forumhome.php';
-//		$data['message'] = "Please click on the course to view or write forum for that course";
-		$this->load->view('includes/template', $data);
-	}
+
 	
 	function forum($cid){
 		$this->load->model("faculty/faculty_model");
@@ -330,6 +321,18 @@ class Faculty extends CI_Controller {
 		$this->load->view("includes/template", $data);
 	}
 	
+	
+	function forumdelete($fid ,$cid){
+		$this->load->model('faculty/faculty_model');
+		$this->faculty_model->deleteforum($fid);
+		redirect("/faculty/faculty/forum/".$cid);
+	}
+	
+	function deletecomment($fid, $time ){
+		$this->load->model('faculty/faculty_model');
+		$this->faculty_model->deletecomment($fid, $time);
+		redirect("/faculty/faculty/commnentingpage/".$fid);
+	}
 	function commnentingpage($fid){
 		$this->load->model("faculty/faculty_model");
 		$data['comments'] = $this->faculty_model->getcomments($fid);
@@ -347,7 +350,14 @@ class Faculty extends CI_Controller {
 	function insertcomment($fid){
 		$this->load->model("faculty/faculty_model");
 		$this->faculty_model->insertcomment($fid);
-		redirect("/faculty/faculty/comments/".$fid);	
+		redirect("/faculty/faculty/ commnentingpage/".$fid);	
+	}
+	
+	function deleteannouncement($uid, $time){
+		$this->load->model("faculty/faculty_model");
+		$this->faculty_model->delannoucement($uid, $time);
+		redirect("/faculty/faculty/anouncementshome");
+	
 	}
 	
 }	

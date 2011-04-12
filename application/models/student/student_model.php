@@ -132,7 +132,7 @@ class Student_model extends CI_model{
     if(isset($courses)){
       $query="select * from acad_assig_create where course_id='".$courses['0']['course_id']."'";
       foreach ($courses as $row) {
-        $query=$query." or '".$row['course_id']."'";
+        $query=$query." or course_id='".$row['course_id']."'";
       }  
       $query = $this->db->query($query);
       if($query->num_rows() > 0) {

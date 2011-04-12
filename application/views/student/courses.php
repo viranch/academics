@@ -4,8 +4,12 @@
 			<li>
         <h2>Forum</h2>
         <?php
+        if(isset($info)){
         foreach ($info as $row) {
           echo anchor('student/student/f/'.$row['fid']."/".$this->uri->segment(4),$row['subject'])."<br/><br/>";
+        }}
+        else {
+          echo "<h3>No forums created yet</h3>";
         }
         ?>
       
@@ -52,7 +56,7 @@
 			<h2 class="title"><a href="#">Lectures</a></h2>
 			<div class="entry">
         <?php if(isset($lectures)){ 
-        $dir=base_url()."lectures/";  
+        $dir=base_url()."lectures/".$this->uri->segment(4)."/";  
         foreach ($lectures as $row){?>
           
         <p class="ann_p"><strong><text class ="ann_name">
@@ -105,5 +109,4 @@
 
 	<div style="clear: both;">&nbsp;</div>
 <?php
-
 

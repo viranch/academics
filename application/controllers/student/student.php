@@ -270,12 +270,14 @@ class Student extends CI_Controller {
 
     function fee()
     {
+    
       $data['css'] = 'style_home_baba.css';
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/fee';
       $sem_id=$this->uri->segment(4);
       $this->load->model('student/fee_model');
+      $data['sems']=$this->fee_model->get_sems();
       $data['fee']=$this->fee_model->get_fee($sem_id);
       $this->load->view('includes/template',$data);
     

@@ -12,10 +12,8 @@
 </li-->
 <li><a href="/academics/index.php/faculty/faculty/anouncementshome" >Annoucement</a></li>
 <!--li><a href="/academics/index.php/faculty/faculty/forumhome" >Discussion Forum</a></li-->
-<li><?php echo anchor('faculty/faculty/anouncementshome', 'Importantdates');?>
-</li>
-<li><?php echo anchor('login/change_password', 'Change password');?>
-</li>
+
+<li><?php echo anchor('login/change_password', 'change password');?></li>
 <li><a href="/academics/index.php/login/logout">Logout</a></li>
 </ul>
 </div>	

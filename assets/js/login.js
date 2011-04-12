@@ -1,6 +1,4 @@
-$(document).ready(function(){
-     $("input").click(function(){
-        $(this).val("");
-        }); 
-    
-    });
+window.onload = function() {
+    document.getElementById("username").focus();
+};
+

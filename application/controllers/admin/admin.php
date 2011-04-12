@@ -9,6 +9,39 @@ class Admin extends CI_Controller {
       $this->isadmin();
     }
 
+    function set_password()
+    {
+      
+      $this->load->model('admin/admin_model');
+      $string=$this->admin_model->get_rand(8);
+      if($this->input->post('submit')){
+        $data['password']=$string;
+      }
+      if($this->input->post('reset_password')){
+        if($this->input->post('user_id')!='')
+          if($this->input->post('password')!='')
+            if($this->admin_model->update_password()==1)
+              $data['message']="password Succesfully reset to <br/>".$this->input->post('password');
+            else 
+              $data['message']="Sorry userid not found";
+          else
+            $data['message']='Password cannot be empty';
+        else
+          $data['message']='user id required';
+            
+      }
+      
+      $data['permissions']=$this->admin_model->get_eligibility();
+      $data['css'] = 'admin_home.css';
+      $data['javascript'] = 'default.js';
+      $data['navigation'] = 'admin/admin_navigation.php';
+      $data['maincontent']='admin/set_password';
+      $this->load->view('includes/template',$data);
+    
+    }
+    
+    
+    
     function timetable()
     {
       
@@ -280,7 +313,6 @@ class Admin extends CI_Controller {
       if($this->input->post('submit')){
          $this->announce_model->course_assign();
       }
-      
       $data['css'] = 'admin_home.css';
       $data['faculty']= $this->announce_model->get_faculty();
       $data['permissions']=$this->admin_model->get_eligibility();
@@ -314,13 +346,15 @@ class Admin extends CI_Controller {
         else
         {
           $this->utilities->course_create();
+          mkdir(realpath(APPPATH.'../lectures/').'/'.$this->input->post('course_id'),0777);
+          chmod (realpath(APPPATH.'../lectures/').'/'.$this->input->post('course_id'),0777);
           $data['message']="Succesfully created";
         }
       }
       if($this->input->post('delete')){
         $this->utilities->delete_course();
-      }
       
+      }
       $data['permissions']=$this->admin_model->get_eligibility();
       if($data['permissions'][0]['course_create']!=1)
         die("sorry you don't have permissions to navigate to this page");

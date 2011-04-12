@@ -78,16 +78,19 @@
 			
 			<h2 class="title"><a href="#">Forums</a></h2>
 			<div class="entry">
-			<?php $url = '/academics/index.php/faculty/faculty/newforum/'. $cid;
+			<?php $url = '/academics/index.php/faculty/faculty/newforum/'. $cid ;
 			echo "<h2><a href='$url'>Start new forum</a></h2>";
 			if($info != null) {foreach($info as $row){
-			echo form_open('faculty/faculty/comments/'.$row['fid']);
-			echo "<h2>Subject :". $row['subject']. "</h2>" ;
-		    echo "<p >".$row['description']. "</p >";
-			echo "<p class='postcomments'>".$row['user_id']."</p>";
+			echo form_open('faculty/faculty/commnentingpage/'.$row['fid']);
+			echo "<b>Subject :". $row['subject']. "</b>"; 
+			$url = 'faculty/faculty/forumdelete/' . $row['fid'].'/'. $row['course_id'];
+			if($this->session->userdata('user_id') == $row['user_id'])
+			echo anchor($url,'Delete');
+		    echo "<p >".$row['Description']. "</p >";
+			echo "<p class='postcomments'>Started by ".$row['user_id']."</p>";
 			echo "<input type='submit' value='Comments' style='height:25px;width:130px;color:#fff;font-weight:bold;background:#3E83C9'> ";
-			}}
-			else echo "no forums yet";			?>
+			echo "<br><br>";}}
+			else echo "no forums yet";?>
 			</div>
 			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
 		</div>
