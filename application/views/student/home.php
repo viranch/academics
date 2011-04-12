@@ -97,7 +97,7 @@
 	<!-- start content -->
 	<div id="content">
 		<div class="post">
-			<h2 class="title"><a href="#"> Announcements</a></h2>
+			<h2 class="title"><a href="#">Announcements</a></h2>
 			<div class="entry">
         <?php if(isset($announcements)){
               foreach ($announcements as $row){?>
