@@ -100,7 +100,7 @@
 			<h2 class="title"><a href="#">Important dates</a></h2>
 			<div class="entry">
         <?php if(isset($important_dates)){ ?>
-              <table id="profiletable">
+              <table>
               <tr>
               <th>Start date</th>
               <th>End date</th>

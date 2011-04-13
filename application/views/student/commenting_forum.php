@@ -1,67 +1,28 @@
 
-	<div id="sidebar1">
-		<ul>
-			<li>
-				<h2>Lectures Today</h2>
-				<table class="tab">
-        <?php   if(isset($timetable)){ ?>
-        <tr>
-				  <th>Course</th>
-				  <th>Start</th>
-				  <th>End</th>
-				</tr>
-          <?php
-            foreach ($timetable as $row) {
-              if($row['type']=='lecture'){
-                echo "<tr><td>{$row['course_id']}</td>";
-                echo "<td>{$row['start_time']}</td>";
-                echo "<td>{$row['end_time']}</td></tr>";
-              }
-            }
-        }
-        else{
-          echo "No clasess today";
-        }
-        ?>
-				</table>
-			</li>
-			<li>
-				<h2>Labs Today</h2>
-				<ul>
-					<table class="tab">
-        <?php   if(isset($timetable)){?>          
-				<tr>
-				<th>Course</th>
-				<th>Start</th>
-				<th>End</th>
-				</tr>
-         <?php                
-               
-              $count=0;
-              foreach ($timetable as $row) {  
-                  if($row['type']=='lab'){     
-                      echo "<tr><td>{$row['course_id']}</td>";
-                      echo "<td>{$row['start_time']}</td>";
-                      echo "<td>{$row['end_time']}</td></tr>";
-                      $count++;
-                  }
-              }
-            if($count==0)
-              echo "<tr><td>Not yet set</td></tr>";
+  <div id="sidebar1">
+  <ul>
+         <li>
+           <h2>Forum</h2>
+           <?php
+      if(isset($info)){
+         foreach ($info as $row) {
+           //echo anchor('student/student/f/'.$row['fid']."/".$this->uri->segment(4),$row['subject'])."<br/>";
+            echo anchor('student/student/f/'.$row['fid']."/".$cid,$row['subject'])."<br/>";
           }
-          else{
-            echo "No labs today";
+     }
+          else {
+            echo "<h3>No forums created yet</h3>";
           }
-        
-          ?>
+  
+    $url = '/academics/index.php/student/student/newforum/'. $cid;?>
+    <i><a href="<?php echo $url ?>">Start new topic...</a></i>
+  
+        </li>
+        <li>
+  
+        </li>
+      </ul>
 
-				</table>
-				</ul>
-			</li>
-			<li>
-
-			</li>
-		</ul>
 	</div>
 <!-- end of sidebar2 -->
 	<!-- start sidebar -->
@@ -113,11 +74,11 @@
 			 <h4 class="forumuser"><?php echo $comment['user_id'] ;?></h4>
 			<p ><?php echo $comment['content'] ;?></p ><p class="postcomments"><i>Posted on <?php echo date(" d-m-Y", $comment['timeofpost']) ;?></i></p>
 			<?php } }
-			else echo "no comments till now";
+			else echo "No comments till now<br>";
 			?>
 			<br><strong>Leave a comment:</strong><br><br>
 			 <?php echo form_open('/student/student/insertcomment/'.$this->uri->segment(4).'/'.$cid);?>
-			 <textarea rows="10" cols="60" name="Comment"></textarea><br><br>
+			 <textarea rows="10" cols=60 name="Comment"></textarea><br><br>
         <input type="submit" value="Post Comment" name="submitcomment">
         </form>
 			 

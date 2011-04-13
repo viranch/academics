@@ -48,7 +48,16 @@
 					<li><a href="\\10.100.56.21">daiictpdc</a></li>
 					<li><a href="http://library.daiict.ac.in">Library</a></li>
 				</ul>
-			</li>
+      </li>
+
+    <li>
+      <h2>Results</h2>
+      <ul>
+      <?php echo form_open('admin/admin/index');?>
+        <li><input type="submit" name="submit" value="Declare Result!"></li>
+      <?php echo form_close();?>
+      </ul>
+    </li>
 			
 		</ul>
 	</div>

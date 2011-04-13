@@ -89,7 +89,8 @@ $(document).ready(function(){
       <tbody>
       <?php echo form_open('student/student/drop_courses');  
             if(isset($drop)){
-            $total=0;
+              $total=0;
+              $total_credits=0;
 	    foreach ($drop as $row) {?>
       <tr>
         <td>
@@ -103,7 +104,8 @@ $(document).ready(function(){
         <td>
             <?php
               echo $row['credits'];
-		$total++;            
+              $total++;
+              $total_credits=$row['credits']+$total_credits;            
 		?>
         </td>
       </tr>
@@ -114,7 +116,8 @@ $(document).ready(function(){
           <td></td>
           <td>
           <?php
-		echo form_hidden('count',$total);            
+    echo form_hidden('count',$total);
+    echo form_hidden('credits',$total_credits);          
 		echo form_submit('submit','Submit');
           ?></td>
           

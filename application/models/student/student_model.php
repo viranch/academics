@@ -22,7 +22,15 @@ class Student_model extends CI_model{
      }
   }
   
-  
+  function get_batch1()
+  {
+    $query="select * from acad_batch where user_id=".$this->session->userdata('user_id');
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+}
+
   function get_user_profile()
   {
     $query="select * from acad_users where user_id=".$this->session->userdata('user_id');
@@ -353,7 +361,7 @@ class Student_model extends CI_model{
 	function insertforum($cid){
 		$inp = array('user_id' => $this->session->userdata('user_id'),
 					 'course_id' => $cid,
-					 'description' => $this->input->post('description'),
+					 'description' => $this->input->post('Description'),
 					 'subject' => $this->input->post('subject'),
 					 'timeofpost' => time()
 					 );

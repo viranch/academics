@@ -195,7 +195,7 @@ class Faculty_model extends CI_model{
 	}
 	
 	function forums($cid){
-		$query = "SELECT * FROM forum where course_id='$cid' order by 'fid' desc limit 0,20";
+		$query = "SELECT * FROM forum where course_id='$cid' order by 'fid' DESC limit 0,20";
 		$query = $this->db->query($query);
 			if($query->num_rows() > 0){
 			return $query->result_array();
@@ -204,7 +204,7 @@ class Faculty_model extends CI_model{
 	}
 
 	function insertforum($cid){
-		$inp = array('user_id' => '200801047',
+		$inp = array('user_id' => $this->session->userdata('user_id'),
 					 'course_id' => $cid,
 					 'description' => $this->input->post('description'),
 					 'subject' => $this->input->post('subject'),
@@ -223,7 +223,7 @@ class Faculty_model extends CI_model{
 	}
 	
 	function insertcomment($fid){
-		$r['user_id'] = "200801047";
+		$r['user_id'] = $this->session->userdata('user_id');
 	    $r['timeofpost'] = time();
 		$r['fid'] = $fid;
 		$r['content'] = $_POST['Comment'];

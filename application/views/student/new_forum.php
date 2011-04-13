@@ -97,7 +97,7 @@
 	<!-- start content -->
 	<div id="content">
 		<div class="post">
-			<h2 class="title"><a href="#">Start new forum</a></h2>
+			<h2 class="title">Start new forum</h2>
 			<div class="entry">
 			
 			
@@ -105,7 +105,7 @@
 			<p><h2>Subject</h2></p>
 			<input type="text" size="70" name="subject" maxlength="150"/>
 			<p><h2>Description</h2></p>
-			<textarea rows="10" cols="60" name=""></textarea>
+			<textarea rows="10" cols="60" name="Description"></textarea>
 			<p></p>	
 			<input type="submit" value="Submit Forum" style="height:25px;width:130px;color:#fff;font-weight:bold;background:#3E83C9" name="submitforum">
         </form>

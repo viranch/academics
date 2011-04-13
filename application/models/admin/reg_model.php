@@ -59,7 +59,7 @@ class Reg_model extends CI_model{
     $data=array();
     $data=array('user_id'=>$userid,
                 'sem_id'=>$sem_id[0]['sem_id'],
-                'credits_earned'=>$total);
+                'credits_registered'=>$total);
     $this->db->insert('acad_sem_perform',$data);
           
   }

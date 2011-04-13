@@ -9,7 +9,7 @@
 			//			echo date('m',$row['deadline']);
 						echo "<ul>&nbsp;&nbsp; 
 							<strong>{$row['file']}</strong><br>&nbsp;&nbsp;
-							<i>C0urse: <strong>{$row['course_id']}</strong></i><br>
+							<i>Course: <strong>{$row['course_id']}</strong></i><br>
 							<i>Deadline: <strong>{$row['deadline']}</strong></i><br><br>
 							</ul>";
 						}

@@ -119,14 +119,22 @@ class Registration_model extends CI_model{
     $sem_id=$this->ongoing();
     $min=$this->get_deadline($batch,$sem_id[0]['sem_id']);
     $min_courses=$min[0]['min_courses'];
+    $credits=$this->input->post('credits');
+    
     if(($this->input->post('count')-count($this->input->post('drop')))< $min_courses){
-      echo "Minimum_credits have to be".$min_courses;
+      echo "Minimum_courses have to be".$min_courses;
     }
     else{
+      
       $drop=$this->input->post('drop');
       if(isset($drop)){
-      foreach ($drop as $row) {
+      foreach ($drop as $row) {  
+        
+        $course_credits=$this->get_credits1($row);
+        $credits=$credits-$course_credits[0]['credits'];
+        echo $credits;
         $query="delete from acad_stu_cou where (status='ongoing' or status='incomplete') and course_id='".$row."' and user_id=".$this->session->userdata('user_id');
+        
         $query = $this->db->query($query);
         if($this->is_grade_improvement($row)!=1){ 
           $query="delete from acad_cou_grad where course_id='".$row."' and user_id=".$this->session->userdata('user_id');
@@ -134,12 +142,22 @@ class Registration_model extends CI_model{
         }
         $query="update acad_stu_cou set status='completed' where status='grade_improvement' and course_id='".$row."' and user_id=".$this->session->userdata('user_id');
         $query = $this->db->query($query);
+        $query="update acad_sem_perform set credits_registered=".$credits." where sem_id=".$sem_id[0]['sem_id']." and  user_id=".$this->session->userdata('user_id');
+        $query = $this->db->query($query);
       }
       }
     }
   
   }
-
+  function get_credits1($courseid)
+  {
+    $query="select credits from acad_courses where course_id='".$courseid."'";
+    $query = $this->db->query($query);
+    if($query->num_rows() > 0) {
+        return $query->result_array();
+    }
+  
+  }
   
 }
 ?>

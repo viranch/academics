@@ -18,7 +18,7 @@
 			
 
   <!-- start content -->
-	<div id="content_fee">
+	<div id="content">
 		<div class="post">
 			<h2 class="title"><a href="#"> Fee Details</a></h2>
 
@@ -169,8 +169,4 @@
 		</div>
 		
 	</div>
-	<!-- end content -->
-	<!-- start sidebar -->
-	
-	<!-- end sidebar -->
 

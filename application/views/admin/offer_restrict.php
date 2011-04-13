@@ -49,6 +49,8 @@ $(function() {
           <td>
           <?php echo form_input('min_courses',set_value('min_courses',''));?>
           </td>
+      </tr>
+  
       <tr>
         <td>Min credits</td>
         <td><?php echo form_input('min_credits',set_value('min_credits',''));?></td>
@@ -80,6 +82,7 @@ $(function() {
           </td>
         </tr>
         </table>
+      
         <br/>
         <hr/>
         

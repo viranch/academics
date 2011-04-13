@@ -26,7 +26,7 @@ $(function() {
 			//			echo date('m',$row['deadline']);
 						echo "<ul>&nbsp;&nbsp; 
 							<strong>{$row['file']}</strong><br>&nbsp;&nbsp;
-							<i>C0urse: <strong>{$row['course_id']}</strong></i><br>
+							<i>Course: <strong>{$row['course_id']}</strong></i><br>
 							<i>Deadline: <strong>{$row['deadline']}</strong></i><br><br>
 							</ul>";
 						}
@@ -117,8 +117,8 @@ $(function() {
 					<?php 
 						$url = base_url(). "index.php/faculty/faculty/assignment_upload/". $cid;
 						echo form_open_multipart($url);?>
-					Description:<textarea name="description" rows=5 cols=65% ></textarea> <br><br>
-					Deadline :<input name="deadline" type="text" id="deadline"/><br><br>
+					Description:<br><textarea name="description" rows=5 cols=65% ></textarea> <br><br>
+					Deadline: <input name="deadline" type="text" id="deadline"/><br><br>
 					<input type="file" name="userfile" size="20" />
 					<input type="submit" value="Upload" />
 					</form>

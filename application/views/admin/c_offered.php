@@ -1,12 +1,13 @@
 	<!-- start content -->
 	<div id="content_admin">
 		<div class="post">
-			<h2 class="title">Enter details</h2>
+			<h2 class="title">Course offer</h2>
 			<div class="entry">
 			<p>
 			
-      <?php echo form_open('admin/admin/course_offer_insert');?>
-				<table class="admin_tab" table style="width:40%"><tr>
+      <?php echo form_open('admin/admin/course_offer');?>
+<?php if(isset($message)) echo "<h2>".$message."</h2>";?> 
+      <table class="admin_tab" table style="width:40%"><tr>
 					<td>Batch year</td>
           <td>
           <?php
@@ -17,8 +18,12 @@
           echo form_dropdown('batch_year', $options, '');?>
 	  </td>
 				</tr><tr><td> Semester:
-					<td><input type="label" name="semester" size=25% ></td></td>
- 
+	<?php $options=array();
+	    foreach ($semesters as $row) {
+            $options[$row['sem_id']]=$row['semester'];
+          }
+          ?> 
+        <td><?php echo form_dropdown('semester', $options);?></td></td>
 				</tr><tr><td> Program:
 					<td>
 	<?php $options=array();
@@ -30,7 +35,7 @@
 			</tr><tr><td> CourseId:
 					<td>
           <?php
-          $options = array(''  => '------');
+          $options = array();
           foreach ($courses as $row) {
             $options[$row['course_id']]=$row['course_name']."(".$row['course_id'].")";
           }

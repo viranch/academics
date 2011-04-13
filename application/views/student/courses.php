@@ -8,13 +8,13 @@
         foreach ($info as $row) {
           echo anchor('student/student/f/'.$row['fid']."/".$this->uri->segment(4),$row['subject'])."<br/>";
         }
-	$url = '/academics/index.php/student/student/newforum/'. $cid;?>
-	<i><a href="<?php echo $url ?>">Start new topic...</a></i>
-	<?php }
+	 }
         else {
           echo "<h3>No forums created yet</h3>";
         }
-        ?>
+      
+	$url = '/academics/index.php/student/student/newforum/'. $cid;?>
+	<i><a href="<?php echo $url ?>">Start new topic...</a></i>
       
       </li>
 			<li>
@@ -97,13 +97,13 @@
                   $dir=base_url()."lectures/".$row['course_id']."/";
                   echo "<a href=\"".$dir.$row['file']."\">".$row['file']."</a></text>"
                   ?>
-                <?php   
+                <?php   if(isset($submitted)){ 
                         foreach($submitted as $row1){
                         if($row['assignment_id']==$row1['assignment_id']){
                           echo "<br/><br/>";
                           echo anchor('student/lectures/download_assignment/'.$row1['filename'].'/'.$row['course_id'], $row1['filename']);    
                           echo "<br/>".$row1['submission_time'];
-                        }
+                        }}
                  
                        }?>
             

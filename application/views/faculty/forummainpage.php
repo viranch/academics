@@ -13,7 +13,7 @@
 						foreach($assignment_info as $row){
 						echo "<ul>&nbsp;&nbsp; 
 							<strong>{$row['file']}</strong><br>&nbsp;&nbsp;
-							<i>C0urse: <strong>{$row['course_id']}</strong></i><br>
+							<i>Course: <strong>{$row['course_id']}</strong></i><br>
 							<i>Deadline: <strong>{$row['deadline']}</strong></i><br><br>
 							</ul>";
 						}
@@ -76,21 +76,31 @@
 	<div id="content">
 		<div class="post">
 			
-			<h2 class="title"><a href="#">Forums</a></h2>
+			<h2 class="title"><a href="#">Forum Topics</a></h2>
 			<div class="entry">
 			<?php $url = '/academics/index.php/faculty/faculty/newforum/'. $cid ;
-			echo "<h2><a href='$url'>Start new forum</a></h2>";
 			if($info != null) {foreach($info as $row){
-			echo form_open('faculty/faculty/commnentingpage/'.$row['fid']);
-			echo "<b>Subject :". $row['subject']. "</b>"; 
+			echo "<h4 class='forumuser'>".$row['subject']; 
 			$url = 'faculty/faculty/forumdelete/' . $row['fid'].'/'. $row['course_id'];
 			if($this->session->userdata('user_id') == $row['user_id'])
-			echo anchor($url,'Delete');
+        echo anchor($url,'<img src="/academics/assets/images/icon-close.png" height=2.7% align="right"></h4>');
+      else echo "</h4>";
 		    echo "<p >".$row['Description']. "</p >";
-			echo "<p class='postcomments'>Started by ".$row['user_id']."</p>";
-			echo "<input type='submit' value='Comments' style='height:25px;width:130px;color:#fff;font-weight:bold;background:#3E83C9'> ";
+      echo "<p class='postcomments'>Started by ".$row['user_id']."</p>";
+      echo "<a href='/academics/index.php/faculty/faculty/commnentingpage/".$row['fid']."'>Comments...</a>";
 			echo "<br><br>";}}
-			else echo "no forums yet";?>
+      else echo "no forums yet";?>
+      <?php echo form_open('faculty/faculty/updateforum/'.$cid);?>
+      <h2>Start a topic</h2>
+       <p><b>Subject</b></p>
+       <input type="text" size=80% name="subject" maxlength="150"/>
+       <p><b>Description</b></p>
+       <textarea rows="10" cols="70" name="description"></textarea>
+      <p align="center">
+ <input type="submit" value="Start topic" >
+ </p>
+         </form>
+
 			</div>
 			<!--<p class="meta">As on Academic Calender by <a href="#">admin</a></p>-->
 		</div>

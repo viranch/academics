@@ -19,6 +19,7 @@ $(function() {
 			<div class="entry">
 			<p>
       <?php echo form_open('admin/admin/announce');?>
+<?php if(isset($message)) echo "<h2>".$message."</h2>";?>
         <table class="admin_tab " table style="width:40%">
         <tr>
 					<td>Program</td>

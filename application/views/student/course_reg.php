@@ -275,8 +275,11 @@ echo form_open('student/student/val_reg');
       </tbody>
       </table>
       <div></div>
+      
       <table id="backlog">
       <thead>
+    
+      
       <tr>
         <th colspan=2>Backlog Courses</th>
         <th>Credits</th>
@@ -305,6 +308,8 @@ echo form_open('student/student/val_reg');
       ?>
       </tbody>
       </table>
+      <br/>
+      
       <table id="audit">
       <thead>
       <tr>

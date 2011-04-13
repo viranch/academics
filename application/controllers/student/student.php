@@ -84,9 +84,10 @@ class Student extends CI_Controller {
       if($this->uri->segment(4))
         $data['message']=str_replace('_',' ',$this->uri->segment(4));
       $data['batch']=$this->student_model->get_batch();
+      $data['batch1']=$this->student_model->get_batch1();
       $data['approval']=$this->student_model->unapproved_exist();
       $data['ugcapproval']=$this->registration_model->get_UGC_approval();
-      $data['reg']=$this->student_model->get_all_courses_offered($data['batch']);
+      $data['reg']=$this->student_model->get_all_courses_offered($data['batch1']);
       $data['backlog']=$this->student_model->get_backlog($data['batch']);
       $data['courses']=$this->student_model->get_present_courses();
 
@@ -110,14 +111,14 @@ class Student extends CI_Controller {
       $data['ugcapproval']=$this->registration_model->get_UGC_approval();
       if($this->student_model->unapproved_exist() == 0)
         redirect('student/student/registration');
-      $data['batch']=$this->student_model->get_batch();
+      $data['batch1']=$this->student_model->get_batch1();
       $data['courses']=$this->student_model->get_present_courses();
       $data['css'] = 'style.css';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/course_reg1';
       $data['elective']=$this->student_model->elective_status();
-      $data['reg']=$this->student_model->get_all_courses_offered($data['batch']);   
-      $data['restrict']=$this->registration_model->get_deadline($data['batch']);
+      $data['reg']=$this->student_model->get_all_courses_offered($data['batch1']);   
+      $data['restrict']=$this->registration_model->get_deadline($data['batch1']);
       $data['unapproved']=$this->student_model->get_unapproved();
       $this->load->view('includes/template',$data);
     }
@@ -129,8 +130,9 @@ class Student extends CI_Controller {
     {
       
       $this->load->model('student/registration_model');
-      $data['batch']=$this->registration_model->get_batch();
-      $restrictions=$this->registration_model->get_deadline($data['batch']);
+      $this->load->model('student/student_model');
+      $data['batch1']=$this->student_model->get_batch1();
+      $restrictions=$this->registration_model->get_deadline($data['batch1']);
       $courses=array();
       $backlog=array();
       $grade=array();
@@ -271,7 +273,7 @@ class Student extends CI_Controller {
     function fee()
     {
     
-      $data['css'] = 'style_home_baba.css';
+      $data['css'] = 'style.css';
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/fee';
@@ -359,7 +361,7 @@ class Student extends CI_Controller {
 	function updateforum($cid){
 		$this->load->model("student/student_model");
 		$this->student_model->insertforum($cid);
-		redirect("/student/student/forum/".$cid);
+		redirect("/student/lectures/index/".$cid);
 	}
 	
 	
@@ -404,7 +406,8 @@ class Student extends CI_Controller {
     $fid=$this->uri->segment(4);
     $cid=$this->uri->segment(5); 
     $data['cid']=$cid;   
-		$this->load->model("student/student_model");
+    $this->load->model("student/student_model");
+    $data['info'] = $this->student_model->forums($cid);
 		$data['forum'] = $this->student_model->getforum($fid);
 		$data['comments'] = $this->student_model->getcomments($fid);
 		$data['courses']=$this->student_model->get_present_courses();

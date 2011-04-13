@@ -34,7 +34,9 @@
       
         <h2>unapproved Courses of the student</h2>
         <?php if(isset($batch)) 
-          echo "<h3>".$batch[0]['program']." ".$batch[0]['batch_year']."</h3>";
+        echo "<h3>".$batch[0]['program']." ".$batch[0]['batch_year']."</h3>";
+              else
+                echo "No student found";
         ?> 
         <?php if(!isset($message)){
               if(isset($courses)){ ?>
@@ -62,7 +64,12 @@
         
         <?php echo form_submit('approve','approve');
           echo form_close();
-              }}
+            }
+            else{
+            echo "<h2>No courses unapproved </h2>";
+            }
+          
+          }
           else{
             echo "<h2>".$message."</h2>";
           }

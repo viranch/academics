@@ -84,9 +84,9 @@
 					else{
 						foreach($lectures as $row){
 							$var = base_url()."lectures/".$row['course_id'].'/'. $row['filename'];?>
-						<a href='<?php echo $var;?>'><?php echo "{$row['filename']}"; ?></a>
+						<a href='/academics/index.php/faculty/faculty/lecturedelete/<?php echo $row['course_id'].'/'.$row['filename']; ?>'><img src="/academics/assets/images/icon-close.png" height=2.5%></a>
+						&nbsp;&nbsp;<a href='<?php echo $var;?>'><?php echo "{$row['filename']}"; ?></a>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href='/academics/index.php/faculty/faculty/lecturedelete/<?php echo $row['course_id'].'/'.$row['filename']; ?>'>Delete</a>
 						<p><?php  echo "{$row['description']}"; ?><b><br>Uploaded on </b><?php echo "{$row['date']}"; ?></p>
 					<?php	}
 					} ?>
@@ -100,7 +100,7 @@
 					<?php 
 						$url = base_url(). "index.php/faculty/faculty/lecture_upload/". $cid;
 						echo form_open_multipart($url);?>
-					Description:<textarea name="description" rows=5 cols=65% ></textarea> <br><br>
+					Description:<br><textarea name="description" rows=5 cols=65% ></textarea> <br><br>
 					<input type="file" name="userfile" size="20" />
 					<input type="submit" value="Upload" />
 					</form>

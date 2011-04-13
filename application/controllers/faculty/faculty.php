@@ -350,7 +350,7 @@ class Faculty extends CI_Controller {
 	function insertcomment($fid){
 		$this->load->model("faculty/faculty_model");
 		$this->faculty_model->insertcomment($fid);
-		redirect("/faculty/faculty/ commnentingpage/".$fid);	
+		redirect("/faculty/faculty/commnentingpage/".$fid);	
 	}
 	
 	function deleteannouncement($uid, $time){

@@ -1,6 +1,68 @@
 <?php
 class Admin_model extends CI_model{
   
+  function chk_grade()
+  {
+    $query="select * from acad_cou_grad where grade='0'";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return 0;
+     }
+     else{
+        return 1;
+     }
+  
+  }
+  function grade_points_calculation()
+  {
+    $query="select sum(credits),user_id,sem_id from acad_stu_cou A,acad_courses B where A.course_id=B.course_id and audit=0 and pass_course='no' group by user_id,sem_id";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  function calculate()
+  {
+    $query="select * from  (select sum(gradepoints),user_id,sem_id from acad_cou_grad  group by sem_id,user_id) X,(select sum(credits),user_id,sem_id from acad_stu_cou A,acad_courses B where A.course_id=B.course_id and audit=0 and pass_course='no' group by user_id,sem_id) y where X.sem_id=y.sem_id and X.user_id=y.user_id";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  function cpi ()
+   {
+     $query="select sum(grade_points_registered),sum(grade_points_earned),user_id from acad_sem_perform group by user_id";
+     $query = $this->db->query($query);
+      if($query->num_rows() > 0) {
+         return $query->result_array();
+      }
+   }
+  
+  function earned()
+  {
+    $query="select sum(gradepoints),user_id,sem_id from acad_cou_grad group by sem_id,user_id";
+    $query = $this->db->query($query);
+     if($query->num_rows() > 0) {
+        return $query->result_array();
+     }
+  }
+  
+  function course_offer()
+  {
+    $data=array('program'=>$this->input->post('program'),
+      'batch_year'=>$this->input->post('batch_year'),
+      'sem_id'=>$this->input->post('semester'),
+      'course_id'=>$this->input->post('course'),
+      'audit'=>$this->input->post('audit'),
+      'slot_no'=>$this->input->post('slot_no'),
+      'status'=>$this->input->post('status')
+    );  
+    $this->db->insert('acad_cou_offer',$data);
+  
+  }
+  
+  
+  
   function update_password()
   {
     $user_id=$this->input->post('user_id');
