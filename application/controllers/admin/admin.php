@@ -649,7 +649,11 @@ function course_offerhome(){
   
 	function course_offer(){
 		$this->load->model('admin/admin_model');
-		$batch = $_POST['batch'];
+	      $this->load->model('admin/announce_model');
+	      $data['program']=$this->announce_model->get_program();
+	      $data['year']=$this->announce_model->get_year();
+	      $data['courses']=$this->announce_model->announce_courses();
+/*		$batch = $_POST['batch'];
 		$semid = $_POST['semid'];
 		$program = $_POST['program'];
 		$data['batch'] = $batch;
@@ -657,7 +661,14 @@ function course_offerhome(){
 		$data['semester'] = $this->admin_model->get_semester($semid);
 		$data['semid'] = $semid;
 		$data['c_offered']= $this->admin_model->get_courses_offered($batch,$semid, $program);
-		$this->load->view('admin/c_offered',$data);
+*/      $data['candidate']=$this->admin_model->get_details_id($this->session->userdata('user_id'));
+      $data['permissions']=$this->admin_model->get_eligibility();
+	      $data['css'] = 'admin_home.css';
+	      $data['javascript'] = 'default.js';
+	      $data['navigation'] = 'admin/admin_navigation.php';
+	      $data['maincontent'] = 'admin/c_offered';
+	      $this->load->view('includes/template',$data);
+//		$this->load->view('admin/c_offered',$data);
 	}
 	
 	function course_offer_insert(){
