@@ -67,49 +67,65 @@
       <tbody>
       <tr>
         <th>Monday</th>
-        <?php foreach ($timetable as $row) {
+        <?php $start_time=0; 
+          foreach ($timetable as $row) {
               if($row['day']=='mon' && $row['type']='lecture'){
+            if($start_time!=$row['start_time']){
         ?>
           <td><?php echo $row['course_id']?><br><i><?php echo "(".$row['start_time']."-".$row['end_time'].")";?></i></td>
-        <?php }}?>
+        <?php $start_time=$row['start_time']; 
+             }}}?>
       
       </tr>
       
       <tr>
         <th>Tuesday</th>
-        <?php foreach ($timetable as $row) {
-              if($row['day']=='tue' && $row['type']='lecture'){
+      <?php $start_time=0; 
+          foreach ($timetable as $row) {
+          if($row['day']=='tue' && $row['type']='lecture'){
+            if($start_time!=$row['start_time']){
         ?>
           <td><?php echo $row['course_id']?><br><i><?php echo "(".$row['start_time']."-".$row['end_time'].")";?></i></td>
-        <?php }}?>
+<?php 
+              $start_time=$row['start_time'];
+              }}}?>
       
       </tr>
 
       <tr>
         <th>Wednesday</th>
-        <?php foreach ($timetable as $row) {
+<?php         $start_time=0;
+                foreach ($timetable as $row) {
               if($row['day']=='wed'&& $row['type']='lecture'){
+            if($start_time!=$row['start_time']){
         ?>
           <td><?php echo $row['course_id']?><br><i><?php echo "(".$row['start_time']."-".$row['end_time'].")";?></i></td>
-        <?php }}?>
+        <?php $start_time=$row['start_time'];}}}?>
       </tr>
       
       <tr>
         <th>Thursay</th>
-        <?php foreach ($timetable as $row) {
+<?php         $start_time=0;
+              foreach ($timetable as $row) {
               if($row['day']=='thu'&& $row['type']='lecture'){
+            if($start_time!=$row['start_time']){
         ?>
           <td><?php echo $row['course_id']?><br><i><?php echo "(".$row['start_time']."-".$row['end_time'].")";?></i></td>
-        <?php }}?>
+        <?php 
+          $row['start_time']=$row['start_time'];
+        }}}?>
      <tr/> 
     
       <tr>
         <th>Friday</th>
-        <?php foreach ($timetable as $row) {
+<?php       $row['start_time']=0;
+            foreach ($timetable as $row) {
               if($row['day']=='fri'&& $row['type']='lecture'){
+            if($start_time!=$row['start_time']){
         ?>
           <td><?php echo $row['course_id']?><br><i><?php echo "(".$row['start_time']."-".$row['end_time'].")";?></i></td>
-        <?php }}?>
+        <?php 
+             $row['start_time']=$row['start_time']; }}}?>
       <tr/>
       </tbody>
       </table>
