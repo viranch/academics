@@ -3,10 +3,10 @@
 		<ul>
 			<li>
 				<h2>Links for course <?php echo $cid; ?></h2>
-					&nbsp;&nbsp;<strong><a href="/academics/index.php/faculty/faculty/lectures_display/<?php echo $cid; ?>">Lectures</a></strong><br><br>
-					&nbsp;&nbsp;<strong><a href="/academics/index.php/faculty/faculty/assignments_display/<?php echo $cid; ?>">Assignments</a></strong><br><br>
-					&nbsp;&nbsp;<strong><a href="/academics/index.php/faculty/faculty/forum/<?php echo $cid; ?>">Discussion Forum</a></strong><br><br>
-					&nbsp;&nbsp;<strong><a href="/academics/index.php/faculty/faculty/grade/<?php echo $cid; ?>">Grades</a></strong><br><br>
+          &nbsp;&nbsp;<strong><?php echo anchor('faculty/faculty/lectures_display/'.$cid, 'Lectures');?></a></strong><br><br>
+          &nbsp;&nbsp;<strong><?php echo anchor('faculty/faculty/assignments_display/'.$cid,'Assignments');?></strong><br><br>
+          &nbsp;&nbsp;<strong><?php echo anchor('faculty/faculty/forum/'.$cid,'Discussion Forum');?></strong><br><br>
+          &nbsp;&nbsp;<strong><?php echo anchor('faculty/faculty/grade/'.$cid,'Grades');?></strong><br><br>
 				<h2>Assignments</h2>
 				<?php
 					if($assignment_info != null){
@@ -52,30 +52,15 @@
 				<ul>
 					<?php   if($btech_courses != null){
 							   $btechyear = 0;
+							   $program =0;
 							   foreach( $btech_courses as $row){
-									if($btechyear != $row['batch_year']){
-										echo "<h3>B.Tech : {$row['batch_year']}</h3>";
+									if($btechyear != $row['batch_year'] || $program != $row['program']){
+										echo "<h3>{$row['program']}: {$row['batch_year']}</h3>";
 										$btechyear = $row['batch_year'];
+										$program  = $row['program'];
 										}
-										$var = $row['course_id'];
-										$url = base_url().'index.php/faculty/faculty/grade/'.$var;
-									echo "<li><a href=$url>{$row['course_id']}</a></li>";
-								}
-							}
-					?>
-
-				</ul>
-				<ul>
-					<?php   if($mtech_courses != null){
-								$mtechyear = 0;
-								foreach( $mtech_courses as $row){
-									if($mtechyear != $row['batch_year']){
-										echo "<h3>M.Tech : {$row['batch_year']}</h3>";
-										$btechyear = $row['batch_year'];
-									}
-									$var = $row['course_id'];
-										$url = base_url().'index.php/faculty/faculty/grade/'.$var;
-									echo "<li><a href=$url>{$row['course_id']}</a></li>";
+											$var = $row['course_id'];
+									echo "<li><a href='/academics/index.php/faculty/faculty/lectures_display/$var'>{$row['course_id']}</a></li>";
 								}
 							}
 					?>

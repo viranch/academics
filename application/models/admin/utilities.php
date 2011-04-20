@@ -54,9 +54,39 @@ class Utilities extends CI_model{
     foreach ($courses as $row) {
       $query="delete from acad_courses where course_id='".$row."'";
       $query = $this->db->query($query);
+	  $path=realpath(APPPATH.'../lectures/'.$row.'/');
+	  $this->deleteDir($path.'/');
+	  
     }
   }
   }
+  function deleteDir($dir)
+		{
+		if ($handle = opendir($dir))
+		{
+		$array = array();
+		
+		while (false !== ($file = readdir($handle))) {
+			if ($file != "." && $file != "..") {
+		
+				if(is_dir($dir.$file))
+				{
+					if(!rmdir($dir.$file)) // Empty directory? Remove it
+					{
+					//deleteDir($dir.$file.'/'); // Not empty? Delete the files inside it
+					}
+				}
+				else
+				{
+				   unlink($dir.$file);
+				}
+			}
+		}
+		closedir($handle);
+		
+		rmdir($dir);
+		}
+	}
 
 }
 ?>

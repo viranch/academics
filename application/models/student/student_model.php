@@ -107,7 +107,7 @@ class Student_model extends CI_model{
               user_id=".$this->session->userdata('user_id')." AND 
               day='".date("D")."' AND 
               T.program='".$data['0']['program']."' AND 
-              T.batch_year=".$data['0']['batch_year']; 
+              T.batch_year=".$data['0']['batch_year'] ." order by T.start_time" ; 
      $query = $this->db->query($query);
      if($query->num_rows() > 0) {
         return $query->result_array();
@@ -142,7 +142,8 @@ class Student_model extends CI_model{
       foreach ($courses as $row) {
         $query=$query." or course_id='".$row['course_id']."'";
       }  
-      $query = $this->db->query($query);
+      $query=$query." order by deadline desc";
+      $query = $this->db->query($query,$num);
       if($query->num_rows() > 0) {
         return $query->result_array();
       }
@@ -160,7 +161,7 @@ class Student_model extends CI_model{
     $courses = $this->get_present_courses();
     //$query = "select * from acad_announce where (program='".$batch[0]['program']."' OR program='NULL') and (batch_year=".$batch['0']['batch_year']." OR batch_year = 0) and (course_id = ''";
     
-    $query = "select * from acad_announce A,acad_users B where (program='".$batch[0]['program']."' OR program='NULL') and (batch_year=".$batch['0']['batch_year']." OR batch_year = 0) and (course_id = ''";
+    $query = "select * from acad_announce A,acad_users B where (program='".$batch[0]['program']."' OR program='') and (batch_year=".$batch['0']['batch_year']." OR batch_year = 0) and (course_id = ''";
 
     if(!empty($courses))
     {
@@ -194,9 +195,6 @@ class Student_model extends CI_model{
     $query = $this->db->get('acad_stu_profile',1);   
     if($query->num_rows() > 0) {
         return $query->result_array();
-    }
-    else{
-      echo "The profile for the user is not yet set";
     }
   }
   
@@ -250,10 +248,7 @@ class Student_model extends CI_model{
   
     if($query->num_rows() > 0) {
         return $query->result_array();
-    }
-    else {
-      echo "Sorry no important dates setup";
-    }  
+    } 
   
   }
   

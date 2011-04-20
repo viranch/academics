@@ -7,7 +7,41 @@
 			
       <?php echo form_open('admin/admin/course_offer');?>
 <?php if(isset($message)) echo "<h2>".$message."</h2>";?> 
-      <table class="admin_tab" table style="width:40%"><tr>
+      
+  
+    <table class="admin_tab" table style="width:40%"><tr>
+					<td>Batch year</td>
+          <td>
+          <?php
+          $options = array();
+          foreach ($year as $row) {
+            $options[$row['batch_year']]=$row['batch_year'];
+          }
+          echo form_dropdown('batch_year_u', $options, '');?>
+	  </td>
+				</tr><tr><td> Semester:
+	<?php $options=array();
+	    foreach ($semesters as $row) {
+            $options[$row['sem_id']]=$row['semester'];
+          }
+          ?> 
+        <td><?php echo form_dropdown('semester_u', $options,set_value('semester_u'));?></td></td>
+				</tr><tr><td> Program:
+					<td>
+	<?php $options=array();
+	    foreach ($program as $row) {
+            $options[$row['program']]=$row['program'];
+          }
+          echo form_dropdown('program_u', $options, '');?>
+    
+  </td>
+      <tr>
+        <td>
+          <?php echo form_submit('offer','offer');?>
+        </td>
+      </tr>
+  </table>    
+<table class="admin_tab" table style="width:40%"><tr>
 					<td>Batch year</td>
           <td>
           <?php
@@ -23,7 +57,7 @@
             $options[$row['sem_id']]=$row['semester'];
           }
           ?> 
-        <td><?php echo form_dropdown('semester', $options);?></td></td>
+        <td><?php echo form_dropdown('semester', $options,set_value('semester_u'));?></td></td>
 				</tr><tr><td> Program:
 					<td>
 	<?php $options=array();

@@ -1,4 +1,4 @@
-<
+
 	<div id="sidebar1">
 		<ul>
 			<li>
@@ -75,7 +75,7 @@
         <?php
          if(isset($courses)){
            foreach ($courses as $row) {
-              echo "<li>".anchor('student/forum/'.$row['course_id'], $row['course_id'])."<br>{$row['course_name']}</li>";//all the courses links need to be given
+              echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."<br>{$row['course_name']}</li>";//all the courses links need to be given
            }
          }
         ?>

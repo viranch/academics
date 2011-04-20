@@ -2,7 +2,7 @@
 class Lecture_model extends CI_model{
   function get_assig_sub($courseid)
   {
-    $query="select * from acad_assig_sub where user_id=".$this->session->userdata('user_id')." and course_id='".$courseid."' group by assignment_id order by submission_time desc";
+    $query="select * from (select * from acad_assig_sub where user_id=".$this->session->userdata('user_id')." and course_id='".$courseid."' order by submission_time desc) as myalias group by assignment_id";
     $query = $this->db->query($query);
      if($query->num_rows() > 0) {
         return $query->result_array();
@@ -14,8 +14,8 @@ class Lecture_model extends CI_model{
   
   function get_lectures($courseid){
     $batch=$this->get_batch();
-    $query="select * from acad_lectures A,acad_teaching B where A.user_id=B.user_id and status='active' and A.course_id='".$courseid."' and program='".$batch[0]['program']."' and batch_year=".$batch[0]['batch_year']." order by date desc";
-      $query = $this->db->query($query);
+    $query="select * from acad_lectures A,acad_teaching B where A.user_id=B.user_id and status='active' and A.course_id='".$courseid."' and program='".$batch[0]['program']."' and batch_year=".$batch[0]['batch_year']." group by filename order by date desc ";
+    $query = $this->db->query($query);
      if($query->num_rows() > 0) {
         return $query->result_array();
      }

@@ -13,7 +13,6 @@
 							<input type="submit" name="submit" value="Login" id="signin_submit"/>
 						</div>
 						<div class="forgot">
-							<a href="mailto:sysadmin@daiict.ac.in" class="link_bottom">Forgot Password?</a>
 							&nbsp;
 						</div>
 					</form>

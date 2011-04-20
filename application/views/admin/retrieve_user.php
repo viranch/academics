@@ -8,13 +8,14 @@
 		<div class="post">
 			<h2 class="title">Retrieve user</h2>
 			<div class="entry">
+			<p>Either User Id or Name required</p>
 			<p>
       <?php echo form_open('admin/admin/retrieve_user');?>
 				<table class="admin_tab " table style="width:40%"><tr>
 					<td>User ID</td>
           <td width=40%><input type="text" name="user_id" size=25% value="<?php echo set_value('user_id');?>"></td>
 				</tr><tr>
-					<td>Name</td>
+					<td>Search by Name</td>
           <td><input type="text" name="name" size=25% value="<?php echo set_value('name');?>"></td>
           <tr>
           <td>

@@ -6,7 +6,7 @@
       <table class="tab">
       <tr>
       <td>Student Registration</td>
-      <td align="center"><?php if($approval==1) echo "Submitted"; else echo "Not submitted";?></td>
+      <td align="center"><?php if($approval==1 or $ugcapproval==1) echo "Submitted"; else echo "Not submitted";?></td>
       </tr>
       <tr>
       <td>UGC/PGC/Registrar Approval</td>
@@ -105,7 +105,7 @@
           <p><strong><text class ="ann_name">
             <?php
               if(isset($restrict)){
-                if($restrict[0]['opening_date']<date('Y-m-d')){
+                if($restrict[0]['opening_date'] <= date('Y-m-d')){
                   if($restrict[0]['deadline']<date('Y-m-d')){
                     echo "Registrations closed for ";
                   }

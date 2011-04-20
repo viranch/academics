@@ -136,7 +136,7 @@ class announce_model extends CI_model{
       'batch_year'=>$this->input->post('batch_year') );
     $query="delete from acad_teaching where user_id=".$this->input->post('user_id')." and course_id='".$this->input->post('course_id')."' and program='".$this->input->post('program')."' and batch_year=".$this->input->post('batch_year');
     $query = $this->db->query($query);
-    $query="update acad_teaching set status='completed' where status='active' and program='".$this->input->post('program')."' and batch_year=".$this->input->post('batch_year');
+    $query="update acad_teaching set status='completed' where status='active' and course_id='".$this->input->post('course_id')."' and program='".$this->input->post('program')."' and batch_year=".$this->input->post('batch_year');
     $query = $this->db->query($query);
     $this->db->insert('acad_teaching',$data);
   }

@@ -25,19 +25,24 @@ class Student extends CI_Controller {
     
     
     function index(){ 
+      
       $data['css'] = 'style.css';
       $data['javascript'] = 'default.js';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/home';
       $this->load->model('student/student_model');
       $data['courses']=$this->student_model->get_present_courses();
-      $data['batch']=$this->student_model->get_batch();
+      $data['batch']=$this->student_model->get_batch1();
+      if(empty($data['batch'])){
+        $data['message']="Please contact administrator<br>No batch entry for the student in daiict";
+      }
       $data['timetable']=$this->student_model->get_timetable($data['batch']);
-      $data['important_dates']=$this->student_model->get_important_dates(2);
       $data['announcements']=$this->student_model->get_announcements($data['batch'],5);
-      $data['deadlines']=$this->student_model->get_deadlines();
+      $data['deadlines']=$this->student_model->get_deadlines(5);
       $this->load->view('includes/template',$data);
     }
+    
+    
     function announcements()
     {
       
@@ -85,19 +90,27 @@ class Student extends CI_Controller {
         $data['message']=str_replace('_',' ',$this->uri->segment(4));
       $data['batch']=$this->student_model->get_batch();
       $data['batch1']=$this->student_model->get_batch1();
-      $data['approval']=$this->student_model->unapproved_exist();
-      $data['ugcapproval']=$this->registration_model->get_UGC_approval();
-      $data['reg']=$this->student_model->get_all_courses_offered($data['batch1']);
-      $data['backlog']=$this->student_model->get_backlog($data['batch']);
-      $data['courses']=$this->student_model->get_present_courses();
-
-      $data['elective']=$this->student_model->elective_status();
+        if(empty($data['batch1'])){
+          $data['message1']='Sorry No batch infromation stored for user';
+          $data['footer']=1;
+        }
+        else{
+          $data['approval']=$this->student_model->unapproved_exist();
+          $data['ugcapproval']=$this->registration_model->get_UGC_approval();
+          $data['reg']=$this->student_model->get_all_courses_offered($data['batch1']);
+          if(empty($data['reg']))
+            $data['footer']=1;
+          $data['backlog']=$this->student_model->get_backlog($data['batch']);
+          $data['courses']=$this->student_model->get_present_courses();
+          $data['elective']=$this->student_model->elective_status();
+          $data['gradeimprovement']=$this->student_model->get_grade_improvement();
+        }
       //$this->load->view('student/registration',$data);
       $data['css'] = 'style.css';
       $data['javascript'] = 'registration.js';
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/course_reg';
-      $data['gradeimprovement']=$this->student_model->get_grade_improvement();
+      
       $this->load->view('includes/template',$data);
     }
     
@@ -223,6 +236,12 @@ class Student extends CI_Controller {
         $message="The_registration_is_closed";
         redirect('student/student/registration/'.$message);
       }
+	
+	if($restrictions['0']['opening_date'] > date("Y-m-d")){
+        
+		$message="Sorry_registration_not_yet_open";
+        redirect('student/student/registration/'.$message);
+      }
       if($restrictions['0']['credits']< $totalcredits){
         $message="Exceeding_credits";
         redirect('student/student/registration/'.$message);
@@ -323,7 +342,7 @@ class Student extends CI_Controller {
     {
       $this->load->model('student/student_model');
       $this->load->model('student/registration_model');
-      $data['batch']=$this->student_model->get_batch();
+      $data['batch']=$this->student_model->get_batch1();
       $data['courses']=$this->student_model->get_present_courses();
       if($this->input->post('submit')){
         $this->registration_model->drop($data['batch']);
@@ -335,7 +354,8 @@ class Student extends CI_Controller {
       $data['navigation'] = 'student/student_navigation.php';
       $data['maincontent'] = 'student/course_reg2';
       $data['javascript'] = 'default.js';
-      $data['reg']=$this->student_model->get_all_courses_offered($data['batch']);   
+      $data['reg']=$this->student_model->get_all_courses_offered($data['batch']);
+      $data['footer']=1;   
       $this->load->view('includes/template',$data);
     
     }

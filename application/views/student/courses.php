@@ -58,7 +58,7 @@
 		<div class="post">
 			<h2 class="title"><a href="#">Lectures</a></h2>
 			<div class="entry">
-        <?php if(isset($lectures)){ 
+        <?php if(isset($lectures)){   
         $dir=base_url()."lectures/".$this->uri->segment(4)."/";  
         foreach ($lectures as $row){?>
           
@@ -82,6 +82,16 @@
 		<div class="post">
 			<h2 class="title"><a href="#">Assignments</a></h2>
 			<div class="entry">
+    <?php
+      $message=str_replace('%20',' ',$this->uri->segment(5));
+      $message=str_replace('%3Cp%3E','',$message);
+      $message=str_replace('%3C','',$message);
+      if($message!='')  
+      echo $message;
+  
+    ?>
+      <p>Allowed file types (zip,doc,rar,pdf);</p><p>Maximum size of file allowed 1MB </p>
+  
       <?php  /*if(isset($this->uri->segment(5))){
                 $data=str_replace('%20',' ',$this->uri->segment(5));
                 echo $data;
@@ -91,12 +101,15 @@
               foreach ($assgn as $row) {?>
               
             
-                <p class="ann_p"><strong><text class="ann_name"> <?php echo "{$row['description']}";?></text></strong><br>&nbsp;&nbsp;<br>&nbsp;&nbsp;
-
+                <p class="ann_p"><strong><text class="ann_name"> <?php echo "{$row['description']}";?></text></strong>
+                
+                <p>Assignment deadline<strong><?php echo $row['deadline']; ?></strong></p>
+                &nbsp;&nbsp;&nbsp;&nbsp;
                   <?php
                   $dir=base_url()."lectures/".$row['course_id']."/";
                   echo "<a href=\"".$dir.$row['file']."\">".$row['file']."</a></text>"
                   ?>
+
                 <?php   if(isset($submitted)){ 
                         foreach($submitted as $row1){
                         if($row['assignment_id']==$row1['assignment_id']){
@@ -106,9 +119,9 @@
                         }}
                  
                        }?>
-            
+           </p><p> 
 
-        <?php 
+        <?php     
                   echo form_open_multipart('student/lectures/upload');
                   
                   echo form_hidden('course_id', $row['course_id']);

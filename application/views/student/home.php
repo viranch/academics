@@ -20,7 +20,7 @@
             }
         }
         else{
-          echo "No clasess today";
+          echo "<h3>No clasess today</h3>";
         }
         ?>
 				</table>
@@ -50,7 +50,7 @@
               echo "<tr><td>Not yet set</td></tr>";
           }
           else{
-            echo "No labs today";
+            echo "<h3>No labs today</h3>";
           }
         
           ?>
@@ -78,6 +78,9 @@
               echo "<li>".anchor('student/lectures/index/'.$row['course_id'], $row['course_id'])."<br>{$row['course_name']}</li>";//all the courses links need to be given
            }
          }
+         else{
+             echo "<h3>No courses ongoing</h3>";
+         }
         ?>
         </ul>
     </li>
@@ -99,7 +102,9 @@
 		<div class="post">
 			<h2 class="title"><a href="#">Announcements</a></h2>
 			<div class="entry">
-        <?php if(isset($announcements)){
+
+      <?php if(isset($message)) echo "<h3>{$message}</h3>"; ?> 
+      <?php if(isset($announcements)){
               foreach ($announcements as $row){?>
           
         <p class="ann_p"><strong><text class ="ann_name">
@@ -116,7 +121,7 @@
           echo "{$row['sent_date']}";
         ?></i></strong></p>
         <?php }}?>
-		<div class="more"><i><a href="student/student/announcements">More...</a></i></div>
+        <div class="more"><i><?php echo anchor('student/student/announcements', 'More'); ?></i></div>
 				
 			</div>
 			

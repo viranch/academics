@@ -1,6 +1,12 @@
 <?php
 class Admin_model extends CI_model{
   
+  function offer_update()
+  {
+    $query="update acad_cou_offer A,acad_sem_list B set status='completed' where A.sem_id=B.sem_id and A.sem_id <".$this->input->post('semester_u')." and batch_year=".$this->input->post('batch_year_u')." and program='".$this->input->post('program')."'" ;
+    $query = $this->db->query($query);
+  }
+  
   function chk_grade()
   {
     $query="select * from acad_cou_grad where grade='0'";

@@ -73,7 +73,8 @@ $(function() {
       
         <h2>Delete Announcements</h2>
       
-        <table >
+        <?php if(isset($announcements)){ ?> 
+       <table >
           <tr>
           <th>delete</th>
           <th>program</th>
@@ -96,6 +97,7 @@ $(function() {
       <?php 
           echo form_submit('delete','Delete');
           echo form_close();
+          }
         ?>
         </div>
         

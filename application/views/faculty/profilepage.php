@@ -28,26 +28,15 @@
 				<ul>
 					<?php   if($btech_courses != null){
 							   $btechyear = 0;
+							   $program =0;
 							   foreach( $btech_courses as $row){
-									if($btechyear != $row['batch_year']){
-										echo "<h3>B.Tech : {$row['batch_year']}</h3>";
+									if($btechyear != $row['batch_year'] || $program != $row['program']){
+										echo "<h3>{$row['program']}: {$row['batch_year']}</h3>";
 										$btechyear = $row['batch_year'];
+										$program  = $row['program'];
 										}
-									echo "<li><a href='#'>{$row['course_id']}</a></li>";
-								}
-							}
-					?>
-
-				</ul>
-				<ul>
-					<?php   if($mtech_courses != null){
-								$mtechyear = 0;
-								foreach( $mtech_courses as $row){
-									if($mtechyear != $row['batch_year']){
-										echo "<h3>M.Tech : {$row['batch_year']}</h3>";
-										$btechyear = $row['batch_year'];
-									}
-									echo "<li><a href='#'>{$row['course_id']}</a></li>";
+											$var = $row['course_id'];
+									echo "<li><a href='/academics/index.php/faculty/faculty/lectures_display/$var'>{$row['course_id']}</a></li>";
 								}
 							}
 					?>
@@ -80,47 +69,47 @@
 				</tr>
 				<tr>
 					<td>Name:</td>
-          <td><?php   foreach($details as $detail)
+          <td><?php   if(isset($details)) foreach($details as $detail)
                                         echo $detail['name'];?></td>
 				</tr>
 				<tr>
 					<td>ID:</td>
-          <td><?php foreach($details as $detail)
+          <td><?php  if(isset($details))  foreach($details as $detail)
                                         echo $detail['user_id']; ?></td>
 				</tr>
 				<tr>
 					<td>Email:</td>
-          <td><?php foreach($details as $detail)
+          <td><?php  if(isset($details))  foreach($details as $detail)
                                         echo $detail['email_id']; ?></td>
 				</tr>
 				<tr>
 					<td>Date of Birth:</td>
-          <td><?php foreach($details as $detail)
+          <td><?php if(isset($details))  foreach($details as $detail)
                                         echo $detail['dob']; ?></td>
 				</tr>
 				<tr>
 					<td>Gender:</td>
-          <td><?php foreach($details as $detail)
+          <td><?php if(isset($details))  foreach($details as $detail)
                                         echo $detail['gender']; ?></td>
 				</tr>
 				<tr>
 					<td>Area of Expertise:</td>
-          <td><?php foreach($details as $detail)
+          <td><?php  if(isset($details))  foreach($details as $detail)
                                         echo $detail['area_of_expertise']; ?></td>
 				</tr>
 				<tr>
 					<td>Date of Joining:</td>
-          <td><?php foreach($details as $detail)
+          <td><?php if(isset($details))  foreach($details as $detail)
                                         echo $detail['date_of_joining'] ; ?></td>
 				</tr>
 				<tr>
 					<td>Degrees:</td>
-          <td><?php foreach($details as $detail)
+          <td><?php if(isset($details))  foreach($details as $detail)
                                         echo $detail['degrees']; ?></td>
 				</tr>
 				<tr>
 					<td>Experience:</td>
-          <td><?php foreach($details as $detail)
+          <td><?php if(isset($details)) foreach($details as $detail)
                                         echo $detail['experience']; ?></td>
 				</tr>
 				</table>

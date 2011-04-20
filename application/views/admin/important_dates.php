@@ -49,6 +49,7 @@ $(function() {
       
         <h2>Delete important dates</h2>
       
+        <?php if(isset($dates)){?>
         <table >
           <tr>
           <th>delete</th>
@@ -70,6 +71,7 @@ $(function() {
       <?php 
           echo form_submit('delete','Delete');
           echo form_close();
+          }
         ?>
         </div>
         

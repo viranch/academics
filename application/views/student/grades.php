@@ -88,7 +88,7 @@
 					<th width=50%>Course</th>
 					<th>Credits</th>
 					<th>Grade</th>
-					<th width=20%>Grade Points</th>
+					<th width=23%>Grade Points</th>
 				</tr>
         </thead>
         <?php $count=0;$gradepoints=0; ?>
@@ -114,14 +114,14 @@
 				<thead>
 					<tr>
 						<th>Credits</th>
-						<th>Grade Points</th>
+						<th>Grade Points earned</th>
 						<th>SPI</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
           <td><text class="sub_ann_name"><?php echo $spi[0]['credits_registered'];?></text></td>
-          <td><text class="sub_ann_name"><?php echo $spi[0]['credits_earned']; ?></text></td>
+          <td><text class="sub_ann_name"><?php echo $spi[0]['grade_points_earned']; ?></text></td>
           <td><text class="sub_ann_name"><?php echo $spi[0]['spi'];?></text></td>
 					</tr>
 				</tbody>
@@ -129,14 +129,14 @@
 				<td><table id="gradetable">
 				<thead>
 					<tr>
-						<th>Credits</th>
-						<th>Grade Points</th>
+						<th>Grade points registered</th>
+						<th>Grade Points earned</th>
 						<th>CPI</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-          <td><text class="sub_ann_name"><?php echo $cpi[0]['Total_credits_earned'];?> </text></td>
+          <td><text class="sub_ann_name"><?php echo $cpi[0]['Total_credits_registered'];?> </text></td>
           <td><text class="sub_ann_name"><?php echo $cpi[0]['Overall_grade_points'];?></text></td>
           <td><text class="sub_ann_name"><?php echo $cpi[0]['CPI'];?></text></td>
 					</tr>

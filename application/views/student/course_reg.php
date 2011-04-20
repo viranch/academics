@@ -39,10 +39,11 @@ $slots['audit']=1;
     <ul>
     <li>
       <h2>Registration Status</h2>
+      <?php if(!isset($message1)){ ?> 
       <table class="tab">
       <tr>
       <td>Student Registration</td>
-      <td align="center"><?php if($approval==1) echo "Submitted"; else echo "Not submitted";?></td>
+      <td align="center"><?php if($approval==1 or $ugcapproval==1) echo "Submitted"; else echo "Not submitted";?></td>
       </tr>
       <tr>
       <td>UGC/PGC/Registrar Approval</td>
@@ -53,6 +54,7 @@ $slots['audit']=1;
       <td align="center">Unknown</td>
       </tr>
       </table>
+     <?php  }?>
     </li>
    <li>
 				<h2>Electives Status</h2>
@@ -138,20 +140,22 @@ echo form_open('student/student/val_reg');
   <div class="post">
     
     <h2 class="title"><a href="#">Course Registration</a></h2>
-      <div class="entry">
+    <?php if(isset($message)) echo "<h3>{$message}</h3>";?>  
+      
+    <div class="entry">
           
           <!-- semseter list display -->
+           <?php 
+            if(isset($message1)){echo "<h3>{$message1}</h3>";}
+            else{
+            ?>
           <p><strong><text class ="ann_name">
             <?php
+              if($reg[0]['semester']!=''){
               echo "Register for ";
               echo "{$reg[0]['semester']}";
             ?>
           </text></strong><br><br>
-           <?php 
-              if(isset($message)){
-                echo "<h2>{$message}</h2>";
-              }
-            ?>
 
       <!-- core courses list display -->
       <table id="core">
@@ -197,10 +201,12 @@ echo form_open('student/student/val_reg');
       </thead>
     
       <tbody>
-      <?php if(isset($reg)){
+    <?php $flag=0;
+          if(isset($reg)){
           $options=array();
           foreach($reg as $course){
             if($course['category']!='core' && $course['status']=='active'){
+              $flag=1;
               if(!isset($prev) || $prev == $course['slot_no']){
                 $options[$course['course_id']]=$course['course_name']." (".$course['course_id'].")";
                 $prev=$course['slot_no'];
@@ -229,6 +235,7 @@ echo form_open('student/student/val_reg');
           }
           }
         ?>
+      <?php if($flag==1){ ?> 
       <tr>
       <td><?php echo form_checkbox($slots['next'], 'accept', FALSE);?></td>
       <td width=80%><text class="sub_ann_name">Slot <?php echo $prev; ?>:</text>
@@ -242,10 +249,11 @@ echo form_open('student/student/val_reg');
         </td>
         <td id="sl<?php echo $prev; ?>">4.5</td>
       </tr>
-
+     <?php  }?>
             
     </tbody>
       </table>
+      <br/>
       <table id="improve">
       <thead>
       <tr>
@@ -356,9 +364,15 @@ echo form_open('student/student/val_reg');
 		</div>	
 		</div> <!-- end entry -->
 		</div><!-- end post -->
-	</div>
-<!-- end content -->
+  </div>
 
+<!-- end content -->
 	<div style="clear: both;">&nbsp;</div>
+
 </div>
-<?php
+<?php }
+    else{
+      echo "No courses offered";
+    }      
+}?>
+

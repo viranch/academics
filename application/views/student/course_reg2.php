@@ -12,8 +12,8 @@ $(document).ready(function(){
       <h2>Registration Status</h2>
       <table class="tab">
       <tr>
-      <td>Student Registration</td>
-      <td align="center"><?php if($approval==1) echo "Submitted"; else echo "Not submitted";?></td>
+      <td>Student registration</td>
+      <td align="center"><?php if($approval==1||$ugcapproval==1) echo "Submitted"; else echo "Not submitted";?></td>
       </tr>
       <tr>
       <td>UGC/PGC/Registrar Approval</td>
@@ -66,7 +66,8 @@ $(document).ready(function(){
   <div class="post">
     
     <h2 class="title"><a href="#">Drop Course </a></h2>
-      <div class="entry">
+<?php if(isset($drop)){?>  
+    <div class="entry">
           
           <!-- semseter list display -->
           <p><strong><text class ="ann_name">
@@ -129,6 +130,12 @@ $(document).ready(function(){
       <!-- start of elective courses -->
 		</div> <!-- end entry -->
 		</div><!-- end post -->
-	</div>
+  </div>
+<?php }
+      else {
+        echo "<h3>No courses to drop</h3>";
+      }
+?>
+
 <!-- end content -->
 

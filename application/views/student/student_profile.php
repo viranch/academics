@@ -3,14 +3,15 @@
 		<ul>
 			<li>
 				<h2>Lectures today</h2>
-				<table class="tab">
+        <?php if(isset($timetable)){?>
+        <table class="tab">
         <tr>
 				  <th>Course</th>
 				  <th>Start</th>
 				  <th>End</th>
 				</tr>
           <?php
-          if(isset($timetable)){
+          
             foreach ($timetable as $row) {
               if($row['type']=='lecture'){
                 echo "<tr><td>{$row['course_id']}</td>";
@@ -18,6 +19,9 @@
                 echo "<td>{$row['end_time']}</td></tr>";
               }
             }
+        }
+          else{
+            echo "<h3>No clasess today</h3>";
           }
           ?>
 				</table>
@@ -25,14 +29,15 @@
 			<li>
 							<h2>Labs Today</h2>
 				<ul>
-					<table class="tab">
+<?php if(isset($timetable)){ ?>  
+        <table class="tab">
 				<tr>
 				<th>Course</th>
 				<th>Start</th>
 				<th>End</th>
 				</tr>
          <?php                
-          if(isset($timetable)){          
+                  
               $count=0;
               foreach ($timetable as $row) {  
                   if($row['type']=='lab'){     
@@ -45,6 +50,10 @@
             if($count==0)
               echo "<tr><td>Not yet set</td></tr>";
           }
+          else{
+            echo "<h3>No labs today</h3>";
+          }
+
           ?>
 
 				</table>
@@ -95,10 +104,14 @@
 			<h2 class="title"><a href="#">Profile</a></h2>
 			<div class="entry">
 				<table id="profiletable">
-				<tr>
+        
+        <?php if(!isset($student)){
+          echo "<h3>Student profile information is not completely entered by admin<br>Please Contact administrator</h3>";
+        }?>
+        <tr>
             <?php $file=base_url()."images/".$profile['0']['image']; ?>
           <td>
-            <img src="<?php echo "{$file}";?>" /></td>
+            <img src="<?php echo "{$file}";?>" height="250" width="200"  /></td>
 					<td></td>
 				</tr>
 				<tr>
@@ -122,15 +135,15 @@
           <td><?php echo "{$profile['0']['gender']}";?></td>
 				</tr>
 				<tr>
-					<td>SSC Percentage:</td>
+					<td>Tenth Percentage:</td>
           <td><?php echo "{$student['0']['tenth_percentage']}"; ?></td>
 				</tr>
 				<tr>
-					<td>HSC Percentage:</td>
+					<td>Twelfth Percentage:</td>
           <td><?php echo "{$student['0']['twelfth_percentage']}"; ?></td>
 				</tr>
 				<tr>
-					<td>SSC School:</td>
+					<td>Tenth School:</td>
           <td><?php echo "{$student['0']['school_name']}";?></td>
 				</tr>
 				<tr>
@@ -149,7 +162,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- end content -->
+  <!-- end content -->
 
 	<div style="clear: both;">&nbsp;</div>
 <?php

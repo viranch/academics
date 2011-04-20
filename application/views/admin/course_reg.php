@@ -19,6 +19,8 @@ $(function() {
 			<h2 class="title">Addition Of Course</h2>
 			<div class="entry">
 			<p>
+			<?php if(isset($message)) echo $message ?>
+			<?php echo validation_errors();?>
 <?php echo form_open('admin/admin/course_create');?>
     <table class="admin_tab " table style="width:40%">
         <tr>

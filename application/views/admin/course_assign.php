@@ -22,6 +22,7 @@ $(function() {
 			<div class="entry">
 			<p>
 <?php echo form_open('admin/admin/course_assign');?>  
+<?php if(isset($message)) echo "<h2>".$message."</h2>";?>
   <table class="admin_tab " table style="width:40%">
       
 	<tr>

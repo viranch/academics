@@ -8,10 +8,20 @@ class Faculty_model extends CI_model{
 			return $query->result_array();
 		}
 		else {
-			echo "No courses are offered by you";
+			echo null;
 		}
 	}
 	
+	function get_batches(){
+		$query = "select distinct batch_year from acad_batch";
+		$query = $this->db->query($query);
+		if($query->num_rows() > 0) {
+			return $query->result_array();
+		}
+		else {
+			echo null;
+		}	
+	} 
 	function get_upcoming_lectures(){
 		$day = date('D');
 		$query = " select  DISTINCT ti.start_time, ti.end_time, co.course_name, l.venue , c.course_id from acad_courses co , acad_stu_cou c,acad_teaching t,acad_timetable ti, acad_lect_venue l  where t.user_id={$this->session->userdata('user_id')} and t.course_id = c.course_id and c.slot_no = ti.slot_no and c.course_id = co.course_id and  l.course_id=co.course_id and ti.day ='{$day}' order by 'ti.start_time'";
@@ -33,7 +43,7 @@ class Faculty_model extends CI_model{
 	}
 	
 	function get_present_btech_courses(){
-		$query = " SELECT a.course_id , a.batch_year FROM acad_teaching a where a.user_id = {$this->session->userdata('user_id')} and a.status = 'active' and a.program = 'btech' order by 'batch_year' " ;
+		$query = " SELECT a.course_id , a.batch_year , a.program FROM acad_teaching a ,acad_courses c where a.user_id = {$this->session->userdata('user_id')} and a.status = 'active' and a.course_id=c.course_id order by 'program' asc,  'batch_year' asc" ;
         $query = $this->db->query($query);
 		if($query->num_rows() > 0){
 			return $query->result_array();
@@ -168,19 +178,15 @@ class Faculty_model extends CI_model{
 			else return null;
 	}
 	
-		function insertannouncement(){
-		if($_POST['batch'] !=null){
-			foreach($_POST['batch'] as $index => $val){
-				$d['message'] = $this->input->post('message');
-				$d['program'] = $this->input->post('progrm');
-				$d['course_id'] = $this->input->post('courseid');
-				$d['batch_year']  = $val;
-				$d['user_id'] = '200801047';
-				$d['sent_time'] = date('G') .":". date('i') .":". date('s');
-				$d['sent_date'] = date('Y') ."-". date('m') ."-". date('d');
-				$this->db->insert('acad_announce',$d);
-			}
-		}
+	function insertannouncement(){
+	  $d['message'] = $this->input->post('message');
+    $d['course_id'] = $this->input->post('courseid');
+    $d['user_id']=$this->session->userdata('user_id');
+    $d['sent_time']=date('H:i:s');
+    $d['sent_date']=date('Y-m-d');
+
+    $this->db->insert('acad_announce',$d);
+
 	}
 	
 	function deletelecture($cid, $filename){

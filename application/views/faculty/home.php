@@ -27,28 +27,16 @@
 				<ul>
 					<?php   if($btech_courses != null){
 							   $btechyear = 0;
+							   $program =0;
 							   foreach( $btech_courses as $row){
-									if($btechyear != $row['batch_year']){
-										echo "<h3>B.Tech : {$row['batch_year']}</h3>";
+									if($btechyear != $row['batch_year'] || $program != $row['program']){
+										echo "<h3>{$row['program']}: {$row['batch_year']}</h3>";
 										$btechyear = $row['batch_year'];
+										$program  = $row['program'];
 										}
 											$var = $row['course_id'];
 									echo "<li><a href='/academics/index.php/faculty/faculty/lectures_display/$var'>{$row['course_id']}</a></li>";
 								}
-							}
-					?>
-
-				</ul>
-				<ul>
-					<?php   if($mtech_courses != null){
-								$mtechyear = 0;
-								foreach( $mtech_courses as $row){
-									if($mtechyear != $row['batch_year']){
-										echo "<h3>M.Tech : {$row['batch_year']}</h3>";
-										$btechyear = $row['batch_year'];
-									}
-										$var = $row['course_id'];
-									echo "<li><a href='/academics/index.php/faculty/faculty/lectures_display/$var'>{$row['course_id']}</a></li>";								}
 							}
 					?>
 				</ul>
@@ -73,7 +61,7 @@
 			<div class="entry">
 				<?php   if($timetable !=null){
 							foreach($timetable as $row){
-								echo "<p><strong><text class ='ann_name'>{$row['course_id']}: {$row['course_name']}</text></strong><br><strong><i>&nbsp;&nbsp;28th March:</i></strong> {$row['start_time']} - {$row['end_time']} ({$row['venue']})<br></p> ";
+                echo "<p><strong><text class ='ann_name'>{$row['course_id']}: {$row['course_name']}</text></strong><br><strong><i>&nbsp;&nbsp;3rd march:</i></strong> {$row['start_time']} - {$row['end_time']} ({$row['venue']})<br></p> ";
 							}
 						}
 				?>

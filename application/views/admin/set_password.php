@@ -8,7 +8,10 @@
 		<div class="post">
 			<h2 class="title">Reset password</h2>
 			<div class="entry">
-			<p>
+      <p>Click on Get random password to get a random password</p>
+      <p>Click on reset password to set password for a user</p>
+      <h3><?php echo validation_errors();?></h3> 
+      <p>
       <?php echo form_open('admin/admin/set_password');?>
 <?php if(isset($message)) echo "<h2>".$message."</h2>";?>
         <table class="admin_tab " table style="width:40%"><tr>
